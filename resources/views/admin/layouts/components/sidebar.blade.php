@@ -229,7 +229,34 @@
                     </div>
 
                     <!-- end Banner menu section --!>
+                    
+                    <!-- start Notification menu section --!>
 
+                    <div class="menu-item">
+                        <a class="menu-link {{ checkActiveSideBar(['notification']) ? 'menu-item active' : '' }}"
+                            href="{{ route('admin.notifications.index') }}">
+                            <span class="menu-icon">
+                                <i class="fa fa-bell" style="color:cyanblue;font-size:15px;"></i>
+                            </span>
+                            <span class="menu-title">Notifications</span>
+                        </a>
+                    </div>
+
+                    <!-- end Notification menu section --!>
+
+                    <!-- start Order menu section --!>
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ checkActiveSideBar(['order']) ? 'menu-item active' : '' }}"
+                            href="{{ route('admin.orders.index') }}">
+                            <span class="menu-icon">
+                                <i class="fa fa-book" style="color:cyanblue;font-size:15px;"></i>
+                            </span>
+                            <span class="menu-title">Orders</span>
+                        </a>
+                    </div>
+
+                    <!-- end Order menu section --!>
 
                 </div>
                 <!--end::Menu-->

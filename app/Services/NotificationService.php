@@ -16,15 +16,14 @@ class NotificationService
     {
        
         $data = Notification::create($data);
-        
-        $notification = [
-            "id" => $data->user_id,
-            "notification" => [
-                "title" => $data->notification,
-                "body" => $data->message],
-        ];
+        // $notification = [
+        //     "id" => $data->user_id,
+        //     "notification" => [
+        //         "title" => $data->notification,
+        //         "body" => $data->message],
+        // ];
 
-         $notification = HelperService::sendNotification($notification);
+        //  $notification = HelperService::sendNotification($notification);
         return $data;
     }
 
@@ -90,20 +89,7 @@ class NotificationService
         return $data;
     }
 
-    /**
-     * update data in storage.
-     *
-     * @param  Array $data - Updated Data
-     * @param  Int $id - Notification Id
-     * @return bool
-     */
-    public static function status(array $data, $id)
-    {
-        $data = Notification::where('id', $id)->update($data);
-        return $data;
-    }
-
-    /**
+     /**
      * Get data for datatable from storage.
      *
      * @return Notification with states, countries

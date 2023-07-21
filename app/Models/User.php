@@ -28,7 +28,6 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'password',
         'image',
-    
         'is_active',
         'mob_verify',
         'fcm_token',
@@ -36,10 +35,10 @@ class User extends Authenticatable implements JWTSubject
         'push_notification',
         'country_code',
         'login_type',
-        
+        'fcm_token',
     ];
 
-    /**
+     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>

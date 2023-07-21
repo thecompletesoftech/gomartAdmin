@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('notification_id');
             $table->string('notification_subject');
             $table->string('notification_message');
+            $table->string('notification_send_to')->comment('0:store, 1:customer,2:driver');
             $table->timestamps();
         });
     }

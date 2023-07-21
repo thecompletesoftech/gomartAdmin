@@ -104,6 +104,14 @@ use Illuminate\Support\Facades\Route;
         });
         Route::resource('/notifications',NotificationController::class);
 
+        //orders
+
+        Route::controller(NotificationController::class)->group(function () {
+            Route::get('/orders/status/{id}/{status}', 'status')->name('orders.status');
+            Route::get('/orders/destroy/{id}/', 'destroy')->name('orders.destroy');
+        });
+        Route::resource('/orders',NotificationController::class);
+
         //Setting manager
         Route::controller(SettingController::class)->group(function () {
             Route::get('/settings/general', 'edit_general')->name('settings.edit_general');

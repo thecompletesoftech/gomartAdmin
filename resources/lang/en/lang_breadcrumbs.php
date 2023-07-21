@@ -38,5 +38,6 @@ return [
     'profile' => 'Profile',
     'category' => 'Categorys',
     'item' => 'Items',
-    'banner' => 'Banners'
+    'banner' => 'Banners',
+    'notification' => 'Notifications',
 ];

@@ -110,11 +110,8 @@ return [
         'user_management' => 'User Management',
         'section' => 'Section',
         'user' => 'User|Users',
-    
         'role' => 'Role|Roles',
         'permission' => 'Permission|Permissions',
-     
-      
     ),
 
 
@@ -203,6 +200,7 @@ return [
     'category' => 'Category|Categorys',
     'item' => 'Item|Items',
     'banner' => 'Banner|Banners',
+    'notification' => 'Notification|Notifications',
     'customer' => 'Customer|Customers',
     
 
@@ -279,4 +277,9 @@ return [
     
     // banner 
     'banner_title' => 'Banner Title',
+
+    // notification 
+    'notification_subject' => 'Notification Subject',
+    'notification_send_to' => 'Send To', 
+    'notification_message' => 'Notification Message', 
 ];

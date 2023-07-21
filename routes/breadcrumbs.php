@@ -95,3 +95,5 @@ Breadcrumbs::resource('items', $mls->messageLanguage('only_name', 'item', 2));
 Breadcrumbs::resource('banners', $mls->messageLanguage('only_name', 'banner', 2));
 /*------------- Admin Notification ------------------------*/
 Breadcrumbs::resource('notifications', $mls->messageLanguage('only_name', 'notification', 2));
+/*------------- Admin Order ------------------------*/
+Breadcrumbs::resource('orders', $mls->messageLanguage('only_name', 'order', 2));
