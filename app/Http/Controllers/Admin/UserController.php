@@ -105,9 +105,6 @@ class UserController extends Controller
         return view('admin.user.create', compact('roles'));
     }
 
-   
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -156,7 +153,6 @@ class UserController extends Controller
     {
         $roles = Role::whereNotIn('name', ['Admin', 'Admin'])->pluck('name', 'name');
         $userRole = $user->roles->pluck('name', 'name');
-
         return view('admin.user.edit', compact('user', 'roles', 'userRole'));
     }
 

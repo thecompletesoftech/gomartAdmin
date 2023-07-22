@@ -282,4 +282,10 @@ return [
     'notification_subject' => 'Notification Subject',
     'notification_send_to' => 'Send To', 
     'notification_message' => 'Notification Message', 
+
+    // order 
+    'order_type' => 'Order Type',
+    'order_status' => 'Order Status', 
+    'order_amount' => 'Order Amount', 
+    'order_date' => 'Order Date', 
 ];

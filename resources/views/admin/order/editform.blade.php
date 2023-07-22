@@ -7,7 +7,7 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Order Amount</label>
 
         <div class="col-lg-4 fv-row">
-            {!! Form::text('order_amount', null, [
+            {!! Form::number('order_amount', null, [
                 'min' => 2,
                 'max' => 6,
                 'value' => 2,
@@ -43,7 +43,7 @@
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Created Date</label>
         <div class="col-lg-4 fv-row">
-            {!! Form::text('order_date', null, [
+            {!! Form::date('order_date', null, [
                 'min' => 2,
                 'max' => 6,
                 'value' => 2,
