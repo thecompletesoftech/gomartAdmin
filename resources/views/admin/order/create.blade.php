@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 @section('content')
     @include('admin.layouts.components.header', [
-        'title' => __('messages.create', ['name' => trans_choice('content.notification', 1)]),
+        'title' => __('messages.create', ['name' => trans_choice('content.order', 1)]),
     ])
 
     <!--begin::Post-->
@@ -18,8 +18,8 @@
                         <div class="flex-lg-row-fluid me-0 me-lg-20">
 
                             <!--begin::Form-->
-                            {!! Form::open(['route' => 'admin.notifications.store', 'method' => 'POST', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
-                            @include('admin.notification.form')
+                            {!! Form::open(['route' => 'admin.orders.store', 'method' => 'POST', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
+                            @include('admin.order.form')
                             <!--begin::Actions-->
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
                                 <a href="{{ route('admin.categorys.index') }}"

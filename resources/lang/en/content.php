@@ -200,10 +200,10 @@ return [
     'category' => 'Category|Categorys',
     'item' => 'Item|Items',
     'banner' => 'Banner|Banners',
+    'order' => 'Order|Orders',
     'notification' => 'Notification|Notifications',
     'customer' => 'Customer|Customers',
     
-
     'user_id' => 'User Id',
     'customer_id' => 'Customer Id',
     'import' => 'Import',

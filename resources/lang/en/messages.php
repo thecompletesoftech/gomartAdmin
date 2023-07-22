@@ -22,6 +22,7 @@ return [
     'category' => 'Category|Categorys',
     'item' => 'Item|Items',
     'banner' => 'Banner|Banners',
+    'order' => 'Order|Orders',
 
     'save' => 'Save',
     'status' => 'Status',

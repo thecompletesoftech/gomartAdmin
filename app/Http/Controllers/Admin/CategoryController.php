@@ -86,6 +86,10 @@ class CategoryController extends Controller
                     }
 
                 })
+                ->addColumn('publish', function ($model) {
+                    return $model->item_publish == 'Yes' ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>';
+                })
+                ->rawColumns(['publish'])
                 ->addColumn('action', function ($row) {
                     $btn1 = '<a href="categorys/'. $row->cat_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
                     $btn2 = '&nbsp;&nbsp;<a href="categorys/destroy/'. $row->cat_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';

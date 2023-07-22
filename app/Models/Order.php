@@ -20,7 +20,7 @@ class Order extends Model
         'item_id',
         'order_amount',
         'order_type',
+        'order_date',
         'order_status'
     ];
-
 }

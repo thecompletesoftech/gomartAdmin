@@ -9,6 +9,7 @@ use App\Services\Api\AuthService;
 use App\Services\Api\CategoryServices;
 use App\Services\Api\ItemService;
 use App\Services\Api\Bannerservice;
+use App\Services\Api\OrderService;
 use App\Services\HelperService;
 use App\Services\UserService;
 
@@ -18,7 +19,9 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
 
-    protected $helperService, $userService, $apiAuthService,$walletService,$categoryservice,$itemservice,$bannerservice,
+    protected 
+    $helperService, $userService,$orderservice, 
+    $apiAuthService,$walletService,$categoryservice,$itemservice,$bannerservice,
     $apiratingService,$apicommonService,$apibannerService,$apipromocodeService,$apiserviceService,$apiclothtypeService,$apibagService;
 
     public function __construct()
@@ -29,6 +32,7 @@ class AuthController extends Controller
         $this->categoryservice = new CategoryServices();
         $this->itemservice = new ItemService();
         $this->bannerservice = new Bannerservice();
+        $this->orderservice = new OrderService();
     }
 
     /**
@@ -138,6 +142,30 @@ class AuthController extends Controller
      public function getBanner(Request $request)
      {  
         return $this->bannerservice->getBanner($request);
+     }
+
+     /**
+     * add order
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+     
+     public function addOrder(Request $request)
+     {  
+        return $this->orderservice->addOrder($request);
+     }
+
+     /**
+     * cancel order
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+     
+     public function cancelOrder(Request $request)
+     {  
+        return $this->orderservice->cancelOrder($request);
      }
 
      /**

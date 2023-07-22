@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('driver_id')->nullable();
             $table->string('store_id')->nullable();
             $table->string('item_id')->nullable();
+            $table->string('order_date')->nullable();
             $table->string('order_amount');
             $table->string('order_type');
-            $table->string('order_status')->comment('0:driverpending, 1:orderaccepted,2:ordercomplete,3:ordercancel,4:intransit');
+            $table->string('order_status')->default(0)->comment('0:pending,1:complete,2:cancel');
             $table->timestamps();
         });
     }

@@ -4,41 +4,54 @@
 
     <div class="row mb-6">
 
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Subject</label>
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Order Amount</label>
 
         <div class="col-lg-4 fv-row">
-            {!! Form::text('notification_subject', null, [
+            {!! Form::text('order_amount', null, [
                 'min' => 2,
                 'max' => 6,
                 'value' => 2,
                 'class' => 'form-control form-control-lg form-control-solid',
-                'placeholder' => trans_choice('content.notification_subject', 1),
+                'placeholder' => trans_choice('content.order_amount', 1),
             ]) !!}
         </div>
 
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Send To</label>
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Order Status</label>
         <div class="col-lg-4 fv-row">
-            <select name="notification_send_to" class="form-control form-control-lg form-control-solid">
-                <option value="">Select Send To</option>
-                <option value="0" {{ $item->notification_send_to == '0' ? 'selected' : '' }}>0</option>
-                <option value="1" {{ $item->notification_send_to == '1' ? 'selected' : '' }}>1</option>
-                <option value="2" {{ $item->notification_send_to == '2' ? 'selected' : '' }}>2</option>
+            <select name="order_status" class="form-control form-control-lg form-control-solid">
+                <option value="">Select Order Status</option>
+                <option value="0" {{ $order->order_status == 0 ? 'selected' : '' }}>Pending</option>
+                <option value="1" {{ $order->order_status == 1 ? 'selected' : '' }}>Complete</option>
+                <option value="2" {{ $order->order_status == 2 ? 'selected' : '' }}>Cancel</option>
             </select>
         </div>
 
     </div>
 
     <div class="row mb-6">
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Message</label>
-        <div class="col-lg-12 fv-row">
-            {!! Form::textarea('notification_message', null, [
+        
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Payment method</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('order_type', null, [
                 'min' => 2,
                 'max' => 6,
                 'value' => 2,
                 'class' => 'form-control form-control-lg form-control-solid',
-                'placeholder' => trans_choice('content.notification_message', 1),
+                'placeholder' => trans_choice('content.order_type', 1),
             ]) !!}
         </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Created Date</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('order_date', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.order_date', 1),
+            ]) !!}
+        </div>
+
     </div>
 
 </div>
@@ -47,5 +60,5 @@
 
 @push('scripts')
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\EditNotificationRequest', 'form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\EditOrderRequest', 'form') !!}
 @endpush

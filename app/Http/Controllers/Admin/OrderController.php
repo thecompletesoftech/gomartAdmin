@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Addsize;
-use App\Models\Addons;
-use App\Models\Category;
-use App\Models\Item;
-use App\Services\FileService;
-use App\Services\ItemService;
+use App\Models\Order;
 use App\Services\ManagerLanguageService;
+use App\Services\Orderservice;
 use App\Services\UtilityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,20 +23,20 @@ class OrderController extends Controller
     {
 
         //Data
-        $this->uploads_image_directory = 'files/items';
+        $this->uploads_image_directory = 'files/orders';
         //route
-        $this->index_route_name = 'admin.items.index';
-        $this->create_route_name = 'admin.items.create';
-        $this->detail_route_name = 'admin.items.show';
-        $this->edit_route_name = 'admin.items.edit';
+        $this->index_route_name = 'admin.orders.index';
+        $this->create_route_name = 'admin.orders.create';
+        $this->detail_route_name = 'admin.orders.show';
+        $this->edit_route_name = 'admin.orders.edit';
 
         //view files
-        $this->index_view = 'admin.item.index';
-        $this->create_view = 'admin.item.create';
-        $this->edit_view = 'admin.item.edit';
+        $this->index_view = 'admin.order.index';
+        $this->create_view = 'admin.order.create';
+        $this->edit_view = 'admin.order.edit';
 
         //service files
-        $this->intrestService = new ItemService();
+        $this->intrestService = new Orderservice();
         // $this->customerService = new CustomerService();
         $this->utilityService = new UtilityService();
 
@@ -48,7 +44,7 @@ class OrderController extends Controller
         $this->mls = new ManagerLanguageService('messages');
     }
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -66,11 +62,10 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
 
-            $data = DB::table('items')->join('categories', 'items.category_name', '=', 'categories.cat_id')->
-                select('items.*', 'categories.category_name')
+            $data = DB::table('orders')->join('items', 'items.item_id', '=', 'orders.item_name')->
+                select('orders.*', 'items.item_name')
                 ->get();
 
             return DataTables::of($data)->addIndexColumn()
@@ -94,22 +89,20 @@ class OrderController extends Controller
                     }
 
                 })
-                ->addColumn('publish', function ($model) {
-                    return $model->item_publish == 'Yes' ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>';
+                ->addColumn('order_status', function ($model) {
+                    return $model->order_status == 0 ? 'Pending' :
+                    ($model->order_status == 1 ? 'Complete' : 'Cancel');
                 })
-                ->rawColumns(['publish'])
-
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="items/'. $row->item_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="items/destroy/'. $row->item_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
+                    $btn1 = '<a href="orders/' . $row->order_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
+                    $btn2 = '&nbsp;&nbsp;<a href="orders/destroy/' . $row->order_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
                     return $btn1 . "" . $btn2;
                 })
                 ->rawColumns(['action'])
-
                 ->make(true);
         }
 
-        return view('admin.item.index');
+        return view('admin.order.index');
 
     }
 
@@ -121,8 +114,7 @@ class OrderController extends Controller
 
     public function create()
     {
-        $data['categories'] = Category::get(["category_name", "cat_id"]);
-        return view($this->create_view, $data);
+        return view($this->create_view);
     }
 
     /**
@@ -134,33 +126,10 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
-
-        $logo = $request->file('item_image');
-        $picture = FileService::fileUploaderWithoutRequest($logo, 'item/image/');
-        $input['item_image'] = $picture;
-
         $category = $this->intrestService->create($input);
-
-        if (!empty($request->add_size) || !empty($request->add_price) || !empty($request->addons_title) || !empty($request->addons_price)) {
-
-            $addsize['item_id'] = $category->item_id;
-            $addsize['add_size'] = json_encode($request->add_size);
-            $addsize['add_price'] = json_encode($request->add_price);
-
-            Addsize::create($addsize);
-
-            $addons['item_id']= $category->item_id;
-            $addons['addons_title']=json_encode($request->addons_title);
-            $addons['addons_price']=json_encode($request->addons_price);
-
-            Addons::create($addons);
-
-        }
-
         return redirect()->route($this->index_route_name)
-            ->with('success', $this->mls->messageLanguage('created', 'item', 1));
+            ->with('success', $this->mls->messageLanguage('created', 'order', 1));
     }
 
     /**
@@ -169,10 +138,10 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+
+    public function edit(Order $order)
     {
-        $data['categories'] = Category::get(["category_name", "cat_id"]);
-        return view($this->edit_view,$data,compact('item'));
+        return view($this->edit_view, compact('order'));
     }
 
     /**
@@ -182,19 +151,12 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, Order $order)
     {
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
-
-        if (!empty($input['item_image'])) {
-            $logo = $request->file('item_image');
-            $picture = FileService::fileUploaderWithoutRequest($logo, 'item/image/');
-            $input['item_image'] = $picture;
-        }
-
-        $this->intrestService->update($input, $item);
+        $this->intrestService->update($input, $order);
         return redirect()->route($this->index_route_name)
-            ->with('success', $this->mls->messageLanguage('updated', 'item', 1));
+            ->with('success', $this->mls->messageLanguage('updated', 'order', 1));
     }
 
     /**
@@ -206,7 +168,7 @@ class OrderController extends Controller
 
     public function destroy($id)
     {
-        $result = DB::table('items')->where('item_id', $id)->delete();
+        $result = DB::table('orders')->where('order_id', $id)->delete();
         return redirect()->back()->withSuccess('Data Delete Successfully!');
     }
 
@@ -228,4 +190,5 @@ class OrderController extends Controller
             ]);
         }
     }
+
 }

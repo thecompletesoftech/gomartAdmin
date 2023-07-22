@@ -18,20 +18,23 @@
 
         <div class="row mt-3">
             <div class="col-4" style="float:right;">
-                <input type="search" name="notification_subject" class="form-control searchEmail"
-                    placeholder="Search for Notification Subject" />
+                <input type="search" name="item_name" class="form-control searchEmail"
+                    placeholder="Search for Product Name" />
             </div>
         </div>
-
 
         <div class="row mt-3">
             <div class="col-12 table-responsive text-center">
                 <table class="table table-bordered data-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Subject</th>
-                            <th>Message</th>
+                            <th>Order ID </th>
+                            <th>Client </th>
+                            <th>Date </th>
+                            <th>Product Name </th>
+                            <th>Amount </th>
+                            <th>Order Type </th>
+                            <th>Order Status </th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -49,23 +52,39 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.notifications.index') }}",
+                url: "{{ route('admin.orders.index') }}",
                 data: function(d) {
-                    d.notification_subject = $('.searchEmail').val(),
+                    d.item_name = $('.searchEmail').val(),
                         d.search = $('input[type="search"]').val()
                 }
             },
             columns: [{
-                    data: 'notification_id',
-                    name: 'notification_id'
+                    data: 'order_id',
+                    name: 'order_id'
                 },
                 {
-                    data: 'notification_subject',
-                    name: 'notification_subject'
+                    data: 'user_id',
+                    name: 'user_id'
                 },
                 {
-                    data: 'notification_message',
-                    name: 'notification_message'
+                    data: 'order_date',
+                    name: 'order_date'
+                },
+                {
+                    data: 'item_name',
+                    name: 'item_name'
+                },
+                {
+                    data: 'order_amount',
+                    name: 'order_amount'
+                },
+                {
+                    data: 'order_type',
+                    name: 'order_type'
+                },
+                {
+                    data: 'order_status',
+                    name: 'order_status'
                 },
                 {
                     data: 'action',
@@ -77,7 +96,7 @@
         $(".searchEmail").keyup(function() {
             table.draw();
         });
-        
+
     });
 </script>
 

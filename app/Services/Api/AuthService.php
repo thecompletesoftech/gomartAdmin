@@ -22,12 +22,13 @@ use Illuminate\Support\Facades\DB;
 
 class AuthService
 {
-    /**
+     /**
      * Authenticate user Check and login.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public static function login(Request $request) 
     {
     
@@ -140,28 +141,22 @@ class AuthService
                     'login_type'=>$request->login_type,
                     'status'=>0,
                     'is_active'=>0,
-               
                     'fcm_token' => $request->fcm_token,
-                    'country_code' => $request->country_code,
-                                       
+                    'country_code' => $request->country_code,    
                 ]
             );
 
 
             if(!empty($input['image'])){
                 $picture=FileService::imageUploader($request,'image','profile/image/');
-              $input['image']= $picture; 
-          }
+                $input['image']= $picture; 
+            }
             
-
-
             $user = UserService::create($input);
             
-            
-
-            
             $token = auth('api')->login($user, ['exp' => Carbon::now()->addDays(120)->timestamp]);
-           if (!$token) {
+            
+            if (!$token) {
                 return response()->json(
                     [
                         'status' => false,
@@ -175,8 +170,8 @@ class AuthService
             $user = JWTAuth::setToken($token)->toUser();
     
             if(!empty($user->profile)){
-                $user->profile=FileService::image_path($user->profile);
-                }
+                   $user->profile=FileService::image_path($user->profile);
+            }
            
             if ($user->status == 0) {
                 return response()->json(

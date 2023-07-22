@@ -20,9 +20,9 @@
         <div class="col-lg-4 fv-row">
             <select name="notification_send_to" class="form-control form-control-lg form-control-solid">
                 <option value="">Select Send To</option>
-                <option value="0" {{ $item->notification_send_to == '0' ? 'selected' : '' }}>0</option>
-                <option value="1" {{ $item->notification_send_to == '1' ? 'selected' : '' }}>1</option>
-                <option value="2" {{ $item->notification_send_to == '2' ? 'selected' : '' }}>2</option>
+                <option value="0" {{ $item->notification_send_to == '0' ? 'selected' : '' }}>Store</option>
+                <option value="1" {{ $item->notification_send_to == '1' ? 'selected' : '' }}>Customer</option>
+                <option value="2" {{ $item->notification_send_to == '2' ? 'selected' : '' }}>Driver</option>
             </select>
         </div>
 

@@ -33,9 +33,8 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('sendOtp', 'sendOtp');
         Route::post('verifyOtp', 'verifyOtp');
         Route::post('forgetPassword', 'forgetPassword');
-        Route::post('getCategory', 'getCategory');
-        Route::post('getProduct', 'getProduct');
-        Route::post('getBanner', 'getBanner');
+        
+        
     });
 
     // -------- Register And Login API ----------
@@ -43,6 +42,11 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         /* logout APi */
         Route::controller(AuthController::class)->group(function () {
             Route::post('logout', 'logout');
+            Route::post('addOrder', 'addOrder');
+            Route::post('getCategory', 'getCategory');
+            Route::post('getProduct', 'getProduct');
+            Route::post('getBanner', 'getBanner');
+            Route::post('cancelOrder', 'cancelOrder');
         });
 
         /* Profile Controller */
@@ -52,5 +56,6 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::put('update-profile', 'updateProfile');
             Route::post('update-profile-image', 'updateProfileImage');
         });
+        
     });
 });

@@ -3,17 +3,8 @@
 @section('content')
     @include('admin.layouts.components.header', [
         'title' => __('messages.list', [
-            'name' => trans_choice('content.notification', 2),
+            'name' => trans_choice('content.order', 2),
         ]),
-       
-        'create_btn' => [
-            'status' => true,
-            'route' => route('admin.notifications.create'),
-            'name' => __('messages.create', [
-                'name' => trans_choice('content.notification', 1),
-            ]),
-        ],
-        
     ])
         
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -25,7 +16,7 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    @include('admin.notification.notification_table')
+                    @include('admin.order.order_table')
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->

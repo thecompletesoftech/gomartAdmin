@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 @section('content')
     @include('admin.layouts.components.header', [
-        'title' => __('messages.edit', ['name' => trans_choice('content.notification', 1)]),
+        'title' => __('messages.edit', ['name' => trans_choice('content.order', 1)]),
     ])
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -17,20 +17,20 @@
                         <div class="flex-lg-row-fluid me-0 me-lg-20">
 
                             <!--begin::Form-->
-                            {!! Form::model($notification, [
+                            {!! Form::model($order, [
                                 'method' => 'PATCH',
-                                'route' => ['admin.notifications.update', $notification->notification_id],
+                                'route' => ['admin.orders.update', $order->order_id],
                                 'class' => 'form mb-15',
                                 'enctype' => 'multipart/form-data',
                             ]) !!}
                             @csrf
-                            <input type="hidden" name="id" value="{{ $notification->notification_id }}">
+                            <input type="hidden" name="id" value="{{ $order->order_id }}">
 
-                            @include('admin.notification.editform')
+                            @include('admin.order.editform')
                             
                             <!--begin::Actions-->
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                <a href="{{ route('admin.categorys.index') }}"
+                                <a href="{{ route('admin.orders.index') }}"
                                     class="btn btn-light btn-active-light-primary me-2 text-black">{{ __('content.back_title') }}</a>
                                 <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save
                                     Changes</button>

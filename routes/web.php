@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CatgeoryController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -106,11 +107,11 @@ use Illuminate\Support\Facades\Route;
 
         //orders
 
-        Route::controller(NotificationController::class)->group(function () {
+        Route::controller(OrderController::class)->group(function () {
             Route::get('/orders/status/{id}/{status}', 'status')->name('orders.status');
             Route::get('/orders/destroy/{id}/', 'destroy')->name('orders.destroy');
         });
-        Route::resource('/orders',NotificationController::class);
+        Route::resource('/orders',OrderController::class);
 
         //Setting manager
         Route::controller(SettingController::class)->group(function () {

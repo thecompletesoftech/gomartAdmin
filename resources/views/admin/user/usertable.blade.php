@@ -15,20 +15,13 @@
 
 <body>
     <div class="container">
-
-
         <div class="row mt-3">
             <div class="col-4">
-                    <input type="search" name="category_name" class="form-control searchEmail"
+                <input type="search" name="name" class="form-control searchEmail"
                     placeholder="Search for User name" />
             </div>
         </div>
-
-
-
         <div class="row mt-3">
-
-
             <div class="col-12 table-responsive text-center">
                 <table class="table table-bordered data-table">
                     <thead>
@@ -38,7 +31,6 @@
                             <th>NAME</th>
                             <th>EMAIL</th>
                             <th>PHONE</th>
-                            <th>STATUS</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -59,32 +51,38 @@
             ajax: {
                 url: "{{ route('admin.users.index') }}",
                 data: function(d) {
-                    d. = $('.searchEmail').val(),
+                    d.name = $('.searchEmail').val(),
                         d.search = $('input[type="search"]').val()
                 }
             },
             columns: [{
-                    data: 'cat_id',
-                    name: 'cat_id'
+                    data: 'id',
+                    name: 'id'
                 },
                 {
-                    data: 'category_name',
-                    name: 'category_name'
-                },
-                {
-                    data: 'category_image',
-                    name: 'category_image',
+                    data: 'image',
+                    name: 'image',
                     render: function(data) {
                         return '<img src="{{ env('APP_URL') }}/uploads/' + data +
                             '" class="avatar" width="50" height="50"/>';
                     }
                 },
                 {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'phone',
+                    name: 'phone'
+                },
+                {
                     data: 'action',
                     name: 'action',
-
-
-                },
+                }
             ]
         });
 
@@ -94,5 +92,4 @@
 
     });
 </script>
-
 </html>
