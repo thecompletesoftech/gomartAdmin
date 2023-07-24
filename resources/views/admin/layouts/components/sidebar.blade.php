@@ -258,6 +258,20 @@
 
                     <!-- end Order menu section --!>
 
+                    <!-- start Review menu section --!>
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ checkActiveSideBar(['review']) ? 'menu-item active' : '' }}"
+                            href="{{ route('admin.reviews.index') }}">
+                            <span class="menu-icon">                                
+                                <i class="fa fa-star" style="color:cyanblue;font-size:15px;"></i>
+                            </span>
+                            <span class="menu-title">Reviews</span>
+                        </a>
+                    </div>
+
+                    <!-- end Review menu section --!>
+
                 </div>
                 <!--end::Menu-->
             </div>

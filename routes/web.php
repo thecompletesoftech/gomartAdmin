@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CatgeoryController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\RatingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -112,6 +113,14 @@ use Illuminate\Support\Facades\Route;
             Route::get('/orders/destroy/{id}/', 'destroy')->name('orders.destroy');
         });
         Route::resource('/orders',OrderController::class);
+
+        //ratings
+
+        Route::controller(RatingController::class)->group(function () {
+            Route::get('/reviews/status/{id}/{status}', 'status')->name('reviews.status');
+            Route::get('/reviews/destroy/{id}/', 'destroy')->name('reviews.destroy');
+        });
+        Route::resource('/reviews',RatingController::class);
 
         //Setting manager
         Route::controller(SettingController::class)->group(function () {

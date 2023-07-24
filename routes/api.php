@@ -47,6 +47,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('getProduct', 'getProduct');
             Route::post('getBanner', 'getBanner');
             Route::post('cancelOrder', 'cancelOrder');
+            Route::post('addRating', 'addRating');
         });
 
         /* Profile Controller */

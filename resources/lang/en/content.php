@@ -114,9 +114,6 @@ return [
         'permission' => 'Permission|Permissions',
     ),
 
-
-
-
     //Table Title
     'id_title' => 'ID',
     'name_title' => 'Name|Names',
@@ -203,6 +200,7 @@ return [
     'order' => 'Order|Orders',
     'notification' => 'Notification|Notifications',
     'customer' => 'Customer|Customers',
+    'review' => 'Review|Reviews',
     
     'user_id' => 'User Id',
     'customer_id' => 'Customer Id',
@@ -248,15 +246,11 @@ return [
     'title_name'=>'Title',
     'message_title'=>'Message',
 
-
-
     'active_title' => 'Active',
     'deactive_title' => 'Deactive',
     'verify_title' => 'Verify',
     'unverify_title' => 'Unverify',
-   
-   
-
+      
     'name_title' => 'Name',
     'icon_title' => 'Icon',
     'intrest_name' => 'Name',
@@ -287,5 +281,10 @@ return [
     'order_type' => 'Order Type',
     'order_status' => 'Order Status', 
     'order_amount' => 'Order Amount', 
-    'order_date' => 'Order Date', 
+    'order_date' => 'Order Date',
+
+    // rating 
+    'order_rating' => 'Order Rating', 
+    'order_review' => 'Order Review', 
+    
 ];

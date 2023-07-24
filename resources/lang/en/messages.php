@@ -23,6 +23,7 @@ return [
     'item' => 'Item|Items',
     'banner' => 'Banner|Banners',
     'order' => 'Order|Orders',
+    'review' => 'Review|Reviews',
 
     'save' => 'Save',
     'status' => 'Status',
