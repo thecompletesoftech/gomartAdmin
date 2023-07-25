@@ -18,8 +18,12 @@
 
         <div class="row mt-3">
             <div class="col-4" style="float:right;">
-                <input type="search" name="category_name" class="form-control searchEmail"
-                    placeholder="Search for Category Name" />
+                <input 
+                    type="search" 
+                    name="name" 
+                    class="form-control searchEmail"
+                    placeholder="Search for Carrency Name" 
+                />
             </div>
         </div>
 
@@ -29,9 +33,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Category Name</th>
-                            <th>Category Image</th>
-                            <th>Description</th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Symbol</th>
+                            <th>Symbol At Right</th>
+                            <th>Currency Status</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -51,30 +57,34 @@
             ajax: {
                 url: "{{ route('admin.categorys.index') }}",
                 data: function(d) {
-                    d.category_name = $('.searchEmail').val(),
+                    d.name = $('.searchEmail').val(),
                     d.search = $('input[type="search"]').val()
                 }
             },
             columns: [
                 {
-                    data: 'cat_id',
-                    name: 'cat_id'
+                    data: 'currency_id',
+                    name: 'currency_id'
                 },
                 {
-                    data: 'category_name',
-                    name: 'category_name'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
-                    data: 'category_image',
-                    name: 'category_image',
-                    render: function(data) {
-                        return '<img src="{{ env('APP_URL') }}/uploads/' + data +
-                            '" class="avatar" width="50" height="50"/>';
-                    }
+                    data: 'code',
+                    name: 'code'
                 },
                 {
-                    data: 'description',
-                    name: 'description'
+                    data: 'symbol',
+                    name: 'symbol'
+                },
+                {
+                    data: 'symbol_at_right',
+                    name: 'symbol_at_right'
+                },
+                {
+                    data: 'currency_status',
+                    name: 'currency_status'
                 },
                 {
                     data: 'action',

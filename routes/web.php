@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CatgeoryController;
+use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrderController;
@@ -28,10 +29,7 @@ use Illuminate\Support\Facades\Route;
     });
 
     Auth::routes(['register' => false]);
-
-
-
-
+    
     Route::group(['middleware' => ['optimizeImages'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/home', function () {
         return redirect()->route('admin.dashboard');
@@ -122,11 +120,27 @@ use Illuminate\Support\Facades\Route;
         });
         Route::resource('/reviews',RatingController::class);
 
+        // global 
+
+        Route::controller(GlobalController::class)->group(function () {
+            Route::get('/globals/edit/{id}/', 'edit')->name('globals.edit');
+        });
+        Route::resource('/globals',GlobalController::class);
+
+        //currencys
+
+        Route::controller(RatingController::class)->group(function () {
+            Route::get('/currencys/status/{id}/{status}', 'status')->name('currencys.status');
+            Route::get('/currencys/destroy/{id}/', 'destroy')->name('currencys.destroy');
+        });
+        Route::resource('/currencys',RatingController::class);
+
         //Setting manager
         Route::controller(SettingController::class)->group(function () {
             Route::get('/settings/general', 'edit_general')->name('settings.edit_general');
             Route::post('/settings/general', 'update_general')->name('settings.update_general');
         });
+
     });
 });
 
@@ -139,6 +153,3 @@ Route::post('/store/{user_id}/{adventure_id}', [App\Http\Controllers\Admin\Perso
 
 Route::get('/reset-password',[UserController::class,'resetPasswordLoad']);
 Route::post('/reset-password',[UserController::class,'resetPassword']);
-
-
-

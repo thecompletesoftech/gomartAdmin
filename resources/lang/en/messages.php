@@ -24,6 +24,7 @@ return [
     'banner' => 'Banner|Banners',
     'order' => 'Order|Orders',
     'review' => 'Review|Reviews',
+    'global' => 'GlobalSetting|GlobalSettings',
 
     'save' => 'Save',
     'status' => 'Status',

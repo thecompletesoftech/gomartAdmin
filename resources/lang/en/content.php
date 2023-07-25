@@ -201,7 +201,8 @@ return [
     'notification' => 'Notification|Notifications',
     'customer' => 'Customer|Customers',
     'review' => 'Review|Reviews',
-    
+    'globalsetting' => 'Globalsetting|Globalsettings',
+
     'user_id' => 'User Id',
     'customer_id' => 'Customer Id',
     'import' => 'Import',
@@ -211,7 +212,6 @@ return [
     'test_tab' => 'Test Tab',
     'advesiory_name' => 'Name',
     'icon_title' => 'Icon',
-
 
     //Book
     'book_name_eng_title'=>'Book Name English',
@@ -224,8 +224,6 @@ return [
     'amazon_title'=>'Amazon Link',
     'question_eng'=>'Question English',
     'question_fren'=>'Question French',  
-
-
 
     //Dashboard
     'rating'=>'Rating',
@@ -286,5 +284,11 @@ return [
     // rating 
     'order_rating' => 'Order Rating', 
     'order_review' => 'Order Review', 
-    
+
+    // global setting 
+
+    'application_name' => 'Application Name', 
+    'application_logo' => 'Application Logo', 
+    'application_color' => 'Application Color'
+
 ];

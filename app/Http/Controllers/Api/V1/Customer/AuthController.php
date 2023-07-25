@@ -11,6 +11,7 @@ use App\Services\Api\ItemService;
 use App\Services\Api\Bannerservice;
 use App\Services\Api\OrderService;
 use App\Services\Api\RatingService;
+use App\Services\Api\GloalService;
 use App\Services\HelperService;
 use App\Services\UserService;
 
@@ -21,7 +22,7 @@ class AuthController extends Controller
 {
 
     protected 
-    $helperService, $userService,$orderservice,$apiratingService, 
+    $helperService, $userService,$orderservice,$apiratingService,$apiglobalService, 
     $apiAuthService,$walletService,$categoryservice,$itemservice,$bannerservice,
     $apicommonService,$apibannerService
     ,$apipromocodeService,$apiserviceService,$apiclothtypeService,$apibagService;
@@ -36,6 +37,7 @@ class AuthController extends Controller
         $this->bannerservice = new Bannerservice();
         $this->orderservice = new OrderService();
         $this->apiratingService = new RatingService();
+        $this->apiglobalService = new GloalService();
     }
 
     /**
@@ -169,6 +171,18 @@ class AuthController extends Controller
      public function addRating(Request $request)
      {  
         return $this->apiratingService->addRating($request);
+     }
+
+     /**
+     * add rating
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function getsettingdata(Request $request)
+     {  
+        return $this->apiglobalService->getsettingdata($request);
      }
 
      /**

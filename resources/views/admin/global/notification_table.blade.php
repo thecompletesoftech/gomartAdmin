@@ -18,10 +18,11 @@
 
         <div class="row mt-3">
             <div class="col-4" style="float:right;">
-                <input type="search" name="category_name" class="form-control searchEmail"
-                    placeholder="Search for Category Name" />
+                <input type="search" name="notification_subject" class="form-control searchEmail"
+                    placeholder="Search for Notification Subject" />
             </div>
         </div>
+
 
         <div class="row mt-3">
             <div class="col-12 table-responsive text-center">
@@ -29,9 +30,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Category Name</th>
-                            <th>Category Image</th>
-                            <th>Description</th>
+                            <th>Subject</th>
+                            <th>Message</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -49,37 +49,28 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.categorys.index') }}",
+                url: "{{ route('admin.notifications.index') }}",
                 data: function(d) {
-                    d.category_name = $('.searchEmail').val(),
-                    d.search = $('input[type="search"]').val()
+                    d.notification_subject = $('.searchEmail').val(),
+                        d.search = $('input[type="search"]').val()
                 }
             },
-            columns: [
-                {
-                    data: 'cat_id',
-                    name: 'cat_id'
+            columns: [{
+                    data: 'notification_id',
+                    name: 'notification_id'
                 },
                 {
-                    data: 'category_name',
-                    name: 'category_name'
+                    data: 'notification_subject',
+                    name: 'notification_subject'
                 },
                 {
-                    data: 'category_image',
-                    name: 'category_image',
-                    render: function(data) {
-                        return '<img src="{{ env('APP_URL') }}/uploads/' + data +
-                            '" class="avatar" width="50" height="50"/>';
-                    }
-                },
-                {
-                    data: 'description',
-                    name: 'description'
+                    data: 'notification_message',
+                    name: 'notification_message'
                 },
                 {
                     data: 'action',
-                    name: 'action'
-                }
+                    name: 'action',
+                },
             ]
         });
 

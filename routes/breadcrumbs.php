@@ -99,3 +99,7 @@ Breadcrumbs::resource('notifications', $mls->messageLanguage('only_name', 'notif
 Breadcrumbs::resource('orders', $mls->messageLanguage('only_name', 'order', 2));
 /*------------- Admin Order Review ------------------------*/
 Breadcrumbs::resource('reviews', $mls->messageLanguage('only_name', 'review', 2));
+/*------------- Admin Global Setting  ------------------------*/
+Breadcrumbs::resource('globals', $mls->messageLanguage('only_name', 'global', 2));
+/*------------- Admin Currency Setting  ------------------------*/
+Breadcrumbs::resource('currencys', $mls->messageLanguage('only_name', 'currency', 2));

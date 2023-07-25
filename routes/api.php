@@ -33,8 +33,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('sendOtp', 'sendOtp');
         Route::post('verifyOtp', 'verifyOtp');
         Route::post('forgetPassword', 'forgetPassword');
-        
-        
+        Route::post('getsettingdata','getsettingdata');
     });
 
     // -------- Register And Login API ----------

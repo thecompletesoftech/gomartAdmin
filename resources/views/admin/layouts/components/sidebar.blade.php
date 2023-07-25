@@ -272,6 +272,20 @@
 
                     <!-- end Review menu section --!>
 
+                    <!-- start Global menu section --!>
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ checkActiveSideBar(['global']) ? 'menu-item active' : '' }}"
+                            href="{{url('/')}}/admin/globals/edit/1">
+                            <span class="menu-icon">                                
+                                <i class="fa fa-gear" style="color:cyanblue;font-size:15px;"></i>
+                            </span>
+                            <span class="menu-title">Global Setting</span>
+                        </a>
+                    </div>
+
+                    <!-- end Global menu section --!>
+
                 </div>
                 <!--end::Menu-->
             </div>

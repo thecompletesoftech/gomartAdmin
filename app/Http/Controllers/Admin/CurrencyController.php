@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\Datatables;
 
-class CategoryController extends Controller
+class CurrencyController extends Controller
 {
     protected $mls, $change_password, $assign_role, $uploads_image_directory;
     protected $index_view, $create_view, $edit_view, $detail_view, $tabe_view, $product_history_view;
