@@ -5,8 +5,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CatgeoryController;
+use App\Http\Controllers\Admin\CommissionController;
+use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RatingController;
@@ -129,11 +132,41 @@ use Illuminate\Support\Facades\Route;
 
         //currencys
 
-        Route::controller(RatingController::class)->group(function () {
+        Route::controller(CurrencyController::class)->group(function () {
             Route::get('/currencys/status/{id}/{status}', 'status')->name('currencys.status');
             Route::get('/currencys/destroy/{id}/', 'destroy')->name('currencys.destroy');
         });
-        Route::resource('/currencys',RatingController::class);
+        Route::resource('/currencys',CurrencyController::class);
+
+        //coupan
+
+        Route::controller(CoupanController::class)->group(function () {
+            Route::get('/coupans/status/{id}/{status}', 'status')->name('coupans.status');
+            Route::get('/coupans/destroy/{id}/', 'destroy')->name('coupans.destroy');
+        });
+        Route::resource('/coupans',CoupanController::class);
+
+        // language
+
+        Route::controller(LanguageController::class)->group(function () {
+            Route::get('/languages/status/{id}/{status}', 'status')->name('languages.status');
+            Route::get('/languages/destroy/{id}/', 'destroy')->name('languages.destroy');
+        });
+        Route::resource('/languages',LanguageController::class);
+
+        // commission
+        
+        Route::controller(CommissionController::class)->group(function () {
+            Route::get('/commissions/edit/{id}/', 'edit')->name('commissions.edit');
+        });
+        Route::resource('/commissions',CommissionController::class);
+
+        // radius
+        
+        Route::controller(RadiusController::class)->group(function () {
+            Route::get('/radiuss/edit/{id}/', 'edit')->name('radiuss.edit');
+        });
+        Route::resource('/radiuss',RadiusController::class);
 
         //Setting manager
         Route::controller(SettingController::class)->group(function () {

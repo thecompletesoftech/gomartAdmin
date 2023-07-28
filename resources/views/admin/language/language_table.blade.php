@@ -20,9 +20,9 @@
             <div class="col-4" style="float:right;">
                 <input 
                     type="search" 
-                    name="name" 
+                    name="language_name" 
                     class="form-control searchEmail"
-                    placeholder="Search for Carrency Name" 
+                    placeholder="Search for Language Name" 
                 />
             </div>
         </div>
@@ -33,11 +33,9 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Symbol</th>
-                            <th>Symbol At Right</th>
-                            <th>Currency Status</th>
+                            <th>Language Name</th>
+                            <th>Language Slug</th>
+                            <th>Language Status</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -55,36 +53,28 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.currencys.index') }}",
+                url: "{{ route('admin.languages.index') }}",
                 data: function(d) {
-                    d.name = $('.searchEmail').val(),
+                    d.language_name = $('.searchEmail').val(),
                     d.search = $('input[type="search"]').val()
                 }
             },
             columns: [
                 {
-                    data: 'currency_id',
-                    name: 'currency_id'
+                    data: 'language_id',
+                    name: 'language_id'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'language_name',
+                    name: 'language_name'
                 },
                 {
-                    data: 'code',
-                    name: 'code'
+                    data: 'language_slug',
+                    name: 'language_slug'
                 },
                 {
-                    data: 'symbol',
-                    name: 'symbol'
-                },
-                {
-                    data: 'symbol_at_right',
-                    name: 'symbol_at_right'
-                },
-                {
-                    data: 'currency_status',
-                    name: 'currency_status'
+                    data: 'language_status',
+                    name: 'language_status'
                 },
                 {
                     data: 'action',

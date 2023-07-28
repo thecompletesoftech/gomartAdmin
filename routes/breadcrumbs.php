@@ -103,3 +103,11 @@ Breadcrumbs::resource('reviews', $mls->messageLanguage('only_name', 'review', 2)
 Breadcrumbs::resource('globals', $mls->messageLanguage('only_name', 'global', 2));
 /*------------- Admin Currency Setting  ------------------------*/
 Breadcrumbs::resource('currencys', $mls->messageLanguage('only_name', 'currency', 2));
+/*------------- Admin Coupan Setting  ------------------------*/
+Breadcrumbs::resource('coupans', $mls->messageLanguage('only_name', 'coupan', 2));
+/*------------- Admin language Setting  ------------------------*/
+Breadcrumbs::resource('languages', $mls->messageLanguage('only_name', 'language', 2));
+/*------------- Admin Commission Setting  ------------------------*/
+Breadcrumbs::resource('commissions', $mls->messageLanguage('only_name', 'commission', 2));
+/*------------- Admin Radius CONFIGURATION Setting  ------------------------*/
+Breadcrumbs::resource('radiuss', $mls->messageLanguage('only_name', 'radius', 2));

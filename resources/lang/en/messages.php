@@ -25,7 +25,10 @@ return [
     'order' => 'Order|Orders',
     'review' => 'Review|Reviews',
     'global' => 'GlobalSetting|GlobalSettings',
-
+    'currency' => 'Currency|Currencys',
+    'coupan' => 'Coupan|Coupans',
+    'language' => 'Language|Languages',
+    
     'save' => 'Save',
     'status' => 'Status',
     'received' => 'Data Get',

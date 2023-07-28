@@ -286,6 +286,77 @@
 
                     <!-- end Global menu section --!>
 
+                    <!-- start Currency menu section --!>
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ checkActiveSideBar(['currency']) ? 'menu-item active' : '' }}"
+                            href="{{ route('admin.currencys.index') }}">
+                            <span class="menu-icon">                                
+                                <i class="fa fa-dollar-sign" style="color:cyanblue;font-size:15px;"></i>
+                            </span>
+                            <span class="menu-title">Currency</span>
+                        </a>
+                    </div>
+
+                    <!-- end Currency menu section --!>
+
+                    <!-- start Coupan menu section --!>
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ checkActiveSideBar(['coupan']) ? 'menu-item active' : '' }}"
+                            href="{{ route('admin.coupans.index') }}">
+                            <span class="menu-icon">                                
+                                <i class="fa fa-building" style="color:cyanblue;font-size:15px;"></i>
+                            </span>
+                            <span class="menu-title">Coupan</span>
+                        </a>
+                    </div>
+
+                    <!-- end Coupan menu section --!>
+
+                    <!-- start Coupan menu section --!>
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ checkActiveSideBar(['language']) ? 'menu-item active' : '' }}"
+                            href="{{ route('admin.languages.index') }}">
+                            <span class="menu-icon">                                                                
+                                <i class="fa fa-language" style="color:cyanblue;font-size:15px;"></i>
+                            </span>
+                            <span class="menu-title">Language</span>
+                        </a>
+                    </div>
+
+                    <!-- end Coupan menu section --!>
+
+                    <!-- start Commission menu section --!>
+
+                        <div class="menu-item">
+                            <a class="menu-link {{ checkActiveSideBar(['commission']) ? 'menu-item active' : '' }}"
+                                href="{{url('/')}}/admin/commissions/edit/1">
+                                <span class="menu-icon">                                                                
+                                    <i class="fa-brands fa-creative-commons-share" style="color:cyanblue;font-size:15px;"></i>
+                                </span>
+                                <span class="menu-title">Commission</span>
+                            </a>
+                        </div>
+
+                    <!-- end Commission menu section --!>
+
+                    
+                    <!-- start Commission menu section --!>
+
+                        <div class="menu-item">
+                            <a class="menu-link {{ checkActiveSideBar(['radius']) ? 'menu-item active' : '' }}"
+                                href="{{url('/')}}/admin/radiuss/edit/1">
+                                <span class="menu-icon">                                                                
+                                    <i class="fa-brands fa-creative-commons-share" style="color:cyanblue;font-size:15px;"></i>
+                                </span>
+                                <span class="menu-title">Radius configuration </span>
+                            </a>
+                        </div>
+
+                    <!-- end Commission menu section --!>
+
                 </div>
                 <!--end::Menu-->
             </div>

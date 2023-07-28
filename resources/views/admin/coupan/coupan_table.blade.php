@@ -18,11 +18,14 @@
 
         <div class="row mt-3">
             <div class="col-4" style="float:right;">
-                <input type="search" name="notification_subject" class="form-control searchEmail"
-                    placeholder="Search for Notification Subject" />
+                <input 
+                    type="search" 
+                    name="name" 
+                    class="form-control searchEmail"
+                    placeholder="Search for Carrency Name" 
+                />
             </div>
         </div>
-
 
         <div class="row mt-3">
             <div class="col-12 table-responsive text-center">
@@ -30,8 +33,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Subject</th>
-                            <th>Message</th>
+                            <th>Coupan Code</th>
+                            <th>Amount</th>
+                            <th>Amount Discount</th>
+                            <th>Expiry Date</th>
+                            <th>Coupan Status</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -49,28 +55,41 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.notifications.index') }}",
+                url: "{{ route('admin.coupans.index') }}",
                 data: function(d) {
-                    d.notification_subject = $('.searchEmail').val(),
-                        d.search = $('input[type="search"]').val()
+                    d.name = $('.searchEmail').val(),
+                    d.search = $('input[type="search"]').val()
                 }
             },
-            columns: [{
-                    data: 'notification_id',
-                    name: 'notification_id'
+            columns: [
+                {
+                    data: 'coupan_id',
+                    name: 'coupan_id'
                 },
                 {
-                    data: 'notification_subject',
-                    name: 'notification_subject'
+                    data: 'coupan_code',
+                    name: 'coupan_code'
                 },
                 {
-                    data: 'notification_message',
-                    name: 'notification_message'
+                    data: 'amount',
+                    name: 'amount'
+                },
+                {
+                    data: 'discount',
+                    name: 'discount'
+                },
+                {
+                    data: 'expiry_date',
+                    name: 'expiry_date'
+                },
+                {
+                    data: 'coupan_status',
+                    name: 'coupan_status'
                 },
                 {
                     data: 'action',
-                    name: 'action',
-                },
+                    name: 'action'
+                }
             ]
         });
 

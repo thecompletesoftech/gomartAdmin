@@ -1,9 +1,8 @@
 @extends('admin.layouts.base')
 @section('content')
     @include('admin.layouts.components.header', [
-        'title' => __('messages.create', ['name' => trans_choice('content.currency', 1)]),
+        'title' => __('messages.edit', ['name' => trans_choice('content.radius', 1)]),
     ])
-
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
@@ -13,20 +12,27 @@
                 <!--begin::Body-->
                 <div class="card-body">
                     <!--begin::Layout-->
-                    <div class="d-flex flex-column flex-lg-row">
+                    <div class="d-flex flex-column flex-lg-row mb-17">
                         <!--begin::Content-->
                         <div class="flex-lg-row-fluid me-0 me-lg-20">
 
                             <!--begin::Form-->
-                            {!! Form::open(['route' => 'admin.currencys.store', 'method' => 'POST', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
+                            {!! Form::model($radius, [
+                                'method' => 'PATCH',
+                                'route' => ['admin.radiuss.update', $radius->radius_id],
+                                'class' => 'form mb-15',
+                                'enctype' => 'multipart/form-data',
+                            ]) !!}
+                            @csrf
 
-                            @include('admin.currency.form')
-                            
+                            <input type="hidden" name="radius_id" value="{{ $radius->radius_id }}">
+
+                            @include('admin.radius.editform')
+
                             <!--begin::Actions-->
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                <a href="{{ route('admin.currencys.index') }}"
-                                    class="btn btn-light btn-active-light-primary me-2 text-black">{{ __('content.back_title') }}</a>
-                                <button type="submit" class="btn btn-primary">{{ __('content.create_title') }}</button>
+                                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save
+                                    Changes</button>
                             </div>
                             <!--end::Actions-->
                             {!! Form::close() !!}

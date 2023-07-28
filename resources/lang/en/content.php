@@ -202,6 +202,11 @@ return [
     'customer' => 'Customer|Customers',
     'review' => 'Review|Reviews',
     'globalsetting' => 'Globalsetting|Globalsettings',
+    'currency' => 'Currency|Currencys',
+    'coupan' => 'Coupan|Coupans',
+    'language' => 'Language|Languages',
+    'commission' => 'Commission|Commissions',
+    'radius' => 'Radius|Radius',
 
     'user_id' => 'User Id',
     'customer_id' => 'Customer Id',
@@ -285,10 +290,31 @@ return [
     'order_rating' => 'Order Rating', 
     'order_review' => 'Order Review', 
 
+    // coupan setting 
+
+    'coupan_code' => 'Coupan Code', 
+    'amount' => 'Amount', 
+    'discount' => 'Discount',
+    'expiry_date' => 'Expiry Date',
+    'coupan_status' => 'Coupan Status',
+    
     // global setting 
 
     'application_name' => 'Application Name', 
     'application_logo' => 'Application Logo', 
-    'application_color' => 'Application Color'
+    'application_color' => 'Application Color',
 
+    // Language
+
+    'language_name' => 'Language Name', 
+    'language_slug' => 'Language Slug', 
+    'language_status' => 'Language Status',
+
+    // commission  
+    'commission_type' => 'Commission Type', 
+    'admin_commision' => 'Admin Commission',
+
+    // commission  
+    'store_nearby' => 'Store nearby radius', 
+    'radius_nearby' => 'Driver nearby radius',
 ];

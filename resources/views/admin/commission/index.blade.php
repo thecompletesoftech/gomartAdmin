@@ -1,18 +1,19 @@
 @extends('admin.layouts.base')
 
-
 @section('content')
     @include('admin.layouts.components.header', [
         'title' => __('messages.list', [
-            'name' => trans_choice('content.currency', 2),
-        ]),       
+            'name' => trans_choice('content.commission', 2),
+        ]),
+       
         'create_btn' => [
             'status' => true,
-            'route' => route('admin.currencys.create'),
+            'route' => route('admin.commissions.create'),
             'name' => __('messages.create', [
-                'name' => trans_choice('content.currency', 1),
+                'name' => trans_choice('content.commission', 1),
             ]),
-        ],  
+        ],
+        
     ])
         
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -20,12 +21,11 @@
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
             <div class="card">
-            
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    @include('admin.currency.currency_table')
+                    @include('admin.commission.notification_table')
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->

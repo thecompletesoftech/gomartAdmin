@@ -4,13 +4,13 @@
 @section('content')
     @include('admin.layouts.components.header', [
         'title' => __('messages.list', [
-            'name' => trans_choice('content.currency', 2),
+            'name' => trans_choice('content.language', 2),
         ]),       
         'create_btn' => [
             'status' => true,
-            'route' => route('admin.currencys.create'),
+            'route' => route('admin.languages.create'),
             'name' => __('messages.create', [
-                'name' => trans_choice('content.currency', 1),
+                'name' => trans_choice('content.language', 1),
             ]),
         ],  
     ])
@@ -19,13 +19,12 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
-            <div class="card">
-            
+            <div class="card">            
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    @include('admin.currency.currency_table')
+                    @include('admin.language.language_table')
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->
