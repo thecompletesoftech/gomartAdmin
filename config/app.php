@@ -167,11 +167,11 @@ return [
 
         // Barryvdh\DomPDF\ServiceProvider::class,
         
-        /*
+         /*
          * Package Service Providers...
          */
 
-        /*
+         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
@@ -202,7 +202,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
-        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'HelperService' => App\Services\HelperService::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         // 'PDF' => Barryvdh\DomPDF\Facades::class,

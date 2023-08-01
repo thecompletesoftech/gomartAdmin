@@ -207,6 +207,14 @@ return [
     'language' => 'Language|Languages',
     'commission' => 'Commission|Commissions',
     'radius' => 'Radius|Radius',
+    'vat' => 'Vats|Vats',
+    'deliverycharge' => 'Deliverycharges|Deliverycharges',
+    'specialoffer' => 'Specialoffers|Specialoffers',
+    'storepayment' => 'Storepayments|Storepayments',
+    'storepayout' => 'Storepayouts|Storepayouts',
+    'driverpayment' => 'Driverpayments|Driverpayments',
+    'driverpayout' => 'Driverpayouts|Driverpayouts',
+    'wallettransaction' => 'Wallettransactions|Wallettransactions',
 
     'user_id' => 'User Id',
     'customer_id' => 'Customer Id',
@@ -317,4 +325,20 @@ return [
     // commission  
     'store_nearby' => 'Store nearby radius', 
     'radius_nearby' => 'Driver nearby radius',
+
+    // vat  
+    'vat_lable' => 'Vat Lable', 
+    'vat_tax' => 'Vat Tax',
+    'vat_type' => 'Vat Type',
+
+    // delivery charge  
+    'delivery_charge_per_km' => 'Delivery charge per km', 
+    'minimum_delivery_charge' => 'Minimum delivery charge',
+    'minimum_delivery_charge_with_km' => 'Minimum delivery charge with km',
+
+    // store payouts
+
+    'Amount' => 'Amount', 
+    'Note' => 'Note',
+
 ];

@@ -45,21 +45,11 @@ class CategoryController extends Controller
         $this->mls = new ManagerLanguageService('messages');
     }
 
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    // public function index(Request $request)
-    // {
-    //     $items = $this->intrestService->datatable();
-    //     if ($request->ajax()) {
-    //         return view('admin.category.category_table', ['categorys' => $items]);
-    //     } else {
-    //         return view('admin.category.index', ['categorys' => $items]);
-    //     }
-    // }
 
     public function index(Request $request)
     {
@@ -98,23 +88,23 @@ class CategoryController extends Controller
         return view('admin.category.index');
     }
 
-    /**
+     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-
         return view($this->create_view);
     }
 
-    /**
+     /**
      * Store a newly created resource in storage.
      *
      * @param  UserIntrestRequest $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
 
@@ -129,38 +119,40 @@ class CategoryController extends Controller
             ->with('success', $this->mls->messageLanguage('created', 'category', 1));
     }
 
-    /**
+     /**
      * Display the specified resource.
      *
      * @param  \App\Models\UserIntrestRequest  $battle
      * @return \Illuminate\Http\Response
      */
+
     public function show(Category $category)
     {
         return view($this->detail_view, compact('category'));
     }
 
-    /**
+     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Category $category)
     {
         return view($this->edit_view, compact('category'));
     }
 
-    /**
+     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
+    
     public function update(Request $request, Category $category)
     {
-
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
 
         if (!empty($input['category_image'])) {
@@ -172,10 +164,10 @@ class CategoryController extends Controller
 
         $this->intrestService->update($input, $category);
         return redirect()->route($this->index_route_name)
-            ->with('success', $this->mls->messageLanguage('updated', 'category', 1));
+        ->with('success', $this->mls->messageLanguage('updated', 'category', 1));
     }
 
-    /**
+     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\UserIntrest  $intrest
@@ -191,7 +183,6 @@ class CategoryController extends Controller
 
     public function status($id, $status)
     {
-
         $status = ($status == 1) ? 0 : 1;
         $result = $this->intrestService->updateById(['is_active' => $status], $id);
         if ($result) {
@@ -211,11 +202,9 @@ class CategoryController extends Controller
 
     public function active($id, $status)
     {
-
         $update = array('status' => $status);
         $result = CategoryService::status($update, $id);
         return redirect()->back()->withSuccess('Status Update Successfully!');
-
     }
 
     public function update_status($id, $status)
@@ -237,5 +226,4 @@ class CategoryController extends Controller
             ]);
         }
     }
-
 }

@@ -28,6 +28,12 @@ return [
     'currency' => 'Currency|Currencys',
     'coupan' => 'Coupan|Coupans',
     'language' => 'Language|Languages',
+    'vat' => 'Vats|Vats',
+    'deliverycharge' => 'DeliveryCharges|DeliveryCharges',
+    'specialoffer' => 'SpecialOffers|SpecialOffers',
+    'storepayment' => 'Storepayments|Storepayments',
+    'storepayout' => 'Storepayouts|Storepayouts',
+    'wallettransaction' => 'Wallettransactions|Wallettransactions',
     
     'save' => 'Save',
     'status' => 'Status',

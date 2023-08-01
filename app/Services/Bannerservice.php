@@ -92,6 +92,7 @@ class Bannerservice
      * @param  Int $id - Promocode Id
      * @return bool
      */
+
     public static function status(array $data, $id)
     {
         $data = Banner::where('id', $id)->update($data);
@@ -103,6 +104,7 @@ class Bannerservice
      *
      * @return Promocode with states, countries
      */
+    
     public static function datatable()
     {
         $data = DB::table('banners')->orderBy('created_at', 'desc')->paginate(10);

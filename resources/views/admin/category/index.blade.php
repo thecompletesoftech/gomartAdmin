@@ -1,12 +1,9 @@
 @extends('admin.layouts.base')
-
-
 @section('content')
     @include('admin.layouts.components.header', [
         'title' => __('messages.list', [
             'name' => trans_choice('content.category', 2),
         ]),
-       
         'create_btn' => [
             'status' => true,
             'route' => route('admin.categorys.create'),
@@ -14,7 +11,6 @@
                 'name' => trans_choice('content.category', 1),
             ]),
         ],
-        
     ])
         
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -22,7 +18,6 @@
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
             <div class="card">
-            
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
@@ -41,5 +36,3 @@
     @include('admin.user.filter_drawer')
     
 @endsection
-
-

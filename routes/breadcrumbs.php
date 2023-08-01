@@ -111,3 +111,19 @@ Breadcrumbs::resource('languages', $mls->messageLanguage('only_name', 'language'
 Breadcrumbs::resource('commissions', $mls->messageLanguage('only_name', 'commission', 2));
 /*------------- Admin Radius CONFIGURATION Setting  ------------------------*/
 Breadcrumbs::resource('radiuss', $mls->messageLanguage('only_name', 'radius', 2));
+/*------------- Admin Val Setting  ------------------------*/
+Breadcrumbs::resource('vats', $mls->messageLanguage('only_name', 'vat', 2));
+/*------------- Admin Delivery Charge Setting  ------------------------*/
+Breadcrumbs::resource('deliverycharges', $mls->messageLanguage('only_name', 'deliverycharge', 2));
+/*------------- Admin Special Offer Setting  ------------------------*/
+Breadcrumbs::resource('specialoffers', $mls->messageLanguage('only_name', 'specialoffer', 2));
+/*------------- Admin Store Payment Setting  ------------------------*/
+Breadcrumbs::resource('storepayments', $mls->messageLanguage('only_name', 'storepayment', 2));
+/*------------- Admin Store Payout Setting  ------------------------*/
+Breadcrumbs::resource('storepayouts', $mls->messageLanguage('only_name', 'storepayout', 2));
+/*------------- Admin Driver Payment Setting  ------------------------*/
+Breadcrumbs::resource('driverpayments', $mls->messageLanguage('only_name', 'driverpayment', 2));
+/*------------- Admin Wallet Transaction Setting  ------------------------*/
+Breadcrumbs::resource('wallettransactions', $mls->messageLanguage('only_name', 'wallettransaction', 2));
+/*------------- Admin Order Transaction Setting  ------------------------*/
+Breadcrumbs::resource('ordertransactions', $mls->messageLanguage('only_name', 'ordertransaction', 2));

@@ -7,12 +7,14 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CatgeoryController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\DeliveryController;
 use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RatingController;
+use App\Http\Controllers\Admin\SpecialController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -168,6 +170,74 @@ use Illuminate\Support\Facades\Route;
         });
         Route::resource('/radiuss',RadiusController::class);
 
+        // vat
+
+        Route::controller(VatController::class)->group(function () {
+            Route::get('/vats/edit/{id}/', 'edit')->name('vats.edit');
+        });
+        Route::resource('/vats',VatController::class);
+
+        // delivery charge
+
+        Route::controller(DeliveryController::class)->group(function () {
+            Route::get('/deliverycharges/edit/{id}/', 'edit')->name('deliverycharges.edit');
+        });
+        Route::resource('/deliverycharges',DeliveryController::class);
+
+        // special offer
+
+        Route::controller(SpecialController::class)->group(function () {
+            Route::get('/specialoffers/edit/{id}/', 'edit')->name('specialoffers.edit');
+        });
+        Route::resource('/specialoffers',SpecialController::class);
+
+        // store payments
+
+        Route::controller(StorepaymentController::class)->group(function () {
+            Route::get('/storepayments/destroy/{id}/', 'destroy')->name('storepayments.destroy');
+        });
+        Route::resource('/storepayments',StorepaymentController::class);
+
+        // store payouts
+
+        Route::controller(StorepayoutController::class)->group(function () {
+            Route::get('/storepayouts/status/{id}/{status}', 'status')->name('storepayouts.status');
+            Route::get('/storepayouts/destroy/{id}/', 'destroy')->name('storepayouts.destroy');
+        });
+        Route::resource('/storepayouts',StorepayoutController::class);
+
+        // driver payments
+
+        Route::controller(DriverPaymentController::class)->group(function () {
+            Route::get('/driverpayments/status/{id}/{status}', 'status')->name('driverpayments.status');
+            Route::get('/driverpayments/destroy/{id}/', 'destroy')->name('driverpayments.destroy');
+        });
+        Route::resource('/driverpayments',DriverPaymentController::class);
+
+         // driver payouts
+
+         Route::controller(Driverpayoutcontroller::class)->group(function () {
+            Route::get('/driverpayouts/status/{id}/{status}', 'status')->name('driverpayouts.status');
+            Route::get('/driverpayouts/destroy/{id}/', 'destroy')->name('driverpayouts.destroy');
+        });
+        Route::resource('/driverpayouts',Driverpayoutcontroller::class);
+
+        // wallet transaction
+
+        Route::controller(wallettransactionController::class)->group(function () {
+            Route::get('/wallettransactions/status/{id}/{status}', 'status')->name('wallettransactions.status');
+            Route::get('/wallettransactions/destroy/{id}/', 'destroy')->name('wallettransactions.destroy');
+        });
+        Route::resource('/wallettransactions',wallettransactionController::class);
+
+        // order transaction
+
+        Route::controller(ordertransactionController::class)->group(function () {
+            Route::get('/ordertransactions/status/{id}/{status}', 'status')->name('ordertransactions.status');
+            Route::get('/ordertransactions/destroy/{id}/', 'destroy')->name('ordertransactions.destroy');
+        });
+        Route::resource('/ordertransactions',ordertransactionController::class);
+
         //Setting manager
         Route::controller(SettingController::class)->group(function () {
             Route::get('/settings/general', 'edit_general')->name('settings.edit_general');
@@ -176,13 +246,6 @@ use Illuminate\Support\Facades\Route;
 
     });
 });
-
-// Route::get('/users/search', 'UserController@search');
-// Route::get('/search','UserController@search');
-// routes/web.php
-
-Route::get('/search', [App\Http\Controllers\Admin\PersonalController::class, 'search'])->name('search');
-Route::post('/store/{user_id}/{adventure_id}', [App\Http\Controllers\Admin\PersonalController::class, 'store'])->name('store');
 
 Route::get('/reset-password',[UserController::class,'resetPasswordLoad']);
 Route::post('/reset-password',[UserController::class,'resetPassword']);
