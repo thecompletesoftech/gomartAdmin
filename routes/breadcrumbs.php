@@ -5,14 +5,6 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 $mls = new ManagerLanguageService('lang_breadcrumbs');
-// Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
-//     $trail->push('Dashboard', route('home.index'));
-// });
-
-// Breadcrumbs::for('subcategories', function (BreadcrumbTrail $trail) {
-//     $trail->parent('home');
-//     $trail->push('SubCategories', route('sub_categories.index'));
-// });
 
 /*------------- Admin Dashboard (Admin Home) -------------*/
 // Home
@@ -127,3 +119,7 @@ Breadcrumbs::resource('driverpayments', $mls->messageLanguage('only_name', 'driv
 Breadcrumbs::resource('wallettransactions', $mls->messageLanguage('only_name', 'wallettransaction', 2));
 /*------------- Admin Order Transaction Setting  ------------------------*/
 Breadcrumbs::resource('ordertransactions', $mls->messageLanguage('only_name', 'ordertransaction', 2));
+/*------------- Admin Driver Setting  ------------------------*/
+Breadcrumbs::resource('drivers', $mls->messageLanguage('only_name', 'driver', 2));
+/*------------- Admin Store Menu ------------------------*/
+Breadcrumbs::resource('stores', $mls->messageLanguage('only_name', 'store', 2));

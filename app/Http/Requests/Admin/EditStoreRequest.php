@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class EditStoreRequest extends FormRequest
 {
     public function rules()
     {
@@ -14,7 +14,6 @@ class StoreRequest extends FormRequest
                 'store_phone' => 'required|max:10|min:10',
                 'store_address' => 'required',
                 'store_description' => 'required',
-                'store_image' => 'required',
                 'store_latitude' => 'required',
                 'store_longitude' => 'required',
                 'store_opening_time' => 'required',
@@ -29,7 +28,6 @@ class StoreRequest extends FormRequest
                 'store_phone' => 'required|max:10|min:10',
                 'store_address' => 'required',
                 'store_description' => 'required',
-                'store_image' => 'required',
                 'store_latitude' => 'required',
                 'store_longitude' => 'required',
                 'store_opening_time' => 'required',
@@ -48,7 +46,6 @@ class StoreRequest extends FormRequest
             'store_phone.required' => __('validation.required', ['attribute' => 'Store Phone']),
             'store_address.required' => __('validation.required', ['attribute' => 'Store Address']),
             'store_description.required' => __('validation.required', ['attribute' => 'Store Description']),
-            'store_image.required' => __('validation.required', ['attribute' => 'Store Image']),
             'store_latitude.required' => __('validation.required', ['attribute' => 'Store Latitude']),
             'store_longitude.required' => __('validation.required', ['attribute' => 'Store Longitude']),
             'store_opening_time.required' => __('validation.required', ['attribute' => 'Store Opening Time']),

@@ -34,6 +34,9 @@ return [
     'storepayment' => 'Storepayments|Storepayments',
     'storepayout' => 'Storepayouts|Storepayouts',
     'wallettransaction' => 'Wallettransactions|Wallettransactions',
+    'ordertransaction' => 'Ordertransactions|Ordertransactions',
+    'driver' => 'Drivers|Drivers',
+    'store' => 'Stores|Stores',
     
     'save' => 'Save',
     'status' => 'Status',

@@ -215,6 +215,9 @@ return [
     'driverpayment' => 'Driverpayments|Driverpayments',
     'driverpayout' => 'Driverpayouts|Driverpayouts',
     'wallettransaction' => 'Wallettransactions|Wallettransactions',
+    'ordertransaction' => 'Ordertransactions|Ordertransactions',
+    'driver' => 'Drivers|Drivers',
+    'store' => 'Stores|Stores',
 
     'user_id' => 'User Id',
     'customer_id' => 'Customer Id',
@@ -340,5 +343,27 @@ return [
 
     'Amount' => 'Amount', 
     'Note' => 'Note',
+
+    // Driver 
+
+    'driver_name' => 'Driver Name',
+    'store_name' => 'Store Name',
+    'driver_phone_number' => 'Driver Phone Number',
+    'driver_email' => 'Driver Email',
+    'driver_address' => 'Driver Address',
+
+    // store 
+
+    'store_name' => 'Store Name',
+    'store_phone' => 'Store Phone',
+    'store_address' => 'Store Address',
+    'store_image' => 'Store Image',
+    'store_description' => 'Store Description',
+    'store_latitude' => 'Store Latitude',
+    'store_longitude' => 'Store Longitude',
+    'store_opening_time' => 'Store Opening Time',
+    'store_closing_time' => 'Store Closing Time',
+    'store_status' => 'Store Status',
+    'store_active' => 'Store Active'
 
 ];

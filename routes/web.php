@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CatgeoryController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DeliveryController;
+use App\Http\Controllers\Admin\DriverController;
 use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\LanguageController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RatingController;
 use App\Http\Controllers\Admin\SpecialController;
+use App\Http\Controllers\Admin\StoreController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -237,6 +239,22 @@ use Illuminate\Support\Facades\Route;
             Route::get('/ordertransactions/destroy/{id}/', 'destroy')->name('ordertransactions.destroy');
         });
         Route::resource('/ordertransactions',ordertransactionController::class);
+
+        // driver 
+
+        Route::controller(DriverController::class)->group(function () {
+            Route::get('/drivers/status/{id}/{status}', 'status')->name('drivers.status');
+            Route::get('/drivers/destroy/{id}/', 'destroy')->name('drivers.destroy');
+        });
+        Route::resource('/drivers',DriverController::class);
+
+        // store
+
+        Route::controller(StoreController::class)->group(function () {
+            Route::get('/stores/status/{id}/{status}', 'status')->name('stores.status');
+            Route::get('/stores/destroy/{id}/', 'destroy')->name('stores.destroy');
+        });
+        Route::resource('/stores',StoreController::class);
 
         //Setting manager
         Route::controller(SettingController::class)->group(function () {
