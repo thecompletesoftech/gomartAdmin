@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Drivers;
+use App\Models\Car;
+use App\Models\Stores;
 use App\Services\DriverService;
 use App\Services\FileService;
 use App\Services\ManagerLanguageService;
@@ -54,7 +56,9 @@ class DriverController extends Controller
     {
         if ($request->ajax()) 
         {
-            $data = DB::table('drivers')->get();
+            $data = DB::table('drivers')->join('stores', 'drivers.store_name', '=', 'stores.store_id')->
+            select('drivers.*', 'stores.store_name')
+            ->get();
 
             return DataTables::of($data)->addIndexColumn()
                 ->filter(function ($instance) use ($request) {
@@ -76,6 +80,10 @@ class DriverController extends Controller
                     }
 
                 })
+                ->addColumn('driver_status', function ($model) {
+                    return $model->driver_status == 0 ? 'disable' : 'enable';
+                })
+                ->rawColumns(['driver_status'])
                 ->addColumn('action', function ($row) {
                     $btn1 = '<a href="drivers/'. $row->driver_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
                     $btn2 = '&nbsp;&nbsp;<a href="drivers/destroy/'. $row->driver_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';                   
@@ -95,7 +103,8 @@ class DriverController extends Controller
     
     public function create()
     {
-        return view($this->create_view);
+        $data['stores'] = Stores::get(["store_name","store_id"]);
+        return view($this->create_view,$data);
     }
 
      /**
@@ -113,8 +122,21 @@ class DriverController extends Controller
         $picture = FileService::fileUploaderWithoutRequest($logo, 'driver/image/');
         $input['driver_image'] = $picture;
 
-        $category = $this->driverService->create($input);
+        $logo1 = $request->file('car_image');
+        $picture1 = FileService::fileUploaderWithoutRequest($logo1, 'car/image/');
+        $input['car_image'] = $picture1;
+
+        $driver = $this->driverService->create($input);
+        
+        $adddriver['driver_id'] = $driver->driver_id;
+        $adddriver['car_image'] = $input['car_image'];
+        $adddriver['car_name'] = $input['car_name'];
+        $adddriver['car_number'] = $input['car_number'];
+
+        Car::create($adddriver);
+        
         return redirect()->route($this->index_route_name)->with('success', $this->mls->messageLanguage('created', 'driver', 1));
+
     }
 
      /**
@@ -138,7 +160,9 @@ class DriverController extends Controller
 
     public function edit(Drivers $driver)
     {
-        return view($this->edit_view,compact('driver'));
+        $data['stores'] = Stores::get(["store_name","store_id"]);
+        $data['cars'] = Car::where('car_id',$driver->driver_id)->first();
+        return view($this->edit_view,compact('driver'),$data);
     }
 
      /**

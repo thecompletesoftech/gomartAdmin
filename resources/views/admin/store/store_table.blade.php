@@ -23,7 +23,6 @@
             </div>
         </div>
 
-
         <div class="row mt-3">
             <div class="col-12 table-responsive text-center">
                 <table class="table table-bordered data-table">
@@ -32,10 +31,11 @@
                             <th>ID</th>
                             <th>Image </th>
                             <th>Name </th>
+                            <th>Category Name </th>
                             <th>Address </th>
                             <th>Phone </th>
-                            <th>Driver Email</th>
-                            <th>Driver Address</th>
+                            <th>Status </th>
+                            <th>Active </th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -61,16 +61,12 @@
             },
             columns: [
                 {
-                    data: 'driver_id',
-                    name: 'driver_id'
+                    data: 'store_id',
+                    name: 'store_id',
                 },
                 {
-                    data: 'driver_name',
-                    name: 'driver_name'
-                },
-                {
-                    data: 'driver_image',
-                    name: 'driver_image',
+                    data: 'store_image',
+                    name: 'store_image',
                     render: function(data) {
                         return '<img src="{{ env('APP_URL') }}/uploads/' + data +
                             '" class="avatar" width="50" height="50"/>';
@@ -78,19 +74,27 @@
                 },
                 {
                     data: 'store_name',
-                    name: 'store_name'
+                    name: 'store_name',
                 },
                 {
-                    data: 'driver_phone_number',
-                    name: 'driver_phone_number'
+                    data: 'category_name',
+                    name: 'category_name',
                 },
                 {
-                    data: 'driver_address',
-                    name: 'driver_address'
+                    data: 'store_address',
+                    name: 'store_address',
                 },
                 {
-                    data: 'driver_email',
-                    name: 'driver_email'
+                    data: 'store_phone',
+                    name: 'store_phone',
+                },
+                {
+                    data: 'store_status',
+                    name: 'store_status',
+                },
+                {
+                    data: 'store_active',
+                    name: 'store_active',
                 },
                 {
                     data: 'action',

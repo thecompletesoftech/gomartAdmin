@@ -19,7 +19,8 @@ class Drivers extends Model
         'store_name',
         'driver_phone_number',
         'driver_email',
-        'driver_address'
+        'driver_address',
+        'driver_status',
     ];
     
 }

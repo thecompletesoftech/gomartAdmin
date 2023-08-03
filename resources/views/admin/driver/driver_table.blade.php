@@ -36,6 +36,7 @@
                             <th>Driver Phone Number</th>
                             <th>Driver Email</th>
                             <th>Driver Address</th>
+                            <th>Driver Status</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -85,12 +86,16 @@
                     name: 'driver_phone_number'
                 },
                 {
+                    data: 'driver_email',
+                    name: 'driver_email'
+                },
+                {
                     data: 'driver_address',
                     name: 'driver_address'
                 },
                 {
-                    data: 'driver_email',
-                    name: 'driver_email'
+                    data: 'driver_status',
+                    name: 'driver_status'
                 },
                 {
                     data: 'action',

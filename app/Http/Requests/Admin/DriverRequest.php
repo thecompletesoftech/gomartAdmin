@@ -15,6 +15,9 @@ class DriverRequest extends FormRequest
                 'driver_phone_number' => 'required|max:10|min:10',
                 'driver_email' => 'required',
                 'driver_address' => 'required|max:200',
+                'car_number' => 'required|regex:/(^([a-zA-z]+)(\d+)?$)/u',
+                'car_name' => 'required',
+                'car_image' => 'required',
             ];
         } else {
             return [
@@ -24,6 +27,9 @@ class DriverRequest extends FormRequest
                 'driver_phone_number' => 'required|max:10|min:10',
                 'driver_email' => 'required',
                 'driver_address' => 'required|max:200',
+                'car_number' => 'required|regex:/(^([a-zA-z]+)(\d+)?$)/u',
+                'car_name' => 'required',
+                'car_image' => 'required',
             ];
         }
     }
@@ -37,6 +43,9 @@ class DriverRequest extends FormRequest
             'driver_phone_number.required' => __('validation.required', ['attribute' => 'Driver phone number']),
             'driver_email.required' => __('validation.required', ['attribute' => 'Driver Email']),
             'driver_address.required' => __('validation.required', ['attribute' => 'Driver Address']),
+            'car_number.required' => __('validation.required', ['attribute' => 'Car Number']),
+            'car_name.required' => __('validation.required', ['attribute' => 'Car Name']),
+            'car_image.required' => __('validation.required', ['attribute' => 'Car Image']),
         ];
     }
 }

@@ -59,10 +59,14 @@
     <div class="row mb-6">
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Name</label>
         <div class="col-lg-4 fv-row">
-            <select name="store_name" class="form-control form-control-lg form-control-solid">
+            <select class="form-control form-control-solid" name="store_name">
                 <option value="">Select Store Name</option>
-                <option value="0">medical</option>
-                <option value="1">demo</option>
+                @foreach ($stores as $data)
+                    <option 
+                        value="{{ $data->store_id }}" 
+                        {{ $data->store_name == $data->store_id ? 'selected' : '' }}>
+                        {{ $data->store_name }}</option>
+                @endforeach
             </select>
         </div>
     </div>

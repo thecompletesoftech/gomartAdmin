@@ -14,6 +14,8 @@ class EditDriverRequest extends FormRequest
                 'driver_phone_number' => 'required|max:10|min:10',
                 'driver_email' => 'required',
                 'driver_address' => 'required|max:200',
+                'car_number' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'car_name' => 'required',
             ];
         } else {
             return [
@@ -22,6 +24,8 @@ class EditDriverRequest extends FormRequest
                 'driver_phone_number' => 'required|max:10|min:10',
                 'driver_email' => 'required',
                 'driver_address' => 'required|max:200',
+                'car_number' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'car_name' => 'required',
             ];
         }
     }
@@ -34,6 +38,8 @@ class EditDriverRequest extends FormRequest
             'driver_phone_number.required' => __('validation.required', ['attribute' => 'Driver phone number']),
             'driver_email.required' => __('validation.required', ['attribute' => 'Driver Email']),
             'driver_address.required' => __('validation.required', ['attribute' => 'Driver Address']),
+            'car_number.required' => __('validation.required', ['attribute' => 'Car Number']),
+            'car_name.required' => __('validation.required', ['attribute' => 'Car Name'])
         ];
     }
 }

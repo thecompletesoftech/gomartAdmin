@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Gallery;
 use App\Models\Stores;
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +32,7 @@ class StoreService
         $data = $store->update($data);
         return $data;
     }
+
 
      /**
      * UpdateById the specified resource in storage.
