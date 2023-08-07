@@ -53,30 +53,20 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->ajax()) {
+        if ($request->ajax()) 
+        {
+            $query = Category::query();
 
-            $data = DB::table('categories')->get();
+            if ($request->has('category_name')) {
+                $name = $request->input('category_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(category_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(category_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('category_name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['category_name'], $request->get('category_name')) ? true : false;
-                        });
-                    }
-
-                    if (!empty($request->get('search'))) {
-                            $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['category_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['category_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
-
-                })
+            return DataTables::of($query)->addIndexColumn()
+          
                 ->addColumn('action', function ($row) {
                     $btn1 = '<a href="categorys/'. $row->cat_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
                     $btn2 = '&nbsp;&nbsp;<a href="categorys/destroy/'. $row->cat_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';

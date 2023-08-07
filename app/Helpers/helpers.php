@@ -2,7 +2,7 @@
 
 use App\Models\Setting;
 use App\Models\User;
-use App\Models\Book;
+use App\Models\Stores;
 use App\Services\PlanAmenityService;
 use App\Services\UtilityService;
 use App\Services\BookAnAppointmentService;
@@ -212,3 +212,7 @@ function total_user(){
 }
 
 
+function listofdriver($id){
+    $data = Stores::where('store_id',$id)->first(['store_name']);         
+        return $data->store_name;
+}

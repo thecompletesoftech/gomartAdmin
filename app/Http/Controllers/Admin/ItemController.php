@@ -53,47 +53,23 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    // public function index(Request $request)
-    // {
-    //     $items = $this->intrestService->datatable();
-    //     if ($request->ajax()) {
-    //         return view('admin.category.category_table', ['categorys' => $items]);
-    //     } else {
-    //         return view('admin.category.index', ['categorys' => $items]);
-    //     }
-    // }
-
     public function index(Request $request)
     {
+        if ($request->ajax()) 
+        {
+            $query = Item::join('categories', 'items.category_name', '=', 'categories.cat_id')->
+            select('items.*', 'categories.category_name');
 
-        if ($request->ajax()) {
+            if ($request->has('item_name')) {
+                $name = $request->input('item_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(item_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(item_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-            $data = DB::table('items')->join('categories', 'items.category_name', '=', 'categories.cat_id')->
-                select('items.*', 'categories.category_name')
-                ->get();
-
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('item_name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['item_name'], $request->get('item_name')) ? true : false;
-                        });
-                    }
-
-                    if (!empty($request->get('search'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['item_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['item_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-
-                            return false;
-                        });
-                    }
-
-                })
+            return DataTables::of($query)->addIndexColumn()
+               
                 ->addColumn('publish', function ($model) {
                     return $model->item_publish == 'Yes' ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>';
                 })
@@ -110,7 +86,6 @@ class ItemController extends Controller
         }
 
         return view('admin.item.index');
-
     }
 
     /**

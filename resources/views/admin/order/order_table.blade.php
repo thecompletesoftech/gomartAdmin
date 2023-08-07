@@ -17,8 +17,8 @@
     <div class="container">
 
         <div class="row mt-3">
-            <div class="col-4" style="float:right;">
-                <input type="search" name="item_name" class="form-control searchEmail"
+            <div class="col-4">
+                <input type="search" name="item_name" class="form-control search"
                     placeholder="Search for Product Name" />
             </div>
         </div>
@@ -45,6 +45,7 @@
 
     </div>
 </body>
+
 <script type="text/javascript">
     $(function() {
 
@@ -54,17 +55,18 @@
             ajax: {
                 url: "{{ route('admin.orders.index') }}",
                 data: function(d) {
-                    d.item_name = $('.searchEmail').val(),
-                        d.search = $('input[type="search"]').val()
+                    d.item_name = $('.search').val(),
+                    d.search = $('input[type="search"]').val()
                 }
             },
-            columns: [{
+            columns: [
+                {
                     data: 'order_id',
                     name: 'order_id'
                 },
                 {
-                    data: 'user_id',
-                    name: 'user_id'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
                     data: 'order_date',
@@ -93,11 +95,10 @@
             ]
         });
 
-        $(".searchEmail").keyup(function() {
+        $(".search").keyup(function() {
             table.draw();
         });
 
     });
-</script>
-
+</script> 
 </html>

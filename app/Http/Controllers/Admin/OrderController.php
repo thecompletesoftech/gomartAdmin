@@ -39,56 +39,33 @@ class OrderController extends Controller
         $this->intrestService = new Orderservice();
         // $this->customerService = new CustomerService();
         $this->utilityService = new UtilityService();
-
         //mls is used for manage language content based on keys in messages.php
         $this->mls = new ManagerLanguageService('messages');
     }
 
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-    // public function index(Request $request)
-    // {
-    //     $items = $this->intrestService->datatable();
-    //     if ($request->ajax()) {
-    //         return view('admin.category.category_table', ['categorys' => $items]);
-    //     } else {
-    //         return view('admin.category.index', ['categorys' => $items]);
-    //     }
-    // }
-
     public function index(Request $request)
     {
-        if ($request->ajax()) {
+        if ($request->ajax()) 
+        {
+            $query = Order::join('items','items.item_id','=','orders.item_name')
+            ->join('users','users.id','=','orders.name')
+            ->select('orders.*','items.item_name','users.name')->get();
 
-            $data = DB::table('orders')->join('items', 'items.item_id', '=', 'orders.item_name')->
-                select('orders.*', 'items.item_name')
-                ->get();
+            if ($request->has('item_name')) {
+                $name = $request->input('item_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(item_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(item_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('item_name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['item_name'], $request->get('item_name')) ? true : false;
-                        });
-                    }
-
-                    if (!empty($request->get('search'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['item_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['item_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-
-                            return false;
-                        });
-                    }
-
-                })
+            return DataTables::of($query)->addIndexColumn()
                 ->addColumn('order_status', function ($model) {
                     return $model->order_status == 0 ? 'Pending' :
                     ($model->order_status == 1 ? 'Complete' : 'Cancel');

@@ -7,12 +7,16 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Name</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="name">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="name"
+            placeholder="Name"
+            >
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Code</label>
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="code">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="code"
+            placeholder="Code"
+            >
         </div>
 
     </div>
@@ -22,7 +26,9 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Symbol</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="symbol">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="symbol"
+            placeholder="Symbol"
+            >
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Symbol At Right</label>

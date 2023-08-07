@@ -200,10 +200,10 @@
                          <ul
                              class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
                              <!--begin::Nav item-->
-                             <li class="nav-item">
+                             <!-- <li class="nav-item">
                                  <a class="nav-link {{ request()->is('*profile*') ? 'active text-active-primary me-6' : '' }}"
                                      href="{{ route('admin.profile') }}">{{ trans_choice('messages.my_profile', 1) }}</a>
-                             </li>
+                             </li> -->
                              <!--end::Nav item-->
                              <!--begin::Nav item-->
                              <li class="nav-item">

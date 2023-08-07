@@ -11,13 +11,11 @@ class GlobalSettingRequest extends FormRequest
         if (!request()->is('admin/global/create')) {
             return [
                 'application_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
-                'application_logo' => 'required',
                 'application_color' => 'required'
             ];
         } else {
             return [
                 'application_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
-                'application_logo' => 'required',
                 'application_color' => 'required'
             ];
         }
@@ -27,7 +25,6 @@ class GlobalSettingRequest extends FormRequest
     {
         return [
             'application_name.required' => __('validation.required', ['attribute' => 'Application Name']),
-            'application_logo.required' => __('validation.required', ['attribute' => 'Application Logo']),
             'application_color.required' => __('validation.required', ['attribute' => 'Application Color']),
         ];
     }

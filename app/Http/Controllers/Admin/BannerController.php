@@ -65,29 +65,18 @@ class BannerController extends Controller
 
         if ($request->ajax()) {
 
-            $data = DB::table('banners')->get();
+            $query = Banner::query();
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('banner_title'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['banner_title'], $request->get('banner_title')) ? true : false;
-                        });
-                    }
+            if ($request->has('banner_title')) {
+                $name = $request->input('banner_title');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(banner_title) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(banner_title) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-                    if (!empty($request->get('search'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['banner_title']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['banner_title']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-
-                            return false;
-                        });
-                    }
-
-                })
+            return DataTables::of($query)->addIndexColumn()
+              
                 ->addColumn('publish', function ($model) {
                     return $model->banner_publish == 'Yes' ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>';
                 })

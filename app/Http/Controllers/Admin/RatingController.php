@@ -64,32 +64,25 @@ class RatingController extends Controller
 
         if ($request->ajax()) {
 
-            $data = DB::table('reviewandratings')
-            ->join('users', 'reviewandratings.name', '=', 'users.id')
+            // $data = DB::table('reviewandratings')
+            // ->join('users', 'reviewandratings.name', '=', 'users.id')
+            // ->join('items', 'reviewandratings.item_name', '=', 'items.item_id')
+            // ->select('reviewandratings.*','users.name','items.item_name')->get();
+
+            $query = Reviewandrating::join('users', 'reviewandratings.name', '=', 'users.id')
             ->join('items', 'reviewandratings.item_name', '=', 'items.item_id')
-            ->select('reviewandratings.*','users.name','items.item_name')->get();
+            ->select('reviewandratings.*','users.name','items.item_name');
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('order_review'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['order_review'], $request->get('order_review')) ? true : false;
-                        });
-                    }
+            if ($request->has('order_review')) {
+                $name = $request->input('order_review');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(order_review) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(order_review) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-                    if (!empty($request->get('search'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['order_review']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['order_review']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-
-                            return false;
-                        });
-                    }
-
-                })
+            return DataTables::of($query)->addIndexColumn()
+               
                 ->addColumn('order_rate', function ($product) {
                     $rating = $product->order_rate;
                     $stars = '';

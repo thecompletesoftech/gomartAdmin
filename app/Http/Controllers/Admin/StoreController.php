@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Stores;
@@ -55,30 +56,20 @@ class StoreController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::table('stores')->join('categories', 'stores.category_name', '=', 'categories.cat_id')->
-                select('stores.*', 'categories.category_name')
-                ->get();
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('store_name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['store_name'], $request->get('store_name')) ? true : false;
-                        });
-                    }
+            $query = Stores::join('categories', 'stores.category_name', '=', 'categories.cat_id')->
+                select('stores.*', 'categories.category_name');
 
-                    if (!empty($request->get('search'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['store_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['storename']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
+            if ($request->has('store_name')) {
+                $name = $request->input('store_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(store_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(store_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-                })
+            return DataTables::of($query)->addIndexColumn()
+
                 ->addColumn('store_status', function ($model) {
                     return $model->store_status == 0 ? 'Close' : 'Open';
                 })
@@ -134,7 +125,15 @@ class StoreController extends Controller
         $addgallery['store_id'] = $store->store_id;
         $addgallery['gallery_image'] = $input['gallery_image'];
 
+        $bankdetail['store_id'] = $store->store_id;
+        $bankdetail['bank_name'] = $input['bank_name'];
+        $bankdetail['branch_name'] = $input['branch_name'];
+        $bankdetail['holder_name'] = $input['holder_name'];
+        $bankdetail['account_number'] = $input['account_number'];
+        $bankdetail['other_info'] = $input['other_info'];
+
         Gallery::create($addgallery);
+        Bank::create($bankdetail);
 
         return redirect()->route($this->index_route_name)->with('success', $this->mls->messageLanguage('created', 'store', 1));
     }
@@ -161,8 +160,9 @@ class StoreController extends Controller
     public function edit(Stores $store)
     {
         $data['categories'] = Category::get(["category_name", "cat_id"]);
-        $data['gallerys'] = Gallery::where('store_id',$store->store_id)->first();
-        return view($this->edit_view, compact('store'),$data);
+        $data['gallerys'] = Gallery::where('store_id', $store->store_id)->first();
+        $data['bank_details'] = Bank::where('store_id', $store->store_id)->first();
+        return view($this->edit_view, compact('store'), $data);
     }
 
     /**
@@ -176,28 +176,42 @@ class StoreController extends Controller
     public function update(Request $request, Stores $store)
     {
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
-        
+
         if (!empty($input['store_image'])) {
             $logo = $request->file('store_image');
             $picture = FileService::fileUploaderWithoutRequest($logo, 'store/image/');
             $input['store_image'] = $picture;
         }
 
-        if (!empty($input['gallery_image'])) 
-        {
+        if (!empty($input['gallery_image'])) {
             $logo1 = $request->file('gallery_image');
             $picture1 = FileService::fileUploaderWithoutRequest($logo1, 'gallery/image/');
             $input['gallery_image'] = $picture1;
-            $new=$input['gallery_image'];
-            $id=$input['id'];
-
-            DB::table('gallerys')->where('store_id',$id)->update(['gallery_image'=>$new]);
-        
+            $new = $input['gallery_image'];
+            $id = $input['id'];
+            DB::table('gallerys')->where('store_id', $id)->update(['gallery_image' => $new]);
         }
 
-        $this->storeService->update($input,$store);
+        $id = $input['id'];
+
+        $bank_name = $input['bank_name'];
+        $branch_name = $input['branch_name'];
+        $holder_name = $input['holder_name'];
+        $account_number = $input['account_number'];
+        $other_info = $input['other_info'];
+
+        DB::table('bank_details')->where('store_id', $id)->update(
+            ['bank_name' => $bank_name,
+                'branch_name' => $branch_name,
+                'holder_name' => $holder_name,
+                'other_info' => $other_info,
+                'account_number' => $account_number,
+            ]
+        );
+
+        $this->storeService->update($input, $store);
         return redirect()->route($this->index_route_name)
-        ->with('success', $this->mls->messageLanguage('updated', 'store', 1));
+            ->with('success', $this->mls->messageLanguage('updated', 'store', 1));
     }
 
     /**
@@ -210,6 +224,8 @@ class StoreController extends Controller
     public function destroy($id)
     {
         $result = DB::table('stores')->where('store_id', $id)->delete();
+        $result = DB::table('gallerys')->where('store_id', $id)->delete();
+        $result = DB::table('bank_details')->where('store_id', $id)->delete();
         return redirect()->back()->withSuccess('Data Delete Successfully!');
     }
 

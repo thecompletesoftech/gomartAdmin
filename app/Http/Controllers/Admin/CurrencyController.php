@@ -54,28 +54,18 @@ class CurrencyController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = DB::table('currencys')->get();
+            $query = Currency::query();
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
+            if ($request->has('name')) {
+                $name = $request->input('name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-                    if (!empty($request->get('name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['name'], $request->get('name')) ? true : false;
-                        });
-                    }
-
-                    if (!empty($request->get('search'))) {
-                            $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
-                })
+            return DataTables::of($query)->addIndexColumn()
+               
                 ->addColumn('symbol_at_right', function ($model) {
                     return $model->symbol_at_right == '0' ? 'Yes' : 'No';
                 })

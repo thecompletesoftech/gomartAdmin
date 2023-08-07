@@ -123,3 +123,5 @@ Breadcrumbs::resource('ordertransactions', $mls->messageLanguage('only_name', 'o
 Breadcrumbs::resource('drivers', $mls->messageLanguage('only_name', 'driver', 2));
 /*------------- Admin Store Menu ------------------------*/
 Breadcrumbs::resource('stores', $mls->messageLanguage('only_name', 'store', 2));
+/*------------- Admin Payment Menu ------------------------*/
+Breadcrumbs::resource('payments', $mls->messageLanguage('only_name', 'payment', 2));

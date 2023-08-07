@@ -54,28 +54,19 @@ class StorepayoutController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = DB::table('storepayouts')->get();
+            $query = Storepayout::query();
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('store_name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['store_name'], $request->get('store_name')) ? true : false;
-                        });
-                    }
+            if ($request->has('store_name')) {
+                $name = $request->input('store_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(store_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(store_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-                    if (!empty($request->get('search'))) {
-                            $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['store_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['store_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
 
-                })
+            return DataTables::of($query)->addIndexColumn()
+             
                 ->addColumn('action', function ($row) {
                     $btn1 = '<a href="storepayouts/'. $row->store_id .'/edit" class="btn btn-warning btn-sm" style="display:none;">Edit</a>';
                     $btn2 = '&nbsp;&nbsp;<a href="storepayouts/destroy/'. $row->store_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" 

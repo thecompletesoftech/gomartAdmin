@@ -22,6 +22,11 @@ class StoreRequest extends FormRequest
                 'store_closing_time' => 'required',
                 'store_status' => 'required',
                 'store_active' => 'required',
+                'bank_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'branch_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'holder_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'account_number' => 'required|min:9|max:18|regex:/^[a-zA-Z0-9]+$/',
+                'other_info' => 'required|regex:/(^[A-Za-z ]+$)+/'
             ];
         } else {
             return [
@@ -38,6 +43,11 @@ class StoreRequest extends FormRequest
                 'store_closing_time' => 'required',
                 'store_status' => 'required',
                 'store_active' => 'required',
+                'bank_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'branch_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'holder_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'account_number' => 'required|min:9|max:18|regex:/^[a-zA-Z0-9]+$/',
+                'other_info' => 'required|regex:/(^[A-Za-z ]+$)+/'
             ];
         }
     }
@@ -58,6 +68,11 @@ class StoreRequest extends FormRequest
             'store_closing_time.required' => __('validation.required', ['attribute' => 'Store Closing Time']),
             'store_status.required' => __('validation.required', ['attribute' => 'Store Status']),
             'store_active.required' => __('validation.required', ['attribute' => 'Store Active']),
+            'bank_name.required' => __('validation.required', ['attribute' => 'Bank Name']),
+            'branch_name.required' => __('validation.required', ['attribute' => 'Branch Name']),
+            'holder_name.required' => __('validation.required', ['attribute' => 'Holder Name']),
+            'account_number.required' => __('validation.required', ['attribute' => 'Account Number']),
+            'other_info.required' => __('validation.required', ['attribute' => 'Other Info'])
         ];
     }
 }

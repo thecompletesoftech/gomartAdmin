@@ -70,10 +70,10 @@
                     <div class="separator my-2"></div>
                     <!--end::Menu separator-->
                     <!--begin::Menu item-->
-                    <div class="menu-item px-5">
+                     <!-- <div class="menu-item px-5">
                         <a href="{{ route('admin.profile') }}"
                             class="menu-link px-5">{{ trans_choice('content.topbar.my_profile', 1) }}</a>
-                    </div>
+                    </div> -->
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
                     {{-- <div class="menu-item px-5">

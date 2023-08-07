@@ -10,7 +10,7 @@ class CoupanRequest extends FormRequest
     {
         if (!request()->is('admin/coupan/create')) {
             return [
-                'coupan_code' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'coupan_code' => 'required|regex:/^[^\s]+$/',
                 'amount' => 'required',
                 'discount' => 'required',
                 'expiry_date' => 'required',
@@ -18,7 +18,7 @@ class CoupanRequest extends FormRequest
             ];
         } else {
             return [
-                'coupan_code' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'coupan_code' => 'required|regex:/^[^\s]+$/',
                 'amount' => 'required',
                 'discount' => 'required',
                 'expiry_date' => 'required',

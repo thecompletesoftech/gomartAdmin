@@ -94,6 +94,50 @@
             accept=".png, .jpg, .jpeg">
     </div>
 
+    <br/>
+    <br/>
+
+    <div class="row mb-6 mt-5">
+        <h1>Bank Details</h1>
+    </div>
+
+    <div class="row mb-6">
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Bank Name</label>
+        <div class="col-lg-4 fv-row">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="bank_name"
+                placeholder="Bank Name" />
+        </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Branch Name</label>
+        <div class="col-lg-4 fv-row">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="branch_name"
+                placeholder="Branch Name" />
+        </div>
+
+    </div>
+
+    <div class="row mb-6">
+
+        <label class="col-lg-4 col-form-label required fw-bold fs-6">Holder Name</label>
+        <input type="text" class="form-control form-control-lg form-control-solid" name="holder_name"
+            placeholder="Holder Name" />
+        <label class="col-lg-4 col-form-label required fw-bold fs-6">Account Number</label>
+        <input 
+            type="text" 
+            class="form-control form-control-lg form-control-solid" 
+            name="account_number"
+            placeholder="Account Number" 
+        />
+
+    </div>
+
+    <div class="row mb-6">
+        <label class="col-lg-4 col-form-label required fw-bold fs-6">Other Information</label>
+        <input type="text" class="form-control form-control-lg form-control-solid" name="other_info"
+            placeholder="Other Information" />
+    </div>
+
 </div>
 <!--end::Card body-->
 

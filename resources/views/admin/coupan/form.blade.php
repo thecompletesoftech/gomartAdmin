@@ -4,15 +4,19 @@
 
     <div class="row mb-6">
 
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Coupan Code</label>
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Coupon Code</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="coupan_code">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="coupan_code"
+                placeholder="coupon code"
+            >
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Amount</label>
         <div class="col-lg-4 fv-row">
-            <input type="number" class="form-control form-control-lg form-control-solid" name="amount">
+            <input type="number" class="form-control form-control-lg form-control-solid" name="amount"
+            placeholder="amount"
+            >
         </div>
 
     </div>
@@ -22,7 +26,9 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Discount</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="number" class="form-control form-control-lg form-control-solid" name="discount">
+            <input type="number" class="form-control form-control-lg form-control-solid" name="discount"
+            placeholder="discount"
+            >
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Expiry Date</label>

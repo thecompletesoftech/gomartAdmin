@@ -342,7 +342,7 @@
                             <span class="menu-icon">
                                 <i class="fa fa-building" style="color:cyanblue;font-size:15px;"></i>
                             </span>
-                            <span class="menu-title">Coupan</span>
+                            <span class="menu-title">Coupon</span>
                         </a>
                     </div>
 
@@ -516,6 +516,22 @@
                         </div>
 
                     <!-- end Order Transaction menu section --!>
+
+                    <!-- start Payment Key menu section --!>
+
+                        <div class="menu-item">
+                            <a class="menu-link {{ checkActiveSideBar(['payment']) ? 'menu-item active' : '' }}"
+                                href="{{ url('/') }}/admin/payments/edit/1">
+                                <span class="menu-icon">
+                                    <i  class="fa fa-key" 
+                                        style="color:cyanblue;font-size:15px;">
+                                    </i>
+                                </span>
+                                <span class="menu-title">Payment</span>
+                            </a>
+                        </div>
+
+                    <!-- end Payment Key menu section --!>
 
                 </div>
                 <!--end::Menu-->

@@ -17,7 +17,7 @@ class Order extends Model
         'user_id',
         'driver_id',
         'store_id',
-        'item_id',
+        'item_name',
         'order_amount',
         'order_type',
         'order_date',

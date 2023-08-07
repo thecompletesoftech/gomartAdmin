@@ -11,7 +11,7 @@ class CurrencyRequest extends FormRequest
         if (!request()->is('admin/currency/create')) {
             return [
                 'name' => 'required|regex:/(^[A-Za-z ]+$)+/',
-                'code' => 'required|min:3|max:3',
+                'code' => 'required|min:3|max:3|regex:/(^[A-Za-z ]+$)+/',
                 'symbol' => 'required',
                 'symbol_at_right' => 'required',
                 'currency_status' => 'required'
@@ -19,7 +19,7 @@ class CurrencyRequest extends FormRequest
         } else {
             return [
                 'name' => 'required|regex:/(^[A-Za-z ]+$)+/',
-                'code' => 'required|min:3|max:3',
+                'code' => 'required|min:3|max:3|regex:/(^[A-Za-z ]+$)+/',
                 'symbol' => 'required',
                 'symbol_at_right' => 'required',
                 'currency_status' => 'required'

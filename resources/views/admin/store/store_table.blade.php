@@ -30,7 +30,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Image </th>
-                            <th>Name </th>
+                            <th>Store Name </th>
                             <th>Category Name </th>
                             <th>Address </th>
                             <th>Phone </th>
@@ -55,7 +55,7 @@
             ajax: {
                 url: "{{ route('admin.stores.index') }}",
                 data: function(d) {
-                    d.driver_name = $('.search').val(),
+                    d.store_name = $('.search').val(),
                     d.search = $('input[type="search"]').val()
                 }
             },

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Drivers;
+use App\Models\Bank;
 use App\Models\Car;
+use App\Models\Drivers;
 use App\Models\Stores;
 use App\Services\DriverService;
 use App\Services\FileService;
@@ -46,7 +47,7 @@ class DriverController extends Controller
         $this->mls = new ManagerLanguageService('messages');
     }
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -54,39 +55,28 @@ class DriverController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->ajax()) 
-        {
-            $data = DB::table('drivers')->join('stores', 'drivers.store_name', '=', 'stores.store_id')->
-            select('drivers.*', 'stores.store_name')
-            ->get();
+        if ($request->ajax()) {
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('driver_name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['driver_name'], $request->get('driver_name')) ? true : false;
-                        });
-                    }
+            $query = Drivers::join('stores', 'drivers.store_name', '=', 'stores.store_id')->
+                select('drivers.*', 'stores.store_name');
 
-                    if (!empty($request->get('search'))) {
-                            $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['driver_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['driver_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
+            if ($request->has('driver_name')) {
+                $name = $request->input('driver_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(driver_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(driver_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-                })
+            return DataTables::of($query)->addIndexColumn()
+
                 ->addColumn('driver_status', function ($model) {
                     return $model->driver_status == 0 ? 'disable' : 'enable';
                 })
                 ->rawColumns(['driver_status'])
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="drivers/'. $row->driver_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="drivers/destroy/'. $row->driver_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';                   
+                    $btn1 = '<a href="drivers/' . $row->driver_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
+                    $btn2 = '&nbsp;&nbsp;<a href="drivers/destroy/' . $row->driver_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
                     return $btn1 . "" . $btn2;
                 })
                 ->rawColumns(['action'])
@@ -95,19 +85,19 @@ class DriverController extends Controller
         return view('admin.driver.index');
     }
 
-     /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function create()
     {
-        $data['stores'] = Stores::get(["store_name","store_id"]);
-        return view($this->create_view,$data);
+        $data['stores'] = Stores::get(["store_name", "store_id"]);
+        return view($this->create_view, $data);
     }
 
-     /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  UserIntrestRequest $request
@@ -127,19 +117,28 @@ class DriverController extends Controller
         $input['car_image'] = $picture1;
 
         $driver = $this->driverService->create($input);
-        
+
         $adddriver['driver_id'] = $driver->driver_id;
         $adddriver['car_image'] = $input['car_image'];
         $adddriver['car_name'] = $input['car_name'];
         $adddriver['car_number'] = $input['car_number'];
 
+        $bankdetail['driver_id'] = $driver->driver_id;
+        $bankdetail['bank_name'] = $input['bank_name'];
+        $bankdetail['branch_name'] = $input['branch_name'];
+        $bankdetail['holder_name'] = $input['holder_name'];
+        $bankdetail['account_number'] = $input['account_number'];
+        $bankdetail['other_info'] = $input['other_info'];
+
         Car::create($adddriver);
-        
-        return redirect()->route($this->index_route_name)->with('success', $this->mls->messageLanguage('created', 'driver', 1));
+        Bank::create($bankdetail);
+
+        return redirect()->route($this->index_route_name)
+        ->with('success', $this->mls->messageLanguage('created', 'driver', 1));
 
     }
 
-     /**
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\UserIntrestRequest  $battle
@@ -151,7 +150,7 @@ class DriverController extends Controller
         // return view($this->detail_view, compact('driver'));
     }
 
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Order  $order
@@ -160,19 +159,21 @@ class DriverController extends Controller
 
     public function edit(Drivers $driver)
     {
-        $data['stores'] = Stores::get(["store_name","store_id"]);
-        $data['cars'] = Car::where('car_id',$driver->driver_id)->first();
-        return view($this->edit_view,compact('driver'),$data);
+        $data['stores'] = Stores::get(["store_name", "store_id"]);
+        $data['cars'] = Car::where('driver_id', $driver->driver_id)->first();
+        $data['bank_details'] = Bank::where('driver_id', $driver->driver_id)->first();
+
+        return view($this->edit_view, compact('driver'), $data);
     }
 
-     /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    
+
     public function update(Request $request, Drivers $driver)
     {
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
@@ -181,15 +182,46 @@ class DriverController extends Controller
             $logo = $request->file('driver_image');
             $picture = FileService::fileUploaderWithoutRequest($logo, 'driver/image/');
             $input['driver_image'] = $picture;
-
         }
-        
+
+        if (!empty($input['car_image'])) {
+            $logo1 = $request->file('car_image');
+            $picture1 = FileService::fileUploaderWithoutRequest($logo1, 'car/image/');
+
+            $input['car_image'] = $picture1;
+            $car_image = $input['car_image'];
+            $car_name = $input['car_name'];
+            $car_number = $input['car_number'];
+            $id = $input['id'];
+
+            DB::table('cars')->where('driver_id', $id)->update(
+                ['car_image' => $car_image,
+                    'car_name' => $car_name,
+                    'car_number' => $car_number]);
+        }
+
+        $id = $input['id'];
+        $bank_name = $input['bank_name'];
+        $branch_name = $input['branch_name'];
+        $holder_name = $input['holder_name'];
+        $account_number = $input['account_number'];
+        $other_info = $input['other_info'];
+
+        DB::table('bank_details')->where('driver_id', $id)->update(
+            [   'bank_name' =>  $bank_name,
+                'branch_name' => $branch_name,
+                'holder_name' => $holder_name,
+                'other_info' => $other_info,
+                'account_number' => $account_number,
+            ]
+        );
+
         $this->driverService->update($input, $driver);
         return redirect()->route($this->index_route_name)
-        ->with('success', $this->mls->messageLanguage('updated', 'driver', 1));
+            ->with('success', $this->mls->messageLanguage('updated', 'driver', 1));
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\UserIntrest  $intrest
@@ -199,6 +231,8 @@ class DriverController extends Controller
     public function destroy($id)
     {
         $result = DB::table('drivers')->where('driver_id', $id)->delete();
+        $result = DB::table('cars')->where('driver_id', $id)->delete();
+        $result = DB::table('bank_details')->where('driver_id', $id)->delete();
         return redirect()->back()->withSuccess('Data Delete Successfully!');
     }
 
@@ -219,6 +253,6 @@ class DriverController extends Controller
                 'status_name' => 'error',
             ]);
         }
-    }   
+    }
 
 }

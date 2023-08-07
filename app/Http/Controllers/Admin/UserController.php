@@ -42,44 +42,22 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // $items = UserService::datatable(); 
-        // if (!empty($request['search'])) {
-        //     if (isset($request->search)) {
-        //         $items = UserService::user_search($request);
-        //         if(count($items)>0){
-        //             $roles = Role::whereNotIn('name', ['Admin', 'Admin'])->pluck('name', 'name');
-        //             return view('admin.user.index ',['users'=>$items,'roles'=>$roles,'search'=>$request->search]);
-        //         }else{
-        //             return redirect()->back()->withSuccess('Search Data Not Found!');
-        //         }
-        //     }
-        // } else {
-        //     $roles = Role::whereNotIn('name', ['Admin', 'Admin'])->pluck('name', 'name');
-        //     return view('admin.user.index ',['users'=>$items,'roles'=>$roles,'search'=>'']);    
-        // }
+
+      
 
         if ($request->ajax()) {
-            $data = DB::table('users')->where('status','0')->get();
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['name'], $request->get('name')) ? true : false;
-                        });
-                    }
 
-                    if (!empty($request->get('search'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
+            $query = User::where('status','0');
 
-                })
+            if ($request->has('name')) {
+                $name = $request->input('name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
+
+            return DataTables::of($query)->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn2 = '&nbsp;&nbsp;<a href="users/destroy/'. $row->id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
                     return $btn2;

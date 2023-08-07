@@ -203,7 +203,7 @@ return [
     'review' => 'Review|Reviews',
     'globalsetting' => 'Globalsetting|Globalsettings',
     'currency' => 'Currency|Currencys',
-    'coupan' => 'Coupan|Coupans',
+    'coupan' => 'Coupon|Coupons',
     'language' => 'Language|Languages',
     'commission' => 'Commission|Commissions',
     'radius' => 'Radius|Radius',
@@ -218,7 +218,8 @@ return [
     'ordertransaction' => 'Ordertransactions|Ordertransactions',
     'driver' => 'Drivers|Drivers',
     'store' => 'Stores|Stores',
-
+    'payment' => 'Razorpay|Razorpay',
+    
     'user_id' => 'User Id',
     'customer_id' => 'Customer Id',
     'import' => 'Import',
@@ -303,7 +304,7 @@ return [
 
     // coupan setting 
 
-    'coupan_code' => 'Coupan Code', 
+    'coupan_code' => 'Coupon Code', 
     'amount' => 'Amount', 
     'discount' => 'Discount',
     'expiry_date' => 'Expiry Date',
@@ -364,6 +365,24 @@ return [
     'store_opening_time' => 'Store Opening Time',
     'store_closing_time' => 'Store Closing Time',
     'store_status' => 'Store Status',
-    'store_active' => 'Store Active'
+    'store_active' => 'Store Active',
+
+    // customer 
+
+    'car_name' => 'Car Name',
+    'car_number' => 'Car Number',
+
+    // payment key detail
+
+    'razorpay_key' => 'Razorpay Key',
+    'razorpay_secret' => 'Razorpay Secret Key',
+
+    // Bank Detail
+
+    'bank_name' => 'Bank Name',
+    'branch_name' => 'Branch Name',
+    'holder_name' => 'Holder Name',
+    'account_number' => 'Account Number',
+    'other_info' => 'Other Information',
 
 ];

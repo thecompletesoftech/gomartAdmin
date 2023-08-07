@@ -256,6 +256,13 @@ use Illuminate\Support\Facades\Route;
         });
         Route::resource('/stores',StoreController::class);
 
+        // payment
+
+        Route::controller(Payment_Key_detailController::class)->group(function () {
+            Route::get('/payments/edit/{id}/', 'edit')->name('payments.edit');
+        });
+        Route::resource('/payments',Payment_Key_detailController::class);
+
         //Setting manager
         Route::controller(SettingController::class)->group(function () {
             Route::get('/settings/general', 'edit_general')->name('settings.edit_general');

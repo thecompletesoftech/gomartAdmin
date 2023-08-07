@@ -20,9 +20,9 @@
             <div class="col-4" style="float:right;">
                 <input 
                     type="search" 
-                    name="name" 
+                    name="coupan_code" 
                     class="form-control searchEmail"
-                    placeholder="Search for Carrency Name" 
+                    placeholder="Search for Coupon Name" 
                 />
             </div>
         </div>
@@ -33,11 +33,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Coupan Code</th>
+                            <th>Coupon Code</th>
                             <th>Amount</th>
                             <th>Amount Discount</th>
                             <th>Expiry Date</th>
-                            <th>Coupan Status</th>
+                            <th>Coupon Status</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -57,7 +57,7 @@
             ajax: {
                 url: "{{ route('admin.coupans.index') }}",
                 data: function(d) {
-                    d.name = $('.searchEmail').val(),
+                    d.coupan_code = $('.searchEmail').val(),
                     d.search = $('input[type="search"]').val()
                 }
             },

@@ -73,12 +73,4 @@ class CommissionController extends Controller
         return redirect()->back()->with('success', 'Data Update Successfully');
     }
 
-    // {!! Form::checkbox('commission_status', null, [
-    //     1, old('commission_status', $commsion
-    //     'class' => 'form-control form-control-lg form-control-solid',
-    //     'placeholder' => trans_choice('content.commission_status', 1),
-    // ]) !!}
-
-    // 'placeholder' => trans_choice('content.commission_status', 1)
-
 }   

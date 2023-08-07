@@ -53,28 +53,21 @@ class LanguageController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = DB::table('languages')->get();
+            // $data = DB::table('languages')->get();
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
+            $query = Language::query();
 
-                    if (!empty($request->get('language_name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['language_name'], $request->get('language_name')) ? true : false;
-                        });
-                    }
+            if ($request->has('language_name')) {
+                $name = $request->input('language_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(language_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(language_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-                    if (!empty($request->get('search'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['language_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['language_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
-                })
+
+            return DataTables::of($query)->addIndexColumn()
+              
                 ->addColumn('language_status', function ($model) {
                     return $model->language_status == 0 ? 'Yes' : 'No';
                 })

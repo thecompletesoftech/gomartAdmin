@@ -53,7 +53,7 @@
                 url: "{{ route('admin.banners.index') }}",
                 data: function(d) {
                     d.banner_title = $('.searchEmail').val(),
-                        d.search = $('input[type="search"]').val()
+                    d.search = $('input[type="search"]').val()
                 }
             },
             columns: [{

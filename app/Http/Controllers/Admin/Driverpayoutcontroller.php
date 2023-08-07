@@ -54,28 +54,19 @@ class Driverpayoutcontroller extends Controller
     {
         if ($request->ajax()) {
 
-            $data = DB::table('driverpayouts')->get();
+            $query = Driverpayout::join('drivers','drivers.driver_id','=','driverpayouts.driver_name')
+            ->select('driverpayouts.*','drivers.driver_name')->get();
 
-            return DataTables::of($data)->addIndexColumn()
-                ->filter(function ($instance) use ($request) {
-                    if (!empty($request->get('driver_name'))) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            return Str::contains($row['driver_name'], $request->get('driver_name')) ? true : false;
-                        });
-                    }
+            if ($request->has('driver_name')) {
+                $name = $request->input('driver_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(driver_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(driver_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
 
-                    if (!empty($request->get('search'))) {
-                            $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                            if (Str::contains(Str::lower($row['driver_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            } else if (Str::contains(Str::lower($row['driver_name']), Str::lower($request->get('search')))) {
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
-
-                })
+            return DataTables::of($query)->addIndexColumn()
+              
                 ->addColumn('action', function ($row) {
                     $btn1 = '<a href="driverpayouts/'. $row->driver_id .'/edit" class="btn btn-warning btn-sm" style="display:none;">Edit</a>';
                     $btn2 = '&nbsp;&nbsp;<a href="driverpayouts/destroy/'. $row->driver_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" 

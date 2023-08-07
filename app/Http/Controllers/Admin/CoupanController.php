@@ -53,9 +53,17 @@ class CoupanController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = DB::table('coupans')->get();
+            $query = Coupan::query();
 
-            return DataTables::of($data)->addIndexColumn()
+            if ($request->has('coupan_code')) {
+                $name = $request->input('coupan_code');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(coupan_code) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(coupan_code) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
+            }
+
+            return DataTables::of($query)->addIndexColumn()
                 ->addColumn('coupan_status', function ($model) {
                     return $model->coupan_status == 0 ? 'Active' : 'Deactive';
                 })

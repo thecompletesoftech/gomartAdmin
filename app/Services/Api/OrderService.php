@@ -20,7 +20,7 @@ class OrderService
             $validator = Validator::make($request->all(), [
                 'order_amount' => 'required',
                 'order_type' => 'required',
-                'item_id' => 'required',
+                'item_name' => 'required',
                 'order_date' => 'required',
             ]);
 
@@ -37,13 +37,11 @@ class OrderService
             $randomCharacter = $characters[rand(0, $charactersLength - 1)];
             $randomString = substr_replace($randomString, $randomCharacter, rand(0, $charactersLength - 2), 0);
 
-            // Carbon::parse($request->created_at)->isoFormat('MMM DD YYYY')
-
             $OrderInput = [
                 'order_id' => $randomString,
-                'user_id' => Auth::user()->id,
+                'name' => Auth::user()->id,
                 'store_id' => 1,
-                'item_id' => 1,
+                'item_name' => 1,
                 'order_date' => $request->order_date,
                 'order_amount' => $request->order_amount,
                 'order_type' => $request->order_type,
@@ -52,7 +50,8 @@ class OrderService
 
             $addOrder = Order::create($OrderInput);
 
-            if ($addOrder) {
+            if ($addOrder) 
+            {
                 return response()->json(
                     [
                         'status' => true,

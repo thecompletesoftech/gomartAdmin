@@ -26,7 +26,7 @@ return [
     'review' => 'Review|Reviews',
     'global' => 'GlobalSetting|GlobalSettings',
     'currency' => 'Currency|Currencys',
-    'coupan' => 'Coupan|Coupans',
+    'coupan' => 'Coupon|Coupons',
     'language' => 'Language|Languages',
     'vat' => 'Vats|Vats',
     'deliverycharge' => 'DeliveryCharges|DeliveryCharges',
@@ -37,6 +37,7 @@ return [
     'ordertransaction' => 'Ordertransactions|Ordertransactions',
     'driver' => 'Drivers|Drivers',
     'store' => 'Stores|Stores',
+    'payment' => 'Razorpay|Razorpay',
     
     'save' => 'Save',
     'status' => 'Status',

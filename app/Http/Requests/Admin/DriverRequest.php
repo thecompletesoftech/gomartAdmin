@@ -2,9 +2,12 @@
 
 namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DriverRequest extends FormRequest
 {
+    protected $stopOnFirstFailure = true;
+
     public function rules()
     {
         if (!request()->is('admin/driver/create')) {
@@ -13,11 +16,17 @@ class DriverRequest extends FormRequest
                 'store_name' => 'required',
                 'driver_image' => 'required',
                 'driver_phone_number' => 'required|max:10|min:10',
-                'driver_email' => 'required',
+                'driver_email' => 'required|email',
                 'driver_address' => 'required|max:200',
-                'car_number' => 'required|regex:/(^([a-zA-z]+)(\d+)?$)/u',
-                'car_name' => 'required',
+                'car_number' => 'required|regex:/^[A-Za-z0-9 -]+$/',
+                'car_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'car_image' => 'required',
+                'car_image' => 'required',
+                'bank_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'branch_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'holder_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'account_number' => 'required|min:9|max:18|regex:/^[a-zA-Z0-9]+$/',
+                'other_info' => 'required|regex:/(^[A-Za-z ]+$)+/'
             ];
         } else {
             return [
@@ -25,11 +34,16 @@ class DriverRequest extends FormRequest
                 'store_name' => 'required',
                 'driver_image' => 'required',
                 'driver_phone_number' => 'required|max:10|min:10',
-                'driver_email' => 'required',
+                'driver_email' => 'required|email',
                 'driver_address' => 'required|max:200',
-                'car_number' => 'required|regex:/(^([a-zA-z]+)(\d+)?$)/u',
-                'car_name' => 'required',
+                'car_number' => 'required|regex:/^[A-Za-z0-9 -]+$/',
+                'car_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'car_image' => 'required',
+                'bank_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'branch_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'holder_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'account_number' => 'required|min:9|max:18|regex:/^[a-zA-Z0-9]+$/',
+                'other_info' => 'required|regex:/(^[A-Za-z ]+$)+/'
             ];
         }
     }
@@ -42,10 +56,15 @@ class DriverRequest extends FormRequest
             'driver_image.required' => __('validation.required', ['attribute' => 'Driver Image']),
             'driver_phone_number.required' => __('validation.required', ['attribute' => 'Driver phone number']),
             'driver_email.required' => __('validation.required', ['attribute' => 'Driver Email']),
+            'driver_email.email' => __('validation.email', ['attribute' => 'Valid Email Address']),
             'driver_address.required' => __('validation.required', ['attribute' => 'Driver Address']),
             'car_number.required' => __('validation.required', ['attribute' => 'Car Number']),
             'car_name.required' => __('validation.required', ['attribute' => 'Car Name']),
-            'car_image.required' => __('validation.required', ['attribute' => 'Car Image']),
+            'bank_name.required' => __('validation.required', ['attribute' => 'Bank Name']),
+            'branch_name.required' => __('validation.required', ['attribute' => 'Branch Name']),
+            'holder_name.required' => __('validation.required', ['attribute' => 'Holder Name']),
+            'account_number.required' => __('validation.required', ['attribute' => 'Account Number']),
+            'other_info.required' => __('validation.required', ['attribute' => 'Other Info'])
         ];
     }
 }
