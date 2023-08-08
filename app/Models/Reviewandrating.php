@@ -22,4 +22,8 @@ class Reviewandrating extends Model
         'item_name'
     ];
 
+    public function getItemname(){
+        return $this->belongsTo(Item::class,'item_id');
+    }
+
 }

@@ -67,8 +67,8 @@
                     name: 'rating_id'
                 },
                 {
-                    data: 'item_name',
-                    name: 'item_name'
+                    data: 'item_as_name',
+                    name: 'item_as_name'
                 },
                 {
                     data: 'order_review',
@@ -79,8 +79,8 @@
                     name: 'order_rate'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'user_name',
+                    name: 'user_name'
                 },
                 {
                     data: 'action',

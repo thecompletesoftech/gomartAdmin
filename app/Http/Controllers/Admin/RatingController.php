@@ -61,28 +61,24 @@ class RatingController extends Controller
 
     public function index(Request $request)
     {
-
+        
         if ($request->ajax()) {
 
-            // $data = DB::table('reviewandratings')
-            // ->join('users', 'reviewandratings.name', '=', 'users.id')
-            // ->join('items', 'reviewandratings.item_name', '=', 'items.item_id')
-            // ->select('reviewandratings.*','users.name','items.item_name')->get();
-
-            $query = Reviewandrating::join('users', 'reviewandratings.name', '=', 'users.id')
-            ->join('items', 'reviewandratings.item_name', '=', 'items.item_id')
-            ->select('reviewandratings.*','users.name','items.item_name');
-
+            $query = Reviewandrating::Join('users', 'users.id', '=', 'reviewandratings.name')
+                ->Join('items', 'items.item_id', '=', 'reviewandratings.item_name')
+                ->select('users.name as user_name', 'items.item_name as item_as_name', 'reviewandratings.*');
+       
             if ($request->has('order_review')) {
-                $name = $request->input('order_review');
-                $query->where(function ($query) use ($name) {
-                    $query->whereRaw('LOWER(order_review) LIKE ?', ['%' . strtolower($name) . '%'])
-                        ->orWhereRaw('UPPER(order_review) LIKE ?', ['%' . strtoupper($name) . '%']);
+                $searchValue = $request->input('order_review');
+                $query->where(function ($q) use ($searchValue) {
+                    $q->where('reviewandratings.order_review', 'like', '%' . $searchValue . '%')
+                        ->orWhere('reviewandratings.order_review', 'like', '%' . $searchValue . '%')
+                        ->orWhere('reviewandratings.order_review', 'like', '%' . $searchValue . '%');
                 });
             }
 
             return DataTables::of($query)->addIndexColumn()
-               
+
                 ->addColumn('order_rate', function ($product) {
                     $rating = $product->order_rate;
                     $stars = '';

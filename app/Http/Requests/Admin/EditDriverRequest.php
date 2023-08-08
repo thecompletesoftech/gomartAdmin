@@ -19,8 +19,8 @@ class EditDriverRequest extends FormRequest
                 'bank_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'branch_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'holder_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
-                'account_number' => 'required|min:9|max:18|regex:/^[a-zA-Z0-9]+$/',
-                'other_info' => 'required|regex:/(^[A-Za-z ]+$)+/'
+                'account_number' => 'required|min:9|max:18|regex:/^[0-9]+$/',
+                'other_info' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/'
             ];
         } else {
             return [
@@ -34,8 +34,8 @@ class EditDriverRequest extends FormRequest
                 'bank_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'branch_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'holder_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
-                'account_number' => 'required|min:9|max:18|regex:/^[a-zA-Z0-9]+$/',
-                'other_info' => 'required|regex:/(^[A-Za-z ]+$)+/'
+                'account_number' => 'required|min:9|max:18|regex:/^[0-9]+$/',
+                'other_info' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/'
             ];
         }
     }

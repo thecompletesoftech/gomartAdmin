@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
      /**
      * Run the migrations.
      *
@@ -15,11 +14,15 @@ return new class extends Migration
     
     public function up()
     {
-        Schema::create('globals', function (Blueprint $table) {
+        Schema::create('globals', function (Blueprint $table) 
+        {
             $table->increments('global_id');
             $table->string('application_name');
             $table->string('application_logo');
             $table->string('application_color');
+            $table->string('currency_symbol');
+            $table->string('currency_code');
+            $table->string('currency_name');
             $table->timestamps();
         });
     }

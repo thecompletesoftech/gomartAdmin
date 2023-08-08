@@ -42,14 +42,49 @@
                     accept=".png, .jpg, .jpeg">
             @endif
         </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Currency Symbol</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('currency_symbol', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.currency_symbol', 1),
+            ]) !!}
+        </div>
+
     </div>
 
-</div>
+    <div class="row mb-6">
 
-<!--end::Card body-->
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Currency Code</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('currency_code', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.currency_code', 1),
+            ]) !!}
+        </div>
 
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Currency Name</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('currency_name', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.currency_name', 1),
+            ]) !!}
+        </div>
 
-@push('scripts')
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\GlobalSettingRequest', 'form') !!}
-@endpush
+    </div>
+
+    <!--end::Card body-->
+
+    @push('scripts')
+        <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+        {!! JsValidator::formRequest('App\Http\Requests\Admin\GlobalSettingRequest', 'form') !!}
+    @endpush

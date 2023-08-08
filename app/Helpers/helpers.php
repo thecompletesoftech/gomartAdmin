@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Drivers;
+use App\Models\Order;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\Stores;
@@ -211,8 +213,17 @@ function total_user(){
     return $total_user;       
 }
 
+function total_store(){
+    $total_store = Stores::count('store_id');
+    return $total_store;       
+}
 
-function listofdriver($id){
-    $data = Stores::where('store_id',$id)->first(['store_name']);         
-        return $data->store_name;
+function total_driver(){
+    $total_driver = Drivers::count('driver_id');
+    return $total_driver;       
+}
+
+function total_order(){
+    $total_order = Order::count('order_id');
+    return $total_order;       
 }

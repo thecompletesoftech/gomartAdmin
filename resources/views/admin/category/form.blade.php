@@ -7,7 +7,9 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Category Name</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="category_name">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="category_name"
+                placeholder="category name"
+            >
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Category Image</label>
@@ -21,7 +23,9 @@
     <div class="row mb-6">
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Description</label>
         <div class="col-lg-12 fv-row">
-            <textarea name="description" class="form-control form-control-lg form-control-solid"></textarea>
+            <textarea name="description" class="form-control form-control-lg form-control-solid"
+              placeholder="description"
+            ></textarea>
         </div>
     </div>
 

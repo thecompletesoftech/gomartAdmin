@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'category_name.required' => __('validation.required', ['attribute' => 'Catgeory Name']),
+            'category_name.required' => __('validation.required', ['attribute' => 'Category Name']),
             'category_image.required' => __('validation.required', ['attribute' => 'Category Image']),
             'description.required' => __('validation.required', ['attribute' => 'Description']),
         ];

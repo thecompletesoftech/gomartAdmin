@@ -16,7 +16,10 @@ class Globalsetting extends Model
     protected $fillable = [
         'application_name',
         'application_logo',
-        'application_color'
+        'application_color',
+        'currency_name',
+        'currency_code',
+        'currency_symbol'
     ];
 
 }

@@ -77,17 +77,19 @@ return [
         'new_users' => 'Total Users',
         'active_session'=>'Total Active Session',
         'total_roles' => 'Total Roles',
+        'total_orders' => 'Total Orders',
         'total_permissions' => 'Total Permissions',
         'select_year' => 'Select Year',
         'total_manager' => 'Total Manager',
         'total_vendors' => 'Total Vendors',
         'weekly_sales' => 'Weekly Sales',
         'yearly_sales' => 'Yearly Sales',
-
         'item_count' => 'Item Count',
         'total_vendors' => 'Total Vendors',
         'total_income' => 'Total Income',
         'total_purchase' => 'Total Purchase',
+        'total_store' => 'Store',
+        'total_driver' => 'Drivers',
         'total_fund_balance' => 'Total Fund Balance',
         'total_transaction' => 'Total Transaction',
         'total_amount_spent' => 'Total Amount Spent',
@@ -315,6 +317,9 @@ return [
     'application_name' => 'Application Name', 
     'application_logo' => 'Application Logo', 
     'application_color' => 'Application Color',
+    'currency_symbol' => 'Currency Symbol',
+    'currency_code' => 'Currency Code',
+    'currency_name' => 'Currency Name',
 
     // Language
 

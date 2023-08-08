@@ -322,7 +322,7 @@
 
                     <!-- start Currency menu section --!>
 
-                    <div class="menu-item">
+                    <!-- <div class="menu-item">
                         <a class="menu-link {{ checkActiveSideBar(['currency']) ? 'menu-item active' : '' }}"
                             href="{{ route('admin.currencys.index') }}">
                             <span class="menu-icon">
@@ -330,13 +330,13 @@
                             </span>
                             <span class="menu-title">Currency</span>
                         </a>
-                    </div>
+                    </div> -->
 
                     <!-- end Currency menu section --!>
 
                     <!-- start Coupan menu section --!>
 
-                    <div class="menu-item">
+                    <!-- <div class="menu-item">
                         <a class="menu-link {{ checkActiveSideBar(['coupan']) ? 'menu-item active' : '' }}"
                             href="{{ route('admin.coupans.index') }}">
                             <span class="menu-icon">
@@ -344,7 +344,7 @@
                             </span>
                             <span class="menu-title">Coupon</span>
                         </a>
-                    </div>
+                    </div> -->
 
                     <!-- end Coupan menu section --!>
 
@@ -364,7 +364,7 @@
 
                     <!-- start Commission menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['commission']) ? 'menu-item active' : '' }}"
                                 href="{{ url('/') }}/admin/commissions/edit/1">
                                 <span class="menu-icon">
@@ -372,14 +372,14 @@
                                 </span>
                                 <span class="menu-title">Commission</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Commission menu section --!>
 
                     
                     <!-- start Commission menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['radius']) ? 'menu-item active' : '' }}"
                                 href="{{ url('/') }}/admin/radiuss/edit/1">
                                 <span class="menu-icon">
@@ -387,13 +387,13 @@
                                 </span>
                                 <span class="menu-title">Radius configuration </span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Commission menu section --!>
 
                     <!-- start vat menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['vat']) ? 'menu-item active' : '' }}"
                                 href="{{ url('/') }}/admin/vats/edit/1">
                                 <span class="menu-icon">
@@ -401,13 +401,13 @@
                                 </span>
                                 <span class="menu-title">Vat Setting</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end vat menu section --!>
 
                     <!-- start delivery charge menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['deliverycharge']) ? 'menu-item active' : '' }}"
                                 href="{{ url('/') }}/admin/deliverycharges/edit/1">
                                 <span class="menu-icon">
@@ -415,13 +415,13 @@
                                 </span>
                                 <span class="menu-title">Delivery Charge</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end delivery charge menu section --!>
 
                     <!-- start special offer menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['specialoffer']) ? 'menu-item active' : '' }}"
                                 href="{{ url('/') }}/admin/specialoffers/edit/1">
                                 <span class="menu-icon">
@@ -429,13 +429,13 @@
                                 </span>
                                 <span class="menu-title">Special Offer</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end delivery special offer menu section --!>
 
                     <!-- start  Stores Payment menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['storepayment']) ? 'menu-item active' : '' }}"
                                 href="{{ route('admin.storepayments.index') }}">
                                 <span class="menu-icon">
@@ -443,13 +443,13 @@
                                 </span>
                                 <span class="menu-title">Stores Payments</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Stores Payment menu section --!>
 
                     <!-- start  Stores Payment menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['storepayout']) ? 'menu-item active' : '' }}"
                                 href="{{ route('admin.storepayouts.index') }}">
                                 <span class="menu-icon">
@@ -457,13 +457,13 @@
                                 </span>
                                 <span class="menu-title">Stores Payouts</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Stores Payment menu section --!>
 
                     <!-- start  Driver Payment menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['driverpayment']) ? 'menu-item active' : '' }}"
                                 href="{{ route('admin.driverpayments.index') }}">
                                 <span class="menu-icon">
@@ -471,13 +471,13 @@
                                 </span>
                                 <span class="menu-title">Driver Payment</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Driver Payment menu section --!>
 
                     <!-- start  Driver Payout menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['driverpayout']) ? 'menu-item active' : '' }}"
                                 href="{{ route('admin.driverpayouts.index') }}">
                                 <span class="menu-icon">
@@ -485,13 +485,13 @@
                                 </span>
                                 <span class="menu-title">Driver Payout</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Driver Payout menu section --!>
 
                     <!-- start Wallet Transaction menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['wallettransaction']) ? 'menu-item active' : '' }}"
                                 href="{{ route('admin.wallettransactions.index') }}">
                                 <span class="menu-icon">
@@ -499,13 +499,13 @@
                                 </span>
                                 <span class="menu-title">Wallet Transaction</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Wallet Transaction menu section --!>
                     
                     <!-- start Order Transaction menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['ordertransaction']) ? 'menu-item active' : '' }}"
                                 href="{{ route('admin.ordertransactions.index') }}">
                                 <span class="menu-icon">
@@ -513,13 +513,13 @@
                                 </span>
                                 <span class="menu-title">Order Transaction</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Order Transaction menu section --!>
 
                     <!-- start Payment Key menu section --!>
 
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ checkActiveSideBar(['payment']) ? 'menu-item active' : '' }}"
                                 href="{{ url('/') }}/admin/payments/edit/1">
                                 <span class="menu-icon">
@@ -529,7 +529,7 @@
                                 </span>
                                 <span class="menu-title">Payment</span>
                             </a>
-                        </div>
+                        </div> -->
 
                     <!-- end Payment Key menu section --!>
 

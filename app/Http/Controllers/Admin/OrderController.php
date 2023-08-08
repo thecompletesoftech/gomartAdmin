@@ -43,7 +43,7 @@ class OrderController extends Controller
         $this->mls = new ManagerLanguageService('messages');
     }
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -51,17 +51,18 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->ajax()) 
-        {
-            $query = Order::join('items','items.item_id','=','orders.item_name')
-            ->join('users','users.id','=','orders.name')
-            ->select('orders.*','items.item_name','users.name')->get();
+        if ($request->ajax()) {
+
+            $query = Order::Join('users', 'users.id', '=', 'orders.name')
+                ->Join('items', 'items.item_id', '=', 'orders.item_name')
+                ->select('users.name as user_name', 'items.item_name as item_as_name', 'orders.*');
 
             if ($request->has('item_name')) {
-                $name = $request->input('item_name');
-                $query->where(function ($query) use ($name) {
-                    $query->whereRaw('LOWER(item_name) LIKE ?', ['%' . strtolower($name) . '%'])
-                        ->orWhereRaw('UPPER(item_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                $searchValue = $request->input('item_name');
+                $query->where(function ($q) use ($searchValue) {
+                    $q->where('items.item_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('items.item_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('items.item_name', 'like', '%' . $searchValue . '%');
                 });
             }
 
