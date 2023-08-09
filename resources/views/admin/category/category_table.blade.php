@@ -28,6 +28,7 @@
                             <th>Category Name</th>
                             <th>Category Image</th>
                             <th>Description</th>
+                            <th>Language Name</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -78,6 +79,10 @@
                 {
                     data: 'description',
                     name: 'description'
+                },
+                {
+                    data: 'lang_name',
+                    name: 'lang_name'
                 },
                 {
                     data: 'action',

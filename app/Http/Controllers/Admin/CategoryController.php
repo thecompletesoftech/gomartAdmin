@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Language;
 use App\Services\Categoryservice;
 use App\Services\FileService;
 use App\Services\ManagerLanguageService;
 use App\Services\UtilityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\Datatables;
 
@@ -22,7 +24,6 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-
         //Data
         $this->uploads_image_directory = 'files/categorys';
         //route
@@ -40,12 +41,11 @@ class CategoryController extends Controller
         $this->intrestService = new CategoryService();
         // $this->customerService = new CustomerService();
         $this->utilityService = new UtilityService();
-
         //mls is used for manage language content based on keys in messages.php
         $this->mls = new ManagerLanguageService('messages');
     }
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -53,23 +53,24 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->ajax()) 
-        {
-            $query = Category::query();
+        if ($request->ajax()) {
+
+            $query = Category::Join('languages', 'languages.language_id', '=', 'categories.language_id')
+                ->select('languages.language_name as lang_name', 'categories.*');
 
             if ($request->has('category_name')) {
-                $name = $request->input('category_name');
-                $query->where(function ($query) use ($name) {
-                    $query->whereRaw('LOWER(category_name) LIKE ?', ['%' . strtolower($name) . '%'])
-                        ->orWhereRaw('UPPER(category_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                $searchValue = $request->input('category_name');
+                $query->where(function ($q) use ($searchValue) {
+                    $q->where('categories.category_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('categories.category_name', 'like', '%' . $searchValue . '%');
                 });
             }
 
             return DataTables::of($query)->addIndexColumn()
-          
+
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="categorys/'. $row->cat_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="categorys/destroy/'. $row->cat_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
+                    $btn1 = '<a href="categorys/' . $row->cat_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
+                    $btn2 = '&nbsp;&nbsp;<a href="categorys/destroy/' . $row->cat_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
                     return $btn1 . "" . $btn2;
                 })
                 ->rawColumns(['action'])
@@ -78,17 +79,19 @@ class CategoryController extends Controller
         return view('admin.category.index');
     }
 
-     /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
-        return view($this->create_view);
+        $data['languages'] = Language::where('language_status', '0')->get(["language_name", "language_id", "language_slug"]);
+        return view($this->create_view, $data);
     }
 
-     /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  UserIntrestRequest $request
@@ -97,19 +100,32 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
 
-        $logo = $request->file('category_image');
-        $picture = FileService::fileUploaderWithoutRequest($logo, 'category/image/');
-        $input['category_image'] = $picture;
+        $data = [
+            'category_name' => $input['category_name'],
+            'description' => $input['description'],
+            'category_image' => $input['category_image'],
+            'language_id' => $input['language_id'],
+        ];
 
-        $category = $this->intrestService->create($input);
+        foreach ($data['category_name'] as $index => $categoryName) {
+
+            $picture = FileService::fileUploaderWithoutRequest($data['category_image'][$index], 'category/image/');
+
+            Category::create([
+                'category_name' => $categoryName,
+                'description' => $data['description'][$index],
+                'language_id' => $data['language_id'][$index],
+                'category_image' => $picture,
+            ]);
+        }
+
         return redirect()->route($this->index_route_name)
-            ->with('success', $this->mls->messageLanguage('created', 'category', 1));
+        ->with('success', $this->mls->messageLanguage('created', 'category', 1));
     }
 
-     /**
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\UserIntrestRequest  $battle
@@ -121,7 +137,7 @@ class CategoryController extends Controller
         return view($this->detail_view, compact('category'));
     }
 
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Order  $order
@@ -133,14 +149,14 @@ class CategoryController extends Controller
         return view($this->edit_view, compact('category'));
     }
 
-     /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    
+
     public function update(Request $request, Category $category)
     {
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
@@ -149,15 +165,14 @@ class CategoryController extends Controller
             $logo = $request->file('category_image');
             $picture = FileService::fileUploaderWithoutRequest($logo, 'category/image/');
             $input['category_image'] = $picture;
-
         }
 
         $this->intrestService->update($input, $category);
         return redirect()->route($this->index_route_name)
-        ->with('success', $this->mls->messageLanguage('updated', 'category', 1));
+            ->with('success', $this->mls->messageLanguage('updated', 'category', 1));
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\UserIntrest  $intrest
@@ -169,7 +184,6 @@ class CategoryController extends Controller
         $result = DB::table('categories')->where('cat_id', $id)->delete();
         return redirect()->back()->withSuccess('Data Delete Successfully!');
     }
-
 
     public function status($id, $status)
     {
