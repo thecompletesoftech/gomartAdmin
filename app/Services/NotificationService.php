@@ -14,16 +14,16 @@ class NotificationService
      */
     public static function create(array $data)
     {
-       
         $data = Notification::create($data);
-        // $notification = [
-        //     "id" => $data->user_id,
-        //     "notification" => [
-        //         "title" => $data->notification,
-        //         "body" => $data->message],
-        // ];
-
-        //  $notification = HelperService::sendNotification($notification);
+        $notification = [
+            "notification_id" => $data->notification_id,
+            "id" => $data->user_id,
+            "notification" => [
+                "notification_subject" => $data->notification_subject,
+                "notification_message" => $data->notification_message],
+        ];
+        
+        $notification = HelperService::sendNotification($notification);
         return $data;
     }
 
@@ -89,16 +89,16 @@ class NotificationService
         return $data;
     }
 
-     /**
+    /**
      * Get data for datatable from storage.
      *
      * @return Notification with states, countries
      */
     public static function datatable()
     {
-      
+
         $data = Notification::orderBy('created_at', 'desc')->paginate(10);
-        
+
         return $data;
     }
 }

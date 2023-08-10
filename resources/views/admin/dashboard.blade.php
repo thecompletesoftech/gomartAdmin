@@ -88,7 +88,7 @@
                             <!--begin::Stats-->
                             <div class="card-p position-relative">
                                 <!--begin::Row-->
-                                <div class="row g-0">
+                               <div class="row g-0">
 
                                     <!--begin::Col-->
 
@@ -114,7 +114,6 @@
                                     <div class="col  px-6 py-8 rounded-2 me-7 mb-7 text-center">
                                     </div>
                                     <!--end::Col-->
-
 
                                 </div>
                                 <!--end::Row-->

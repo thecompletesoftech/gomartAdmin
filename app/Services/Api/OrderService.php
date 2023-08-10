@@ -3,6 +3,7 @@
 namespace App\Services\Api;
 
 use App\Models\Order;
+use App\Services\NotificationService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,9 +50,17 @@ class OrderService
             ];
 
             $addOrder = Order::create($OrderInput);
+            $screen = 0;
+            $input = [
+                'notification' => 'Order Purchase',
+                'message' => 'You Order Purchase',
+                'user_id' => auth()->user()->id,
+                'order_id' => $request->order_id,
+            ];
 
-            if ($addOrder) 
-            {
+            NotificationService::create($input, $screen);
+
+            if ($addOrder) {
                 return response()->json(
                     [
                         'status' => true,
@@ -98,7 +107,7 @@ class OrderService
             $input['order_status'] = 2;
 
             $result = DB::table('orders')->where('order_id', $request->order_id)->update($input);
-            
+
             if ($result) {
                 return response()->json(
                     [
@@ -118,14 +127,13 @@ class OrderService
                 );
             }
 
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
             ]);
         }
-        
+
     }
 
 }

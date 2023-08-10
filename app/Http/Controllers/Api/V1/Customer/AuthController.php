@@ -52,19 +52,18 @@ class AuthController extends Controller
         return $this->apiAuthService->login($request);
     }
 
-    /**
+     /**
      * Register user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function userRegister(ApiRegisterRequest $request)
     {
-        
         $request->merge(['role' => 'Customer']);  
         return $this->apiAuthService->userRegister($request);
     }
-
 
      /**
      * Send Otp

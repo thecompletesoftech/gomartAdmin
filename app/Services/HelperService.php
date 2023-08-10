@@ -6,13 +6,12 @@ use App\Models\MasterOtp;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Notification;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Support\Facades\Log;
-use Twilio\Rest\Client;
-use Exception;
 
 class HelperService
 {
@@ -71,10 +70,10 @@ class HelperService
         return $otp;
     }
 
-     public static function sendMessage($country_code,$number, $message, $otp = '')
+    public static function sendMessage($country_code,$number, $message, $otp = '')
     {
         if (!empty($otp)) {
-            $data = [
+            $data = [  
                 'phone' => $number,
                 'otp' => $otp,
                 'role_id' => 2
@@ -112,85 +111,7 @@ curl_close($ch);
         } else {
             return true;
         }
-    } 
-
-
-
-
-    public static function sendMessageTwilio($country_code,$number, $message, $otp = '')
-    {
-      
-        if (!empty($otp)) {
-            $data = [  
-                'phone' => $number,
-                'otp' => $otp,
-                'role_id' => 2
-            ];
-         
-            MasterOtp::create($data);
-        }
-        if (env('PRODUCTION', false)) {
-            $curl = curl_init();
-        try {
-            $receiverNumber="+".$country_code.$number;
-          
-            $message="Your verification code ".$otp;
-            $account_sid = getenv("TWILIO_SID");
-            $auth_token = getenv("TWILIO_TOKEN");
-            $twilio_number = getenv("TWILIO_FROM"); 
-            $client = new Client($account_sid, $auth_token);
-
-          $client->messages->create($receiverNumber, [
-                'from' => $twilio_number, 
-                'body' => $message
-            ]);
-            
-            return true;
-
-        } catch (Exception $e) {
-            dd("Error: ". $e->getMessage());
-        }
-            return true;
-        } else {
-
-            return true;
-        }
-    } 
-
-
-    
-    //Send mail Using Curl
-    public static function sendEmail(array $detail, $request)
-    {
-
-        $sendemail =$request;
-        $name = $detail['name'];
-        $subject="Registration Successfully";
-     
-        // $html_content="<html><head><title>qlowq.com</title></head><body><div ><div><div ><p>Adventure</p></div></div><div ><h5>Dear".$name."</h5><p>Greetings of the day.!</p><p>Thank you for joining us in our qlowq family..</p><br><hr><h5>Thank you for your partnership!</h5><p>Should you have any enquiries concerning this notification, please contact us on Email: qlowq@gmail.com</p></div></div></body> </html>";
-  
-        $ch = curl_init();
-
-curl_setopt($ch, CURLOPT_URL, 'https://api.sendinblue.com/v3/smtp/email');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, "{  \n   \"sender\":{  \n      \"name\":\"Adventures\",\n      \"email\":\"noreply@email.qlowq.com\"\n   },\n   \"to\":[  \n      {  \n         \"email\":\"$sendemail\",\n         \"name\":\"$name\"\n      }\n   ],\n   \"subject\":\"$subject\",\n   \"htmlContent\":\"<html><head><title>qlowq.com</title></head><body><div class=container ><div style=display: flex;><div style=background-color:#29C180;color:black;text-align:center;border-radius:5px;width:100%;><p style=font-size:22px;color:white;font-weight:600>Adventure</p></div></div><div style=text-align:center><h5 style=font-size:18px>Dear $name</h5><p>Greetings of the day.!</p><p style=font-size:8px>Thank you for joining us in our qlowq family..</p><br><hr><h5>Thank you for your partnership!</h5><p style=font-size:8px class=mb-2>Should you have any enquiries concerning this notification, please contact us on Email: qlowq@gmail.com</p></div></div></body> </html>\"\n}");
-
-$headers = array();
-$headers[] = 'Api-Key: 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';
-$headers[] = 'Content-Type: application/json';
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-$result = curl_exec($ch);
-
-if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
-}
-curl_close($ch);
-        
-    } 
-
-
+    }
 
 
     public static function firebaseTokenSubscribeToTopic($topic, $token)
@@ -275,35 +196,33 @@ curl_close($ch);
      * @param array_keys $noti_data['sound']
      * @return boolean
      */
-    public static function sendNotification(array $noti_data)
+    public static function sendNotification(array $noti_data,$screen=0)
     {
-       
         $headr = array();
         $headr[] = 'Content-type: application/json';
-        // $fcm_server_key = config()->get('services.fcm.server_key');
         $fcm_server_key = env('FCM_SERVER_KEY');
         $headr[] = 'Authorization: key=' . $fcm_server_key;
 
         $user = UserService::getById($noti_data['id']);
-       
         
+        $call=Notification::where('id',$noti_data['noti_id'])->first();
+       
+
         if($user->push_notification==0) 
-        {
+        {  
             return true;
         }
         $noti_data['notification']['sound']="default";
-       
         $data_array =
             [
-
                 "to" => $user->fcm_token,
                 "notification" => $noti_data['notification'],
                 "data"=>[
                     "click_action"=> "FLUTTER_NOTIFICATION_CLICK",
                     "sound"=> "default", 
                     "status"=> "done",
-                    "screen"=> "Notifications",
-                   
+                    "screen"=> $screen==0 ? "Notifications" :"Call",
+                    "newdata"=>[$call],
                 ],
                 "apns"=>[
                     "payload"=>[

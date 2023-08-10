@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
-use App\Services\NotificationService;
-use App\Services\FileService;
+use App\Models\User;
 use App\Services\ManagerLanguageService;
+use App\Services\NotificationService;
 use App\Services\UtilityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -87,7 +87,7 @@ class NotificationController extends Controller
 
                 })
                 ->addColumn('action', function ($row) {
-                    $btn2 = '&nbsp;&nbsp;<a href="notifications/destroy/'. $row->notification_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
+                    $btn2 = '&nbsp;&nbsp;<a href="notifications/destroy/' . $row->notification_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
                     return $btn2;
                 })
                 ->rawColumns(['action'])
@@ -117,9 +117,17 @@ class NotificationController extends Controller
     public function store(Request $request)
     {
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
-        $notification = $this->intrestService->create($input);
+
+        $data = array();
+        $screen = 0;
+        $data = User::where('login_type', $input['notification_send_to'])->get();
+
+        foreach ($data as $datas) {
+            $input['user_id'] = $datas->id;
+            $battle = $this->intrestService->create($input, $screen);
+        }
         return redirect()->route($this->index_route_name)
-        ->with('success', $this->mls->messageLanguage('created', 'notification', 1));
+            ->with('success', $this->mls->messageLanguage('created', 'notification', 1));
     }
 
     /**
@@ -172,7 +180,6 @@ class NotificationController extends Controller
         $result = DB::table('notifications')->where('notification_id', $id)->delete();
         return redirect()->back()->withSuccess('Data Delete Successfully!');
     }
-
 
     public function status($id, $status)
     {

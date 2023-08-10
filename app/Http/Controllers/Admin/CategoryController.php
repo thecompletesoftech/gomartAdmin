@@ -87,7 +87,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $data['languages'] = Language::where('language_status', '0')->get(["language_name", "language_id", "language_slug"]);
+        $data['languages'] = Language::where('language_status','0')->orderBy('language_id','DESC')->get(["language_name", "language_id", "language_slug"]);
         return view($this->create_view, $data);
     }
 
