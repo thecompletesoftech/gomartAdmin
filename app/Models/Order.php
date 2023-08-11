@@ -17,10 +17,11 @@ class Order extends Model
         'user_id',
         'driver_id',
         'store_id',
+        'name',
         'item_name',
         'order_amount',
         'order_type',
         'order_date',
-        'order_status'
+        'order_status',
     ];
 }

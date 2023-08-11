@@ -12,7 +12,7 @@ use App\Services\UtilityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\Datatables;
 
 class CategoryController extends Controller
@@ -87,7 +87,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $data['languages'] = Language::where('language_status','0')->orderBy('language_id','DESC')->get(["language_name", "language_id", "language_slug"]);
+        $data['languages'] = Language::where('language_status', '0')->orderBy('language_id', 'DESC')->get(["language_name", "language_id", "language_slug"]);
         return view($this->create_view, $data);
     }
 
@@ -102,27 +102,43 @@ class CategoryController extends Controller
     {
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
 
-        $data = [
-            'category_name' => $input['category_name'],
-            'description' => $input['description'],
-            'category_image' => $input['category_image'],
-            'language_id' => $input['language_id'],
+        // $data = [
+        //     'category_name' => $input['category_name'],
+        //     'description' => $input['description'],
+        //     'category_image' => $input['category_image'],
+        //     'language_id' => $input['language_id'],
+        // ];
+
+        $data = $request->all();
+
+        $rules = [
+            'category_name' => 'required|array',
+            'description' => 'required|array',
+            'language_id' => 'required|array',
+            'category_image' => 'required|array',
         ];
 
-        foreach ($data['category_name'] as $index => $categoryName) {
+        $validator = Validator::make($data, $rules);
 
-            $picture = FileService::fileUploaderWithoutRequest($data['category_image'][$index], 'category/image/');
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
 
-            Category::create([
-                'category_name' => $categoryName,
-                'description' => $data['description'][$index],
-                'language_id' => $data['language_id'][$index],
-                'category_image' => $picture,
-            ]);
+            foreach ($data['category_name'] as $index => $categoryName) {
+
+                $picture = FileService::fileUploaderWithoutRequest($data['category_image'][$index], 'category/image/');
+
+                Category::create([
+                    'category_name' => $categoryName,
+                    'description' => $data['description'][$index],
+                    'language_id' => $data['language_id'][$index],
+                    'category_image' => $picture,
+                ]);
+
+            }
         }
-
         return redirect()->route($this->index_route_name)
-        ->with('success', $this->mls->messageLanguage('created', 'category', 1));
+            ->with('success', $this->mls->messageLanguage('created', 'category', 1));
     }
 
     /**

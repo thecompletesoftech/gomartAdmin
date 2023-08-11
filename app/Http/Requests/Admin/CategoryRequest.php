@@ -8,7 +8,7 @@ class CategoryRequest extends FormRequest
 {
     public function rules()
     {
-        if (!request()->is('admin/category/create')) {
+        if (!request()->is('')) {
             return [
                 'category_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'category_image' => 'required',

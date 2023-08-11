@@ -205,7 +205,7 @@ curl_close($ch);
 
         $user = UserService::getById($noti_data['id']);
         
-        $call=Notification::where('id',$noti_data['noti_id'])->first();
+        $call=Notification::where('notification_id',$noti_data['notification_id'])->first();
        
 
         if($user->push_notification==0) 

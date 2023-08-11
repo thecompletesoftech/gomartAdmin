@@ -2,8 +2,7 @@
 
     <!--begin::Input group-->
 
-    @foreach ($languages as $lan)
-
+    @foreach ($languages as $index => $lan)
         <div class="row mb-6">
             <h4>Language_{{ $lan->language_name }}</h4>
         </div>
@@ -12,10 +11,8 @@
 
             <label class="col-lg-2 col-form-label required fw-bold fs-6">Category Name_{{ $lan->language_slug }}</label>
             <div class="col-lg-4 fv-row">
-                <input 
-                    type="text" name="category_name[]"
-                    class="form-control form-control-lg form-control-solid"
-                     />
+                <input type="text" name="category_name[]" class="form-control form-control-lg form-control-solid"
+                    value={{ old('category_name.' . $index) }} />
             </div>
 
             <label class="col-lg-2 col-form-label required fw-bold fs-6">Category Image_{{ $lan->language_slug }}</label>
@@ -30,7 +27,8 @@
 
             <label class="col-lg-2 col-form-label required fw-bold fs-6">Description_{{ $lan->language_slug }}</label>
             <div class="col-lg-12 fv-row">
-                <textarea name="description[]" class="form-control form-control-lg form-control-solid" placeholder="description"></textarea>
+                <textarea name="description[]" class="form-control form-control-lg form-control-solid" placeholder="description"
+                    value={{ old('description.' . $index) }}></textarea>
             </div>
 
             <div class="col-lg-12 fv-row">
@@ -43,8 +41,3 @@
 
 </div>
 <!--end::Card body-->
-
-@push('scripts')
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\CategoryRequest', 'form') !!}
-@endpush

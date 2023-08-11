@@ -63,6 +63,7 @@ class NotificationController extends Controller
 
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
             $data = DB::table('notifications')->get();
             return DataTables::of($data)->addIndexColumn()
@@ -95,7 +96,7 @@ class NotificationController extends Controller
         }
 
         return view('admin.notification.index');
-
+        
     }
 
     /**

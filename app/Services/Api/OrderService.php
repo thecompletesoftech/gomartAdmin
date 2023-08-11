@@ -3,7 +3,6 @@
 namespace App\Services\Api;
 
 use App\Models\Order;
-use App\Services\NotificationService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,15 +49,15 @@ class OrderService
             ];
 
             $addOrder = Order::create($OrderInput);
-            $screen = 0;
-            $input = [
-                'notification' => 'Order Purchase',
-                'message' => 'You Order Purchase',
-                'user_id' => auth()->user()->id,
-                'order_id' => $request->order_id,
-            ];
+            // $screen = 0;
+            // $input = [
+            //     'notification' => 'Order Purchase',
+            //     'message' => 'You Order Purchase',
+            //     'user_id' => auth()->user()->id,
+            //     'order_id' => $request->order_id,
+            // ];
 
-            NotificationService::create($input, $screen);
+            // NotificationService::create($input, $screen);
 
             if ($addOrder) {
                 return response()->json(
@@ -136,4 +135,101 @@ class OrderService
 
     }
 
+    public static function deleteorder(Request $request)
+    {
+
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'user_id' => 'required',
+                'order_id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Validation fails',
+                    'error' => $validator->errors(),
+                ], 400);
+            }
+
+            $orderdelete = DB::table('orders')
+                ->where('order_id', $request->order_id)
+                ->orWhere('name', $request->user_id)->delete();
+
+            if ($orderdelete) {
+                return response()->json(
+                    [
+                        'status' => true,
+                        'message' => 'Order Deleted Successfully',
+                        'Order' => $orderdelete,
+                    ],
+                    200
+                );
+            } else {
+                return response()->json(
+                    [
+                        'status' => false,
+                        'message' => 'Order Not Added',
+                        'data' => [],
+                    ],
+                    200
+                );
+            }
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public static function getOrderdetail(Request $request)
+    {
+    
+        try {
+            $validator = Validator::make($request->all(), [
+                'user_id' => 'required',
+                'order_id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Validation fails',
+                    'error' => $validator->errors(),
+                ], 400);
+            }
+
+            $getData = DB::table('orders')->join('items', 'items.item_id', '=', 'orders.item_name')
+                ->where('order_id', $request->order_id)->orWhere('name',$request->user_id)
+                ->select('orders.*', 'items.*')
+                ->get();
+
+            if ($getData) {
+                return response()->json(
+                    [
+                        'status' => true,
+                        'message' => 'Order Find Successfully',
+                        'data' => $getData,
+                    ],
+                    200
+                );
+            } else {
+                return response()->json(
+                    [
+                        'status' => false,
+                        'message' => 'Data not Found',
+                        'data' => [],
+                    ],
+                    200
+                );
+            }
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
 }
