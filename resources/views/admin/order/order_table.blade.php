@@ -18,8 +18,8 @@
 
         <div class="row mt-3">
             <div class="col-4">
-                <input type="search" name="item_name" class="form-control search"
-                    placeholder="Search for Product Name" />
+                <input type="search" name="driver_name" class="form-control search"
+                    placeholder="Search for Driver Name" />
             </div>
         </div>
 
@@ -30,9 +30,9 @@
                         <tr>
                             <th>Order ID </th>
                             <th>Client </th>
-                            <th>Date </th>
-                            <th>Product Name </th>
                             <th>Amount </th>
+                            <th>Drivers </th>
+                            <th>Date </th>
                             <th>Order Type </th>
                             <th>Order Status </th>
                             <th width="100px">Action</th>
@@ -55,7 +55,7 @@
             ajax: {
                 url: "{{ route('admin.orders.index') }}",
                 data: function(d) {
-                    d.item_name = $('.search').val(),
+                    d.driver_name = $('.search').val(),
                     d.search = $('input[type="search"]').val()
                 }
             },
@@ -69,16 +69,16 @@
                     name: 'user_name'
                 },
                 {
-                    data: 'order_date',
-                    name: 'order_date'
-                },
-                {
-                    data: 'item_as_name',
-                    name: 'item_as_name'
-                },
-                {
                     data: 'order_amount',
                     name: 'order_amount'
+                },
+                {
+                    data: 'dri_name',
+                    name: 'dri_name'
+                },
+                {
+                    data: 'order_date',
+                    name: 'order_date'
                 },
                 {
                     data: 'order_type',

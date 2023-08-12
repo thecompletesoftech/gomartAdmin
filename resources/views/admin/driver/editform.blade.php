@@ -57,21 +57,50 @@
     </div>
 
     <div class="row mb-6">
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Driver Longitude</label>
+
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('driver_longitude', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.driver_longitude', 1),
+            ]) !!}
+        </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Driver Latitude</label>
+
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('driver_latitude', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.driver_latitude', 1),
+            ]) !!}
+        </div>
+
+    </div>
+
+    <div class="row mb-6">
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Name</label>
         <div class="col-lg-4 fv-row">
             <select class="form-control form-control-solid" name="store_name">
                 <option value="">Select Store Name</option>
                 @foreach ($stores as $data)
-                    <option value="{{ $data->store_id }}" {{ $driver->store_name == $data->store_id ? 'selected' : '' }}>
+                    <option value="{{ $data->store_id }}"
+                        {{ $driver->store_name == $data->store_id ? 'selected' : '' }}>
                         {{ $data->store_name }}
                     </option>
-                @endforeach 
+                @endforeach
             </select>
         </div>
     </div>
 
     <div class="row mb-6">
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Driver Address</label>
+        <label class="col-lg-4 col-form-label required fw-bold fs-6">Driver Description</label>
         <div class="col-lg-12 fv-row">
             {!! Form::textarea('driver_address', null, [
                 'min' => 2,
@@ -97,8 +126,8 @@
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Car Name</label>
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid"
-                value="{{ $cars->car_name }}" placeholder="Car Name" name="car_name" />
+            <input type="text" class="form-control form-control-lg form-control-solid" value="{{ $cars->car_name }}"
+                placeholder="Car Name" name="car_name" />
         </div>
 
     </div>
@@ -127,18 +156,13 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Bank Name</label>
         <div class="col-lg-4 fv-row">
             <input type="text" class="form-control form-control-lg form-control-solid" name="bank_name"
-                value="{{ $bank_details->bank_name }}"
-                placeholder="Bank Name" />
+                value="{{ $bank_details->bank_name }}" placeholder="Bank Name" />
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Branch Name</label>
         <div class="col-lg-4 fv-row">
-            <input 
-                type="text" 
-                class="form-control form-control-lg form-control-solid" 
-                value="{{ $bank_details->branch_name }}"
-                name="branch_name"
-                placeholder="Branch Name" />
+            <input type="text" class="form-control form-control-lg form-control-solid"
+                value="{{ $bank_details->branch_name }}" name="branch_name" placeholder="Branch Name" />
         </div>
 
     </div>
@@ -146,30 +170,19 @@
     <div class="row mb-6">
 
         <label class="col-lg-4 col-form-label required fw-bold fs-6">Holder Name</label>
-        <input 
-            type="text" 
-            class="form-control form-control-lg form-control-solid" 
-            value="{{ $bank_details->holder_name }}"
-            name="holder_name"
-            placeholder="Holder Name" />
+        <input type="text" class="form-control form-control-lg form-control-solid"
+            value="{{ $bank_details->holder_name }}" name="holder_name" placeholder="Holder Name" />
         <label class="col-lg-4 col-form-label required fw-bold fs-6">Account Number</label>
-        <input 
-            type="text" 
-            class="form-control form-control-lg form-control-solid" 
-            value="{{ $bank_details->account_number }}"
-            name="account_number"
-            placeholder="Account Number" 
-        />
+        <input type="text" class="form-control form-control-lg form-control-solid"
+            value="{{ $bank_details->account_number }}" name="account_number" placeholder="Account Number" />
 
     </div>
 
     <div class="row mb-6">
         <label class="col-lg-4 col-form-label required fw-bold fs-6">Other Information</label>
-        <input type="text" class="form-control form-control-lg form-control-solid" 
-        value="{{ $bank_details->other_info }}"
-        name="other_info"
-            placeholder="Other Information" />
-    </div>    
+        <input type="text" class="form-control form-control-lg form-control-solid"
+            value="{{ $bank_details->other_info }}" name="other_info" placeholder="Other Information" />
+    </div>
 
 </div>
 <!--end::Card body-->

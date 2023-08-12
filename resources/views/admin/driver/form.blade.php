@@ -51,11 +51,37 @@
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Driver Status</label>
         <div class="col-lg-4 fv-row">
-            <select class="form-control form-control-solid" name="store_name">
+            <select class="form-control form-control-solid" name="driver_status">
                 <option value="">Select Activate/Deactivate</option>
                 <option value="0">Deactive</option>
                 <option value="1">Active</option>
             </select>
+        </div>
+
+    </div>
+
+    <div class="row mb-6">
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Driver Longitude</label>
+
+        <div class="col-lg-4 fv-row">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                name="driver_longitude"
+                placeholder="Driver Longitude" 
+            />
+        </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Driver Latitude</label>
+
+        <div class="col-lg-4 fv-row">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                name="driver_latitude"
+                placeholder="Driver Latitude" 
+            />
         </div>
 
     </div>

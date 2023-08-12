@@ -78,6 +78,8 @@ return [
         'active_session'=>'Total Active Session',
         'total_roles' => 'Total Roles',
         'total_orders' => 'Total Orders',
+        'total_earning' => 'Total Earning',
+        'total_commission' => 'Total Commission',
         'total_permissions' => 'Total Permissions',
         'select_year' => 'Select Year',
         'total_manager' => 'Total Manager',
@@ -285,6 +287,7 @@ return [
     'item_price' => 'Item Price',
     'item_discount' => 'Item Discount',
     'item_description' => 'Description',
+    'quantity' => 'Quantity',
     
     // banner 
     'banner_title' => 'Banner Title',
@@ -357,6 +360,8 @@ return [
     'driver_phone_number' => 'Driver Phone Number',
     'driver_email' => 'Driver Email',
     'driver_address' => 'Driver Address',
+    'driver_longitude' => 'Driver Longitude',
+    'driver_latitude' => 'Driver Latitude',
 
     // store 
 

@@ -61,13 +61,22 @@ class RatingController extends Controller
 
     public function index(Request $request)
     {
-        
+
         if ($request->ajax()) {
 
-            $query = Reviewandrating::Join('users', 'users.id', '=', 'reviewandratings.name')
+            $query =
+            Reviewandrating::Join('users', 'users.id', '=', 'reviewandratings.user_id')
                 ->Join('items', 'items.item_id', '=', 'reviewandratings.item_name')
-                ->select('users.name as user_name', 'items.item_name as item_as_name', 'reviewandratings.*');
-       
+                ->Join('orders', 'orders.order_id', '=', 'reviewandratings.order_id')
+                ->Join('stores', 'stores.store_id', '=', 'reviewandratings.store_id')
+                ->select(
+                    'users.name as user_name',
+                    'items.item_name as item_as_name',
+                    'reviewandratings.*',
+                    'orders.order_id as order_as_id',
+                    'stores.store_name as store_as_name',
+                );
+
             if ($request->has('order_review')) {
                 $searchValue = $request->input('order_review');
                 $query->where(function ($q) use ($searchValue) {

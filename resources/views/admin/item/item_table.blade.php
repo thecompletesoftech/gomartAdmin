@@ -35,8 +35,10 @@
                             <th>Item Image</th>
                             <th>Item Price</th>
                             <th>Item Discount Price</th>
+                            <th>Item Quantity</th>
                             <th>Item Description</th>
                             <th>Item Publish</th>
+                            <th>Store Name</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -68,9 +70,9 @@
                     data: 'item_name',
                     name: 'item_name'
                 },
-                 {
-                    data: 'category_name',
-                    name: 'category_name'
+                {
+                    data: 'cat_as_name',
+                    name: 'cat_as_name'
                 },
                 {
                     data: 'item_image',
@@ -89,12 +91,20 @@
                     name: 'dis_item_price'
                 },
                 {
+                    data: 'quantity',
+                    name: 'quantity'
+                },
+                {
                     data: 'item_description',
                     name: 'item_description'
                 },
                 {
                     data: 'item_publish',
                     name: 'publish',
+                },
+                {
+                    data: 'str_name',
+                    name: 'str_name',
                 },
                 {
                     data: 'action',

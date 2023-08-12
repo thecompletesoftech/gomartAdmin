@@ -53,17 +53,16 @@ class OrderController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = Order::Join('users', 'users.id', '=', 'orders.name')
-                ->Join('items', 'items.item_id', '=', 'orders.item_name')
-                ->select('users.name as user_name', 'items.item_name as item_as_name', 'orders.*');
-
-            if ($request->has('item_name')) {
-                $searchValue = $request->input('item_name');
-                $query->where(function ($q) use ($searchValue) {
-                    $q->where('items.item_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('items.item_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('items.item_name', 'like', '%' . $searchValue . '%');
-                });
+            $query = Order::join('users', 'users.id', '=', 'orders.user_id')
+                ->join('drivers', 'drivers.driver_id', '=', 'orders.driver_id')
+                ->select('orders.*', 'users.name as user_name', 'drivers.driver_name as dri_name');
+                
+            if ($request->has('driver_name')) {
+                    $name = $request->input('driver_name');
+                    $query->where(function ($query) use ($name) {
+                        $query->whereRaw('LOWER(driver_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                            ->orWhereRaw('UPPER(driver_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                    });
             }
 
             return DataTables::of($query)->addIndexColumn()

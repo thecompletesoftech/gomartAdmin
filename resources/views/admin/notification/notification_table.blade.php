@@ -32,6 +32,7 @@
                             <th>ID</th>
                             <th>Subject</th>
                             <th>Message</th>
+                            <th>Date</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -66,6 +67,10 @@
                 {
                     data: 'notification_message',
                     name: 'notification_message'
+                },
+                {
+                    data: 'notification_date',
+                    name: 'notification_date'
                 },
                 {
                     data: 'action',

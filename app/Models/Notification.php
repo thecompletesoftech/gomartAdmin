@@ -17,6 +17,7 @@ class Notification extends Model
         'notification_subject',
         'notification_message',
         'notification_send_to',
+        'notification_date',
         'user_id'
     ];
 }

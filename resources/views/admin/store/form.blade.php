@@ -22,7 +22,7 @@
 
     <div class="row mb-6">
 
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Name</label>
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Select Category</label>
 
         <div class="col-lg-4 fv-row">
             <select class="form-control form-control-solid" name="category_name">

@@ -16,6 +16,8 @@ class EditItemRequest extends FormRequest
                 'item_publish' => 'required',
                 'dis_item_price' => 'required',
                 'item_description' => 'required|max:200',
+                'quantity' => 'required|integer',
+                'store_id' => 'required',
             ];
         } else {
             return [
@@ -25,6 +27,8 @@ class EditItemRequest extends FormRequest
                 'item_publish' => 'required',
                 'dis_item_price' => 'required',
                 'item_description' => 'required|max:200',
+                'quantity' => 'required|integer',
+                'store_id' => 'required',
             ];
         }
     }
@@ -38,6 +42,9 @@ class EditItemRequest extends FormRequest
             'item_publish.required' => __('validation.required', ['attribute' => 'item Publish']),
             'dis_item_price.required' => __('validation.required', ['attribute' => 'item Discount Price']),
             'item_description.required' => __('validation.required', ['attribute' => 'item description']),
+            'quantity.required' => __('validation.required', ['attribute' => 'item Quantity']),
+            'quantity.integer' => __('validation.integer', ['attribute' => 'Enter only integer']),
+            'store_id.required' => __('validation.required', ['attribute' => 'Store Name']),
         ];
     }
 }

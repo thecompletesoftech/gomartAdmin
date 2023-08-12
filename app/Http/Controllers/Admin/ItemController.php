@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Addsize;
 use App\Models\Addons;
+use App\Models\Addsize;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Stores;
 use App\Services\FileService;
 use App\Services\ItemService;
 use App\Services\ManagerLanguageService;
@@ -48,17 +49,18 @@ class ItemController extends Controller
         $this->mls = new ManagerLanguageService('messages');
     }
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) 
-        {
-            $query = Item::join('categories', 'items.category_name', '=', 'categories.cat_id')->
-            select('items.*', 'categories.category_name');
+        if ($request->ajax()) {
+
+            $query = Item::join('categories','items.category_id','=','categories.cat_id')
+                ->join('stores', 'stores.store_id','=','items.store_id')
+                ->select('items.*','categories.category_name as cat_as_name','stores.store_name as str_name');
 
             if ($request->has('item_name')) {
                 $name = $request->input('item_name');
@@ -69,15 +71,15 @@ class ItemController extends Controller
             }
 
             return DataTables::of($query)->addIndexColumn()
-               
+
                 ->addColumn('publish', function ($model) {
                     return $model->item_publish == 'Yes' ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>';
                 })
                 ->rawColumns(['publish'])
 
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="items/'. $row->item_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="items/destroy/'. $row->item_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
+                    $btn1 = '<a href="items/' . $row->item_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
+                    $btn2 = '&nbsp;&nbsp;<a href="items/destroy/' . $row->item_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
                     return $btn1 . "" . $btn2;
                 })
                 ->rawColumns(['action'])
@@ -97,6 +99,7 @@ class ItemController extends Controller
     public function create()
     {
         $data['categories'] = Category::get(["category_name", "cat_id"]);
+        $data['stores'] = Stores::get(["store_name", "store_id"]);
         return view($this->create_view, $data);
     }
 
@@ -112,6 +115,10 @@ class ItemController extends Controller
 
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
 
+        $storediscountprice = $input['item_price'] * $input['dis_item_price'] / 100;
+        
+        $input['dis_item_price'] = $storediscountprice;
+        
         $logo = $request->file('item_image');
         $picture = FileService::fileUploaderWithoutRequest($logo, 'item/image/');
         $input['item_image'] = $picture;
@@ -126,9 +133,9 @@ class ItemController extends Controller
 
             Addsize::create($addsize);
 
-            $addons['item_id']= $category->item_id;
-            $addons['addons_title']=json_encode($request->addons_title);
-            $addons['addons_price']=json_encode($request->addons_price);
+            $addons['item_id'] = $category->item_id;
+            $addons['addons_title'] = json_encode($request->addons_title);
+            $addons['addons_price'] = json_encode($request->addons_price);
 
             Addons::create($addons);
 
@@ -147,7 +154,8 @@ class ItemController extends Controller
     public function edit(Item $item)
     {
         $data['categories'] = Category::get(["category_name", "cat_id"]);
-        return view($this->edit_view,$data,compact('item'));
+        $data['stores'] = Stores::get(["store_name", "store_id"]);
+        return view($this->edit_view, $data, compact('item'));
     }
 
     /**
@@ -161,6 +169,10 @@ class ItemController extends Controller
     {
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
 
+        $storediscountprice = $input['item_price'] * $input['dis_item_price'] / 100;
+        
+        $input['dis_item_price'] = $storediscountprice;
+
         if (!empty($input['item_image'])) {
             $logo = $request->file('item_image');
             $picture = FileService::fileUploaderWithoutRequest($logo, 'item/image/');
@@ -169,10 +181,10 @@ class ItemController extends Controller
 
         $this->intrestService->update($input, $item);
         return redirect()->route($this->index_route_name)
-            ->with('success', $this->mls->messageLanguage('updated', 'item', 1));
+        ->with('success', $this->mls->messageLanguage('updated', 'item', 1));
     }
 
-    /**
+     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\UserIntrest  $intrest

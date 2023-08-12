@@ -20,8 +20,10 @@ class OrderService
             $validator = Validator::make($request->all(), [
                 'order_amount' => 'required',
                 'order_type' => 'required',
-                'item_name' => 'required',
+                'items' => 'required|array',
                 'order_date' => 'required',
+                'driver_id' => 'required',
+                'store_id' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -39,9 +41,10 @@ class OrderService
 
             $OrderInput = [
                 'order_id' => $randomString,
-                'name' => Auth::user()->id,
-                'store_id' => 1,
-                'item_name' => 1,
+                'user_id' => Auth::user()->id,
+                'driver_id' => $request->driver_id,
+                'store_id' => $request->store_id,
+                'items' => json_encode($request->items),
                 'order_date' => $request->order_date,
                 'order_amount' => $request->order_amount,
                 'order_type' => $request->order_type,
@@ -49,6 +52,7 @@ class OrderService
             ];
 
             $addOrder = Order::create($OrderInput);
+            
             // $screen = 0;
             // $input = [
             //     'notification' => 'Order Purchase',
@@ -56,7 +60,6 @@ class OrderService
             //     'user_id' => auth()->user()->id,
             //     'order_id' => $request->order_id,
             // ];
-
             // NotificationService::create($input, $screen);
 
             if ($addOrder) {

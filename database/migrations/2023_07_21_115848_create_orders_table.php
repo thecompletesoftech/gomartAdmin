@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('user_id')->nullable();
             $table->string('driver_id')->nullable();
             $table->string('store_id')->nullable();
-            $table->string('item_name')->nullable();
+            $table->string('items')->nullable();
             $table->string('order_date')->nullable();
             $table->string('order_amount');
             $table->string('order_type');

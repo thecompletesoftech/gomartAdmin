@@ -35,7 +35,7 @@
                             <th>Store Name</th>
                             <th>Driver Phone Number</th>
                             <th>Driver Email</th>
-                            <th>Driver Address</th>
+                            <th>Driver Description</th>
                             <th>Driver Status</th>
                             <th width="100px">Action</th>
                         </tr>

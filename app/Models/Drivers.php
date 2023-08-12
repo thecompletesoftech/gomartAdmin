@@ -21,6 +21,8 @@ class Drivers extends Model
         'driver_email',
         'driver_address',
         'driver_status',
+        'driver_longitude',
+        'driver_latitude'
     ];
     
 }

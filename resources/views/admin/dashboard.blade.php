@@ -1,6 +1,5 @@
 @extends('admin.layouts.base')
 @section('content')
-
     @include('admin.layouts.components.header', [
         'title' => __('header.dashboard'),
         'breadcrumbs' => Breadcrumbs::render('admin.dashboard'),
@@ -88,7 +87,7 @@
                             <!--begin::Stats-->
                             <div class="card-p position-relative">
                                 <!--begin::Row-->
-                               <div class="row g-0">
+                                <div class="row g-0">
 
                                     <!--begin::Col-->
 
@@ -106,12 +105,28 @@
                                     <!--end::Col-->
 
                                     <!--begin::Col-->
-                                    <div class="col  px-6 py-8 rounded-2 me-7 mb-7 text-center"
+                                    <div class="col bg-light-primary px-6 py-8 rounded-2 me-7 mb-7 text-center">
+                                        <i class="fa fa-building-columns" style="font-size:35px;color:#009EF7;"></i>
+                                        <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
+                                            <h5>{{ total_order() }}</h5>
+                                        </span>
+
+                                        <a href="" class="text-primary fw-bold fs-6">
+                                            {{ trans_choice('content.dashboard_cards.total_earning', 1) }}
+                                        </a>
                                     </div>
                                     <!--end::Col-->
 
                                     <!--begin::Col-->
-                                    <div class="col  px-6 py-8 rounded-2 me-7 mb-7 text-center">
+                                    <div class="col bg-light-primary px-6 py-8 rounded-2 me-7 mb-7 text-center">
+                                        <i class="fa fa-wallet" style="font-size:35px;color:#009EF7;"></i>
+                                        <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
+                                            <h5>{{ total_order() }}</h5>
+                                        </span>
+
+                                        <a href=" {{ route('admin.orders.index') }}" class="text-primary fw-bold fs-6">
+                                            {{ trans_choice('content.dashboard_cards.total_commission', 1) }}
+                                        </a>
                                     </div>
                                     <!--end::Col-->
 
@@ -122,9 +137,99 @@
                         </div>
                         <!--end::Body-->
                     </div>
+
+
                     <!--end::Stats-->
                 </div>
                 <!--end::Body-->
+
+
+            </div>
+
+            <div class="row gy-3 g-xl-8">
+                <!--begin::Col-->
+                <div class="col-12">
+
+                    <div class="card">
+                        <div class="card-body p-0 ">
+                            <!--begin::Stats-->
+                            <div class="card-p position-relative">
+                                <!--begin::Row-->
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">First</th>
+                                                            <th scope="col">Last</th>
+                                                            <th scope="col">Handle</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Mark</td>
+                                                            <td>Otto</td>
+                                                            <td>@mdo</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Jacob</td>
+                                                            <td>Thornton</td>
+                                                            <td>@fat</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Larry</td>
+                                                            <td>the Bird</td>
+                                                            <td>@twitter</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">First</th>
+                                                    <th scope="col">Last</th>
+                                                    <th scope="col">Handle</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Larry</td>
+                                                    <td>the Bird</td>
+                                                    <td>@twitter</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!--end-->

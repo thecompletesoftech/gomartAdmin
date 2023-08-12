@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('reviewandratings', function (Blueprint $table) {
             $table->increments('rating_id');
-            $table->string('name')->nullable();
+            $table->string('user_id')->nullable();
             $table->string('store_id')->nullable();
             $table->string('order_id')->nullable();
             $table->string('item_name')->nullable();

@@ -14,11 +14,10 @@ class Order extends Model
     protected $primaryKey = 'order_id';
     
     protected $fillable = [
-        'user_id',
         'driver_id',
         'store_id',
-        'name',
-        'item_name',
+        'user_id',
+        'items',
         'order_amount',
         'order_type',
         'order_date',

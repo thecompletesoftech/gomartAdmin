@@ -18,7 +18,7 @@ class Reviewandrating extends Model
         'order_id',
         'order_review',
         'order_rate',
-        'name',
+        'user_id',
         'item_name'
     ];
 

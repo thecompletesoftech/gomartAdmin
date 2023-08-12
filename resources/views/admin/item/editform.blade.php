@@ -48,10 +48,10 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Category</label>
 
         <div class="col-lg-4 fv-row">
-            <select class="form-control form-control-solid" name="category_name">
+            <select class="form-control form-control-solid" name="category_id">
                 <option value="">Select Category</option>
                 @foreach ($categories as $data)
-                    <option value="{{ $data->cat_id }}" {{ $item->category_name == $data->cat_id ? 'selected' : '' }}>
+                    <option value="{{ $data->cat_id }}" {{ $item->category_id == $data->cat_id ? 'selected' : '' }}>
                         {{ $data->category_name }}</option>
                 @endforeach
             </select>
@@ -81,6 +81,34 @@
                 <option value="">Select Yes / No</option>
                 <option value="Yes" {{ $item->item_publish == 'Yes' ? 'selected' : '' }}>Yes</option>
                 <option value="No" {{ $item->item_publish == 'No' ? 'selected' : '' }}>No</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="row mb-6">
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Quantity</label>
+
+        <div class="col-lg-4 fv-row">
+            {!! Form::number('quantity', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.quantity', 1),
+            ]) !!}
+        </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Name</label>
+
+        <div class="col-lg-4 fv-row">
+            <select class="form-control form-control-solid" name="store_id">
+                <option value="">Select Store Name</option>
+                @foreach ($stores as $data)
+                    <option value="{{ $data->store_id }}" {{ $item->store_id == $data->store_id ? 'selected' : '' }}>
+                        {{ $data->store_name }}</option>
+                @endforeach
             </select>
         </div>
 
@@ -158,5 +186,4 @@
 
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
     {!! JsValidator::formRequest('App\Http\Requests\Admin\EditItemRequest', 'form') !!}
-    
 @endpush

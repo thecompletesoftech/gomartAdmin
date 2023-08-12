@@ -34,6 +34,8 @@
                     <thead>
                         <tr>
                             <th>Rating ID</th>
+                            <th>Order ID</th>
+                            <th>Store Name</th>
                             <th>Item Name</th>
                             <th>Order Review</th>
                             <th>Rate</th>
@@ -65,6 +67,14 @@
                 {
                     data: 'rating_id',
                     name: 'rating_id'
+                },
+                {
+                    data: 'order_as_id',
+                    name: 'order_as_id'
+                },
+                {
+                    data: 'store_as_name',
+                    name: 'store_as_name'
                 },
                 {
                     data: 'item_as_name',

@@ -7,13 +7,19 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Name</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="item_name">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" name="item_name" 
+                placeholder="item name"
+            >
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Price</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="number" class="form-control form-control-lg form-control-solid" name="item_price">
+            <input type="number" class="form-control form-control-lg form-control-solid" name="item_price" 
+                placeholder="item price"
+            >
         </div>
 
     </div>
@@ -23,13 +29,15 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Discount Price</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="number" class="form-control form-control-lg form-control-solid" name="dis_item_price">
+            <input type="number" class="form-control form-control-lg form-control-solid" name="dis_item_price" 
+                placeholder="discount"
+            >
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Category</label>
 
         <div class="col-lg-4 fv-row">
-            <select class="form-control form-control-solid" name="category_name">
+            <select class="form-control form-control-solid" name="category_id">
                 <option value="">Select Category</option>
                 @foreach ($categories as $data)
                     <option value="{{ $data->cat_id }}">{{ $data->category_name }}</option>
@@ -41,12 +49,27 @@
 
     <div class="row mb-6">
 
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Quantity</label>
+
+        <div class="col-lg-4 fv-row">
+            <input 
+                type="number" 
+                class="form-control form-control-lg form-control-solid" 
+                name="quantity" 
+                placeholder="Quantity"
+            >
+        </div>
+
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Image</label>
 
         <div class="col-lg-4 fv-row">
             <input type="file" class="form-control form-control-lg form-control-solid" name="item_image"
                 accept=".png, .jpg, .jpeg">
         </div>
+
+    </div>
+
+    <div class="row mb-6">
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Publish</label>
         <div class="col-lg-4 fv-row">
@@ -57,33 +80,49 @@
             </select>
         </div>
 
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Name</label>
+
+        <div class="col-lg-4 fv-row">
+            <select class="form-control form-control-solid" name="store_id">
+                <option value="">Select Store Name</option>
+                @foreach ($stores as $data)
+                    <option value="{{ $data->store_id }}">{{ $data->store_name }}</option>
+                @endforeach
+            </select>
+        </div>
+
     </div>
 
     <div class="row mt-6">
-            <table class="table table-bordered" id="dynamicAddRemove">
-                <div class="row mb-6">
-                    <div class="col-lg-4 fv-row">
-                        <button type="button" name="add" id="dynamic-ar" class="btn btn-primary mt-2">Add
-                            size</button>
-                    </div>
+        <table class="table table-bordered" id="dynamicAddRemove">
+            <div class="row mb-6">
+                <div class="col-lg-4 fv-row">
+                    <button type="button" name="add" id="dynamic-ar" class="btn btn-primary mt-2">Add
+                        size</button>
                 </div>
-            </table>
+            </div>
+        </table>
     </div>
 
     <div class="row mt-6">
-            <table class="table table-bordered" id="dynamicAddaddons">
-                <div class="row mb-6">
-                    <div class="col-lg-4 fv-row">
-                        <button type="button" name="add" id="dynamic-addons" class="btn btn-primary mt-2">Add addons</button>
-                    </div>
+        <table class="table table-bordered" id="dynamicAddaddons">
+            <div class="row mb-6">
+                <div class="col-lg-4 fv-row">
+                    <button type="button" name="add" id="dynamic-addons" class="btn btn-primary mt-2">Add
+                        addons</button>
                 </div>
-            </table>
+            </div>
+        </table>
     </div>
 
     <div class="row mb-6">
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Description</label>
         <div class="col-lg-12 fv-row">
-            <textarea name="item_description" class="form-control form-control-lg form-control-solid"></textarea>
+            <textarea 
+                name="item_description" 
+                class="form-control form-control-lg form-control-solid"
+                placeholder="Description"
+            ></textarea>
         </div>
     </div>
 
@@ -92,7 +131,6 @@
 
 
 @push('scripts')
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 
