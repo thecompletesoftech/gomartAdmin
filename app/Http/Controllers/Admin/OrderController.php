@@ -16,7 +16,7 @@ class OrderController extends Controller
 {
     protected $mls, $change_password, $assign_role, $uploads_image_directory;
     protected $index_view, $create_view, $edit_view, $detail_view, $tabe_view, $product_history_view;
-    protected $index_route_name, $create_route_name, $detail_route_name, $edit_route_name;
+    protected $index_route_name, $create_route_name, $detail_route_name, $edit_route_name, $print_view;
     protected $intrestService, $utilityService, $customerService;
 
     public function __construct()
@@ -34,6 +34,7 @@ class OrderController extends Controller
         $this->index_view = 'admin.order.index';
         $this->create_view = 'admin.order.create';
         $this->edit_view = 'admin.order.edit';
+        $this->print_view = 'admin.order.print';
 
         //service files
         $this->intrestService = new Orderservice();
@@ -56,13 +57,13 @@ class OrderController extends Controller
             $query = Order::join('users', 'users.id', '=', 'orders.user_id')
                 ->join('drivers', 'drivers.driver_id', '=', 'orders.driver_id')
                 ->select('orders.*', 'users.name as user_name', 'drivers.driver_name as dri_name');
-                
+
             if ($request->has('driver_name')) {
-                    $name = $request->input('driver_name');
-                    $query->where(function ($query) use ($name) {
-                        $query->whereRaw('LOWER(driver_name) LIKE ?', ['%' . strtolower($name) . '%'])
-                            ->orWhereRaw('UPPER(driver_name) LIKE ?', ['%' . strtoupper($name) . '%']);
-                    });
+                $name = $request->input('driver_name');
+                $query->where(function ($query) use ($name) {
+                    $query->whereRaw('LOWER(driver_name) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(driver_name) LIKE ?', ['%' . strtoupper($name) . '%']);
+                });
             }
 
             return DataTables::of($query)->addIndexColumn()
@@ -71,9 +72,10 @@ class OrderController extends Controller
                     ($model->order_status == 1 ? 'Complete' : 'Cancel');
                 })
                 ->addColumn('action', function ($row) {
+                    $printbtn = '<a href="orders/print/' . $row->order_id . '"><i class="fa fa-eye"></i></a>';
                     $btn1 = '<a href="orders/' . $row->order_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
                     $btn2 = '&nbsp;&nbsp;<a href="orders/destroy/' . $row->order_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
-                    return $btn1 . "" . $btn2;
+                    return $printbtn . "" . $btn1 . "" . $btn2;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -166,6 +168,21 @@ class OrderController extends Controller
                 'status_name' => 'error',
             ]);
         }
+    }
+
+    public function print($id) 
+    {
+        // $data= DB::table('orders')->join('users', 'users.id', '=', 'orders.user_id')
+        // ->join('drivers', 'drivers.driver_id', '=', 'orders.driver_id')
+        // ->join('stores', 'stores.store_id', '=', 'orders.store_id')
+        // ->select('orders.*','drivers.*','stores.*','users.*')
+        // ->where('order_id',$id)->get();
+
+        $data = Order::with('store','driver','user')->where(['order_id' => $id])->first();
+        $items = $data['items'];
+        $order_item = json_decode(($items),true);
+        // echo "<pre>"; print_r($order_item); die;
+        return view($this->print_view,compact('data','order_item'));
     }
 
 }

@@ -44,6 +44,7 @@ return [
     'received' => 'Data Get',
     'only_name' => ':name',
     'list' => ':name List',
+    'print' => 'print order',
     'create' => 'Add New :name',
     'edit' => 'Edit :name',
     'get' => 'Get :name Data',

@@ -137,12 +137,9 @@
                         </div>
                         <!--end::Body-->
                     </div>
-
-
                     <!--end::Stats-->
                 </div>
                 <!--end::Body-->
-
 
             </div>
 
