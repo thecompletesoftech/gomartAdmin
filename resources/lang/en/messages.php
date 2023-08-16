@@ -45,6 +45,7 @@ return [
     'only_name' => ':name',
     'list' => ':name List',
     'print' => 'print order',
+    'storeview' => 'view store',
     'create' => 'Add New :name',
     'edit' => 'Edit :name',
     'get' => 'Get :name Data',

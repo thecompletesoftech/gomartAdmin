@@ -21,6 +21,7 @@ class Order extends Model
         'store_id',
         'user_id',
         'items',
+        'item_id',
         'order_amount',
         'order_type',
         'order_date',

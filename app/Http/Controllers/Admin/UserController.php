@@ -2,25 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\Admin\UserExport;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use App\Models\PasswordReset;
 use App\Models\User;
-use App\Models\Rating;
-use PDF;
 use App\Services\FileService;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Arr;
 use App\Services\ManagerLanguageService;
 use App\Services\UserService;
-use App\Services\UserStatusService;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\Datatables;
 
 class UserController extends Controller
@@ -43,11 +36,9 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-      
-
         if ($request->ajax()) {
 
-            $query = User::where('status','0');
+            $query = User::where('status', '0');
 
             if ($request->has('name')) {
                 $name = $request->input('name');
@@ -58,8 +49,11 @@ class UserController extends Controller
             }
 
             return DataTables::of($query)->addIndexColumn()
+                ->addColumn('login_type', function ($model) {
+                    return $model->login_type == '0' ? 'Store' : ($model->login_type == '1' ? 'Customer' : 'Driver');
+                })
                 ->addColumn('action', function ($row) {
-                    $btn2 = '&nbsp;&nbsp;<a href="users/destroy/'. $row->id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
+                    $btn2 = '&nbsp;&nbsp;<a href="users/destroy/' . $row->id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
                     return $btn2;
                 })
                 ->rawColumns(['action'])
@@ -70,8 +64,6 @@ class UserController extends Controller
 
     }
 
- 
-    
     /**
      * Show the form for creating a new resource.
      *
@@ -99,8 +91,6 @@ class UserController extends Controller
         }
         $user = User::create($input);
 
-
-
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('admin.users.index')
@@ -115,11 +105,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-     
+
         return view('admin.user.show', compact('user'));
     }
-
-  
 
     /**
      * Show the form for editing the specified resource.
@@ -178,27 +166,23 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-   
-        // $result=DB::table('users')->where('id', $id)->delete();
-        $result=UserService::delete_user($id);
-     
-        return redirect()->back()->withSuccess('Data Delete Successfully!');
-        
-        
-    }
 
+        // $result=DB::table('users')->where('id', $id)->delete();
+        $result = UserService::delete_user($id);
+
+        return redirect()->back()->withSuccess('Data Delete Successfully!');
+
+    }
 
     public function search1(Request $request)
     {
 
-      
         $name = $request->input('user_id');
-    
+
         $users = User::where('name', 'LIKE', '%' . $name . '%')->get();
-    
+
         return response()->json($users);
     }
-
 
 //     public function search(Request $request)
 // {
@@ -224,17 +208,15 @@ class UserController extends Controller
 // }
 // }
 
-public function search(Request $request)
-{
-    $query = $request->input('query');
-    $records = User::where('name', 'like', '%'.$query.'%')
-                     ->orWhere('email', 'like', '%'.$query.'%')
-                     ->orWhere('phone', 'like', '%'.$query.'%')
-                     ->get();
-    return response()->json($records);
-}
-
-
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $records = User::where('name', 'like', '%' . $query . '%')
+            ->orWhere('email', 'like', '%' . $query . '%')
+            ->orWhere('phone', 'like', '%' . $query . '%')
+            ->get();
+        return response()->json($records);
+    }
 
     // public function createPDF() {
     //     // retreive all records from db
@@ -246,24 +228,22 @@ public function search(Request $request)
     //     return $pdf->download('pdf_file.pdf');
     //   }
 
-
-
     public function status($id, $status)
     {
-        
+
         $status = ($status == 1) ? 0 : 1;
         $result = UserService::update(['is_active' => $status], $id);
         if ($result) {
             return response()->json([
                 'status' => 1,
                 'message' => $this->mls->messageLanguage('updated', 'status', 1),
-                'status_name' => 'success'
+                'status_name' => 'success',
             ]);
         } else {
             return response()->json([
                 'status' => 0,
                 'message' => $this->mls->messageLanguage('not_updated', 'status', 1),
-                'status_name' => 'error'
+                'status_name' => 'error',
             ]);
         }
     }
@@ -283,114 +263,104 @@ public function search(Request $request)
             return response()->json([
                 'status' => 1,
                 'message' => $this->mls->onlyNameLanguage('language_updated'),
-                'status_name' => 'success'
+                'status_name' => 'success',
             ]);
         } else {
             return response()->json([
                 'status' => 0,
                 'message' => $this->mls->onlyNameLanguage('language_not_updated'),
-                'status_name' => 'error'
+                'status_name' => 'error',
             ]);
         }
     }
 
-    public function emailapprove($id,$status)
+    public function emailapprove($id, $status)
     {
-        
-        $update=array('email_status' => $status);
+
+        $update = array('email_status' => $status);
         $result = UserService::status($update, $id);
         return redirect()->back()->withSuccess('Email Status Update Successfully!');
-    
-       
+
         if ($result) {
             return response()->json([
                 'status' => 1,
                 'message' => $this->mls->messageLanguage('updated', 'status', 1),
-                'status_name' => 'success'
+                'status_name' => 'success',
             ]);
         } else {
             return response()->json([
                 'status' => 0,
                 'message' => $this->mls->messageLanguage('not_updated', 'status', 1),
-                'status_name' => 'error'
+                'status_name' => 'error',
             ]);
         }
     }
 
-
-    public function phoneapprove($id,$phonestatus)
-    {     
-        $update=array('phone_status' => $phonestatus);
+    public function phoneapprove($id, $phonestatus)
+    {
+        $update = array('phone_status' => $phonestatus);
         $result = UserService::status($update, $id);
         return redirect()->back()->withSuccess('Phone Status Update Successfully!');
         if ($result) {
             return response()->json([
                 'status' => 1,
                 'message' => $this->mls->messageLanguage('updated', 'status', 1),
-                'status_name' => 'success'
+                'status_name' => 'success',
             ]);
         } else {
             return response()->json([
                 'status' => 0,
                 'message' => $this->mls->messageLanguage('not_updated', 'status', 1),
-                'status_name' => 'error'
+                'status_name' => 'error',
             ]);
         }
     }
 
-
-
-
-    public function popular($id,$popular)
-    {     
-        $update=array('popular' => $popular);
+    public function popular($id, $popular)
+    {
+        $update = array('popular' => $popular);
         $result = UserService::status($update, $id);
         return redirect()->back()->withSuccess('Popular Status Update Successfully!');
         if ($result) {
             return response()->json([
                 'status' => 1,
                 'message' => $this->mls->messageLanguage('updated', 'status', 1),
-                'status_name' => 'success'
+                'status_name' => 'success',
             ]);
         } else {
             return response()->json([
                 'status' => 0,
                 'message' => $this->mls->messageLanguage('not_updated', 'status', 1),
-                'status_name' => 'error'
+                'status_name' => 'error',
             ]);
         }
     }
 
-
-    public function trending($id,$trending)
-    {     
-        $update=array('trending' => $trending);
+    public function trending($id, $trending)
+    {
+        $update = array('trending' => $trending);
         $result = UserService::status($update, $id);
         return redirect()->back()->withSuccess('Trending Status Update Successfully!');
         if ($result) {
             return response()->json([
                 'status' => 1,
                 'message' => $this->mls->messageLanguage('updated', 'status', 1),
-                'status_name' => 'success'
+                'status_name' => 'success',
             ]);
         } else {
             return response()->json([
                 'status' => 0,
                 'message' => $this->mls->messageLanguage('not_updated', 'status', 1),
-                'status_name' => 'error'
+                'status_name' => 'error',
             ]);
         }
     }
 
-
-
-
-
     // public function blockuser($id,$status,$email)
     // {
-      
+
     //     $update=array('status' => $status);
-    //     $result = UserService::status($update, $id);     
+    //     $result = UserService::status($update, $id);
     //     if($status==1){
     //         $detail=array();
     //         $detail['title']='Consultation';
@@ -422,54 +392,49 @@ public function search(Request $request)
     //     }
     // }
 
-
 /**
-     * Forget Password.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ * Forget Password.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\Response
+ */
 
-    public function resetPasswordLoad(Request $request){
-     
-        $resetData=DB::table('password_resets')->where('token',$request->token)->first();
-       
-       if($resetData){
-        if(isset($request->token)){
-         
-            $user=User::where('email',$resetData->email)->get();
-           
-            return view('admin.email.resetPassword',compact('user'));
-        }else{
+    public function resetPasswordLoad(Request $request)
+    {
+
+        $resetData = DB::table('password_resets')->where('token', $request->token)->first();
+
+        if ($resetData) {
+            if (isset($request->token)) {
+
+                $user = User::where('email', $resetData->email)->get();
+
+                return view('admin.email.resetPassword', compact('user'));
+            } else {
+                return view('admin.email.404');
+            }
+        } else {
             return view('admin.email.404');
         }
-    }
-    else{
-        return view('admin.email.404');
-    }
-    
+
     }
 
-
-
-
-    
     //Password Reset Functionality
 
-    public function resetPassword(Request $request){
-       
-    
-        $request->validate([
-            'password' => 'required|string|min:6|confirmed'
-        ]);
-            $user = User::find($request->id);
-            $user->password = Hash::make($request->password);
-            $user->save();
-            
-        PasswordReset::where('email',$user->email)->delete();
+    public function resetPassword(Request $request)
+    {
 
-            return "<div style='text-align:center;margin-top:20%;background-color:green;color:white;padding-top:10px;padding-bottom:10px'>
-            
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        $user = User::find($request->id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        PasswordReset::where('email', $user->email)->delete();
+
+        return "<div style='text-align:center;margin-top:20%;background-color:green;color:white;padding-top:10px;padding-bottom:10px'>
+
             <p style='font-size:50px'> Your password has been reset successfully.</p>
             </div>
             ";

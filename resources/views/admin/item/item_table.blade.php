@@ -88,7 +88,7 @@
                 },
                 {
                     data: 'dis_item_price',
-                    name: 'dis_item_price'
+                    name: 'dis_item_price',
                 },
                 {
                     data: 'quantity',

@@ -254,6 +254,7 @@ use Illuminate\Support\Facades\Route;
         Route::controller(StoreController::class)->group(function () {
             Route::get('/stores/status/{id}/{status}', 'status')->name('stores.status');
             Route::get('/stores/destroy/{id}/', 'destroy')->name('stores.destroy');
+            Route::get('/stores/storeview/{id}', 'storebyId')->name('stores.storebyId');
         });
         Route::resource('/stores',StoreController::class);
 

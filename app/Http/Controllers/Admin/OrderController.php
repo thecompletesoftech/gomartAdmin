@@ -56,7 +56,8 @@ class OrderController extends Controller
 
             $query = Order::join('users', 'users.id', '=', 'orders.user_id')
                 ->join('drivers', 'drivers.driver_id', '=', 'orders.driver_id')
-                ->select('orders.*', 'users.name as user_name', 'drivers.driver_name as dri_name');
+                ->join('stores', 'stores.store_id', '=', 'orders.store_id')
+                ->select('orders.*', 'users.name as user_name', 'drivers.driver_name as dri_name', 'stores.store_name as Order_store_name');
 
             if ($request->has('driver_name')) {
                 $name = $request->input('driver_name');
@@ -96,7 +97,7 @@ class OrderController extends Controller
         return view($this->create_view);
     }
 
-    /**
+     /**
      * Store a newly created resource in storage.
      *
      * @param  UserIntrestRequest $request
@@ -170,19 +171,14 @@ class OrderController extends Controller
         }
     }
 
-    public function print($id) 
-    {
-        // $data= DB::table('orders')->join('users', 'users.id', '=', 'orders.user_id')
-        // ->join('drivers', 'drivers.driver_id', '=', 'orders.driver_id')
-        // ->join('stores', 'stores.store_id', '=', 'orders.store_id')
-        // ->select('orders.*','drivers.*','stores.*','users.*')
-        // ->where('order_id',$id)->get();
-
-        $data = Order::with('store','driver','user')->where(['order_id' => $id])->first();
+    public function print($id) {
+        
+        $data = Order::with('store', 'driver', 'user')->where(['order_id' => $id])->first();
         $items = $data['items'];
-        $order_item = json_decode(($items),true);
-        // echo "<pre>"; print_r($order_item); die;
-        return view($this->print_view,compact('data','order_item'));
+        $order_item = json_decode(($items), true);
+        // $totalPrice = collect($order_item)->sum('item_price');
+        // echo "<pre>"; print_r($totalPrice); die;
+        return view($this->print_view, compact('data', 'order_item'));
     }
 
 }

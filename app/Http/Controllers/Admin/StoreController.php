@@ -21,7 +21,7 @@ class StoreController extends Controller
 {
     protected $mls, $change_password, $assign_role, $uploads_image_directory;
     protected $index_view, $create_view, $edit_view, $detail_view, $tabe_view, $product_history_view;
-    protected $index_route_name, $create_route_name, $detail_route_name, $edit_route_name;
+    protected $index_route_name, $create_route_name, $detail_route_name, $edit_route_name, $store_view;
     protected $storeService, $utilityService;
 
     public function __construct()
@@ -38,6 +38,7 @@ class StoreController extends Controller
         $this->index_view = 'admin.store.index';
         $this->create_view = 'admin.store.create';
         $this->edit_view = 'admin.store.edit';
+        $this->store_view = 'admin.store.store';
 
         //service files
         $this->storeService = new StoreService();
@@ -79,9 +80,14 @@ class StoreController extends Controller
                 })
                 ->rawColumns(['store_active'])
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="stores/' . $row->store_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="stores/destroy/' . $row->store_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
-                    return $btn1 . "" . $btn2;
+                    $storeview = '<a href="stores/storeview/' . $row->store_id . '" class="badge badge-warning p-2" ><i class="fa fa-eye" style="color:white;"></i></a>';
+                    $btn1 = '<a href="stores/' . $row->store_id . '/edit" class="badge badge-success p-2"><i
+                    class="fa-regular fa-pen-to-square"
+                    style="color:white;"></i></a>';
+                    $btn2 = '<a href="stores/destroy/' . $row->store_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    <i class="fa-solid fa-trash-can" style="color:white;"></i>
+                    </a>';
+                    return $storeview." ".$btn1." ".$btn2;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -89,7 +95,7 @@ class StoreController extends Controller
         return view('admin.store.index');
     }
 
-    /**
+     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -246,6 +252,20 @@ class StoreController extends Controller
                 'status_name' => 'error',
             ]);
         }
+    }
+
+    public function storebyId($id)
+    {
+
+        $storeordercount = DB::table('orders')->where('store_id', $id)->count();
+
+        $storedata = DB::table('gallerys')
+            ->select('categories.category_name as cat_name', 'stores.*', 'gallerys.*')
+            ->join('stores', 'stores.store_id', '=', 'gallerys.store_id')
+            ->join('categories', 'categories.cat_id', '=', 'stores.category_name')
+            ->where('stores.store_id', $id)->first();
+
+        return view($this->store_view, compact('storedata', 'storeordercount'));
     }
 
 }

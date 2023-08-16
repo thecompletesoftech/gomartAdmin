@@ -31,6 +31,7 @@
                             <th>NAME</th>
                             <th>EMAIL</th>
                             <th>PHONE</th>
+                            <th>ROLE</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -78,6 +79,10 @@
                 {
                     data: 'phone',
                     name: 'phone'
+                },
+                {
+                    data: 'login_type',
+                    name: 'login_type'
                 },
                 {
                     data: 'action',

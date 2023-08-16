@@ -30,6 +30,7 @@
                         <tr>
                             <th>Order ID </th>
                             <th>Client </th>
+                            <th>Store Name </th>
                             <th>Amount </th>
                             <th>Drivers </th>
                             <th>Date </th>
@@ -67,6 +68,10 @@
                 {
                     data: 'user_name',
                     name: 'user_name'
+                },
+                {
+                    data: 'Order_store_name',
+                    name: 'Order_store_name'
                 },
                 {
                     data: 'order_amount',
