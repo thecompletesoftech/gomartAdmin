@@ -3,6 +3,7 @@
 namespace App\Services\Api;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ class OrderService
                 'items' => 'required|array',
                 'order_date' => 'required',
                 'driver_id' => 'required',
-                'store_id' => 'required'
+                'store_id' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -40,7 +41,7 @@ class OrderService
             $randomString = substr_replace($randomString, $randomCharacter, rand(0, $charactersLength - 2), 0);
 
             $OrderInput = [
-                'order_id' => $randomString,
+           
                 'user_id' => Auth::user()->id,
                 'driver_id' => $request->driver_id,
                 'store_id' => $request->store_id,
@@ -52,7 +53,36 @@ class OrderService
             ];
 
             $addOrder = Order::create($OrderInput);
-            
+            $get_order=Order::where('order_id',$addOrder->id)->first();
+
+            $countitem = $OrderInput['items'];
+
+            $data = json_decode($countitem, true);
+            // $count = count($data);
+
+            foreach ($data as $newdata) {
+                       
+                $newdatainput = [
+                    'order_id' => $get_order['order_id'],
+                    'item_id' => $newdata['item_id'],
+                    'item_name' => $newdata['item_name'],
+                    'item_price' => $newdata['item_price'],
+                    'store_id' => $newdata['store_id'],
+                    'category_id' => $newdata['category_id'],
+                    'quantity' => $newdata['quantity'],
+                    'item_publish' => $newdata['item_publish'],
+                    'dis_item_price' => $newdata['dis_item_price'],
+                    'item_description' => $newdata['item_description'],
+                ];
+
+                OrderItem::create($newdatainput);
+
+            }
+
+            // $data=[
+            //     'order_id'=> $OrderInput->order_id,
+            //     'item_id' => $OrderInput['items']['item_id']
+            // ]
             // $screen = 0;
             // $input = [
             //     'notification' => 'Order Purchase',
@@ -189,7 +219,7 @@ class OrderService
 
     public static function getOrderdetail(Request $request)
     {
-    
+
         try {
             $validator = Validator::make($request->all(), [
                 'user_id' => 'required',
@@ -204,7 +234,7 @@ class OrderService
             }
 
             $getData = DB::table('orders')->join('items', 'items.item_id', '=', 'orders.item_name')
-                ->where('order_id', $request->order_id)->orWhere('name',$request->user_id)
+                ->where('order_id', $request->order_id)->orWhere('name', $request->user_id)
                 ->select('orders.*', 'items.*')
                 ->get();
 

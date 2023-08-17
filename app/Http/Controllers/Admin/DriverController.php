@@ -9,6 +9,7 @@ use App\Models\Drivers;
 use App\Models\Stores;
 use App\Services\DriverService;
 use App\Services\FileService;
+use App\Services\HelperService;
 use App\Services\ManagerLanguageService;
 use App\Services\UtilityService;
 use Illuminate\Http\Request;
@@ -164,6 +165,7 @@ class DriverController extends Controller
         $data['bank_details'] = Bank::where('driver_id', $driver->driver_id)->first();
 
         return view($this->edit_view, compact('driver'), $data);
+        
     }
 
     /**

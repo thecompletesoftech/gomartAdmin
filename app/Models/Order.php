@@ -14,14 +14,12 @@ class Order extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'orders';
-    protected $primaryKey = 'order_id';
+    // protected $primaryKey = 'order_id';
     
     protected $fillable = [
         'driver_id',
         'store_id',
         'user_id',
-        'items',
-        'item_id',
         'order_amount',
         'order_type',
         'order_date',
@@ -38,6 +36,10 @@ class Order extends Model
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function OrderQuantity(){
+        return $this->belongsTo(OrderItem::class,'order_id','order_id');
     }
 
 }

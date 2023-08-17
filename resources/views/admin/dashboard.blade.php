@@ -147,42 +147,19 @@
                 <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Recent Orders</h3>
-                            <label class="mt-8"><i class="fa fa-solid fa-bars"
-                                    style="font-size: 18px;color:#009EF7;cursor:pointer;"></i></label>
+                            <div class="float-left mt-5">
+                                <h1 class="card-title" style="font-size:18px;">Earnings</h1>
+                                <span class="card-title" style="font-size:18px;"><b>Total Sell:</b></span>
+                                <span class="card-title" style="font-size:18px;"><b>Admin Commission:</b></span>
+                            </div>
+                            <div class="float-right mt-5">
+                                <label class="card-title" style="color:#009EF7;">All Payments</label>
+                            </div>
                         </div>
+
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Order ID</th>
-                                            <th>Store</th>
-                                            <th>Total Amount</th>
-                                            <th>Quantity</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Samso Park</td>
-                                            <td>34424433</td>
-                                            <td>12 May 2017</td>
-                                            <td><label class="badge badge-danger">Pending</label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Marlo Sanki</td>
-                                            <td>53425532</td>
-                                            <td>15 May 2015</td>
-                                            <td><label class="badge badge-warning">In progress</label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>John ryte</td>
-                                            <td>53275533</td>
-                                            <td>14 May 2017</td>
-                                            <td><label class="badge badge-info">Fixed</label></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div style="width: 100%; margin: auto;">
+                                <canvas id="canvas"></canvas>
                             </div>
                         </div>
                     </div>
@@ -223,9 +200,13 @@
                                                 @endphp
                                                 <td>{{ $stores->store_name }}</td>
                                                 <td> {{ $stars }}</td>
-                                                <td><label class="badge badge-success"><i
-                                                            class="fa-regular fa-pen-to-square"
-                                                            style="color:white;"></i></label></td>
+                                                <td><a href="{{ url('/') }}/admin/stores/{{ $stores->store_id }}/edit"
+                                                        style="cursor: pointer;">
+                                                        <label class="badge badge-success"><i
+                                                                class="fa-regular fa-pen-to-square"
+                                                                style="color:white;"></i></label>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -250,9 +231,6 @@
                             </a>
                         </div>
 
-                        @foreach ($recent_order as $OrderedItems)
-                            <?php $items = json_decode($OrderedItems['items'], true); ?>
-                        @endforeach
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
@@ -270,8 +248,10 @@
                                             <tr>
                                                 <td>{{ $order->order_id }}</td>
                                                 <td>{{ $order['store']['store_name'] }}</td>
-                                                <td></td>
-                                                <td>{{ count($items) }}</td>
+                                                <td>{{ itemTotal($order->order_id) }}</td>
+                                                <td><i class="fa-solid fa-cart-shopping"
+                                                        style="color: #009EF7; font-size:15px;"></i>
+                                                    &nbsp;{{ itemCount($order->order_id) }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -306,10 +286,15 @@
                                                 <td> <img src={{ env('IMAGE_URL') }}/uploads/{{ $driver->driver_image }}
                                                         style="width:50px; height:50px;" /></td>
                                                 <td>{{ $driver->driver_name }}</td>
-                                                <td>{{ $driver->order_status == 1 ? 'completed' : '' }}</td>
-                                                <td><label class="badge badge-success"><i
-                                                            class="fa-regular fa-pen-to-square"
-                                                            style="color:white;"></i></label></td>
+                                                <td>{{ driver_order_complete_count($driver->driver_id) }}</td>
+                                                <td>
+                                                    <a href="{{ url('/') }}/admin/drivers/{{ $driver->driver_id }}/edit"
+                                                        style="cursor: pointer;">
+                                                        <label class="badge badge-success">
+                                                            <i class="fa-regular fa-pen-to-square"
+                                                                style="color:white;"></i></label>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -326,6 +311,8 @@
         </div>
         <!--end::Post-->
     @endsection
+
+    <script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/dist/Chart.bundle.js"></script>
 
     @push('scripts')
         <script>
@@ -360,5 +347,41 @@
                     });
             }
             dashboard();
+        </script>
+
+        <script>
+            var columnchartData = @json($columnchart);
+
+            var barChartData = {
+                labels: columnchartData.year,
+                datasets: [{
+                    label: 'Year',
+                    color: '#000000',
+                    backgroundColor: "#009EF7",
+                    data: columnchartData.data_form_year_wise
+                }]
+            };
+
+            window.onload = function() {
+                var ctx = document.getElementById("canvas").getContext("2d");
+                window.myBar = new Chart(ctx, {
+                    type: 'bar',
+                    data: barChartData,
+                    options: {
+                        elements: {
+                            rectangle: {
+                                borderWidth: 2,
+                                borderColor: 'rgb(0, 255, 0)',
+                                borderSkipped: 'bottom'
+                            }
+                        },
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Yearly Website Visitor'
+                        }
+                    }
+                });
+            };
         </script>
     @endpush

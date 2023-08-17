@@ -38,13 +38,26 @@ class DashboardController extends Controller
         // dd($user->getRoleNames(), $user->roles, $user->permissions, $user->getPermissionsViaRoles(), $user->getAllPermissions());
 
         $data = DB::table('stores')->join('reviewandratings', 'reviewandratings.store_id', '=', 'stores.store_id')->select('stores.*', 'reviewandratings.*')->get();
-        $recent_order = Order::with('store', 'driver', 'user')->latest()->take(10)->get();
-        $driver_list =
-        DB::table('drivers')
-            ->join('orders', 'orders.driver_id', '=', 'drivers.driver_id')
-            ->select('orders.*', 'drivers.*')
-            ->where('order_status', '1')->get();
-        return view('admin.dashboard', compact('data','recent_order','driver_list'));
+
+        // $recent_order = DB::table('order_items')
+        // ->select('orders.order_id as Id', 'order_items.*','stores.*')
+        // ->join('orders','orders.order_id', '=', 'order_items.order_id')
+        // ->join('stores','stores.store_id','=','orders.store_id')
+        // ->get();
+
+        $recent_order = Order::with('OrderQuantity', 'store')->get();
+        // echo "<pre>"; print_r($recent_order['OrderQuantity']); die;
+
+        $driver_list = DB::table('drivers')->join('orders', 'orders.driver_id', '=', 'drivers.driver_id')->select('orders.*', 'drivers.*')->where('order_status', '1')->get();
+
+        $columnchart = [
+            'year' => ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+            'data_form_year_wise' => ['100', '200', '300', '400', '500', '600', '700', '800', '900', '1000', '1100', '1200'],
+        ];
+
+
+        return view('admin.dashboard',compact('data','recent_order','driver_list','columnchart'));
+
     }
 
     public function dashboardCountsData()

@@ -176,8 +176,6 @@ class OrderController extends Controller
         $data = Order::with('store', 'driver', 'user')->where(['order_id' => $id])->first();
         $items = $data['items'];
         $order_item = json_decode(($items), true);
-        // $totalPrice = collect($order_item)->sum('item_price');
-        // echo "<pre>"; print_r($totalPrice); die;
         return view($this->print_view, compact('data', 'order_item'));
     }
 

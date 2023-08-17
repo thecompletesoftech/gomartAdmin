@@ -5,8 +5,51 @@
     ])
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
+
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
+
+            <div class="container p-0">
+                <div class="row mb-5">
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="card shadow">
+
+                            <div class="card-body">
+
+                                <div class="text-center">
+                                    <h2 class="card-title"><i class="fa-sharp fa-solid fa-cart-shopping"
+                                            style="color:black;font-size:30px;"></i></h2>
+                                    <span style="color:black;font-size:30px;">0</span>
+                                    <p style="color:black;font-size:15px;">Total Order</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="card shadow">
+
+                            <div class="card-body">
+
+                                <div class="text-center">
+                                    <h2 class="card-title"><i class="fa fa-wallet" style="color:black;font-size:30px;"></i>
+                                    </h2>
+                                    <span style="color:black;font-size:30px;">0</span>
+                                    <p style="color:black;font-size:15px;">Remaining Payment</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
             <!--begin::Careers - Apply-->
             <div class="card">
                 <!--begin::Body-->

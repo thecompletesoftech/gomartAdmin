@@ -3,19 +3,16 @@
 use App\Models\Drivers;
 use App\Models\Order;
 use App\Models\Setting;
-use App\Models\User;
 use App\Models\Stores;
-use App\Services\PlanAmenityService;
+use App\Models\User;
 use App\Services\UtilityService;
-use App\Services\BookAnAppointmentService;
-use App\Services\UserService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Illuminate\Support\Facades\DB;
 
 function getUserName($name, $email = '', $mobile_no = '')
 {
@@ -158,7 +155,7 @@ function get_default_format($datetime, $type = 0, $format = null)
         $format_date = Carbon::parse($datetime)->format($format);
     } else if ($type = 2) { //DateTime
         $format_date = Carbon::parse($datetime)->format(env('DATETIME_FORMAT'));
-    } else if ($type == 1) {  // time Time
+    } else if ($type == 1) { // time Time
         $format_date = Carbon::parse($datetime)->format(env('TIME_FORMAT'));
     } else { // date Date
         $format_date = Carbon::parse($datetime)->format(env('DATE_FORMAT'));
@@ -197,33 +194,67 @@ function createJsonIfNotExists()
     }
 }
 
-function get_user_name($id){
-    $data = User::where('id',$id)->first(['name']);         
-        return $data->name;
+function get_user_name($id)
+{
+    $data = User::where('id', $id)->first(['name']);
+    return $data->name;
 }
 
-function get_book_name($id){
-    $data = Book::where('id',$id)->first(['name_eng']);         
-        return $data->name_eng;
+function get_book_name($id)
+{
+    $data = Book::where('id', $id)->first(['name_eng']);
+    return $data->name_eng;
 }
 
-
-function total_user(){
+function total_user()
+{
     $total_user = User::count('id');
-    return $total_user;       
+    return $total_user;
 }
 
-function total_store(){
+function total_store()
+{
     $total_store = Stores::count('store_id');
-    return $total_store;       
+    return $total_store;
 }
 
-function total_driver(){
+function total_driver()
+{
     $total_driver = Drivers::count('driver_id');
-    return $total_driver;       
+    return $total_driver;
 }
 
-function total_order(){
+function total_order()
+{
     $total_order = Order::count('order_id');
-    return $total_order;       
+    return $total_order;
+}
+
+function driver_order_complete_count($id)
+{
+    $driver_order_count = DB::table('orders')
+        ->where('order_status', '1')->where('driver_id', $id)->get()->count();
+    return $driver_order_count;
+}
+
+function itemTotal($id)
+{
+    $orderItems = DB::table('order_items')->where('order_id', $id)->get();
+    $total = 0;
+    foreach ($orderItems as $result) {
+        $count = DB::table('order_items')->where('order_id', $result->order_id)->count();
+        $total += $result->item_price;
+    }
+    return $total;
+}
+
+function itemCount($id)
+{
+    $orderItems = DB::table('order_items')->where('order_id', $id)->get();
+    $total = 0;
+    foreach ($orderItems as $result) {
+        $count = DB::table('order_items')->where('order_id', $result->order_id)->count();
+        $total += $result->item_price;
+    }
+    return $count;
 }
