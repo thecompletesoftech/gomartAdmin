@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('currency_symbol');
             $table->string('currency_code');
             $table->string('currency_name');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('email');
             $table->timestamps();
         });
     }

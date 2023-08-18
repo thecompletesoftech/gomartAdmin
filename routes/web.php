@@ -116,6 +116,7 @@ use Illuminate\Support\Facades\Route;
         Route::controller(OrderController::class)->group(function () {
             Route::get('/orders/status/{id}/{status}', 'status')->name('orders.status');
             Route::get('/orders/destroy/{id}/', 'destroy')->name('orders.destroy');
+            Route::get('/orders/edit/{id}/', 'edit')->name('orders.edit');
             Route::get('/orders/print/{id}','print')->name('orders.print');
         });
         Route::resource('/orders',OrderController::class);

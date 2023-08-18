@@ -15,6 +15,9 @@ class GlobalSettingRequest extends FormRequest
                 'currency_code' => 'required|max:3|min:2|regex:/^[\pL\s\-]+$/u',
                 'currency_symbol' => 'required',
                 'currency_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'address' => 'required|max:200',
+                'email' => 'required|email',
+                'phone' => 'required|max:10|min:10',
             ];
         } else {
             return [
@@ -23,6 +26,9 @@ class GlobalSettingRequest extends FormRequest
                 'currency_code' => 'required|max:3|min:2|regex:/^[\pL\s\-]+$/u',
                 'currency_symbol' => 'required',
                 'currency_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
+                'address' => 'required|max:200',
+                'email' => 'required|email',
+                'phone' => 'required|max:10|min:10',
             ];
         }
     }
@@ -35,6 +41,10 @@ class GlobalSettingRequest extends FormRequest
             'currency_code.required' => __('validation.required', ['attribute' => 'Currency Code']),
             'currency_symbol.required' => __('validation.required', ['attribute' => 'Currency Symbol']),
             'currency_name.required' => __('validation.required', ['attribute' => 'Currency']),
+            'address.required' => __('validation.required', ['attribute' => 'Address']),
+            'email.required' => __('validation.required', ['attribute' => 'Email']),
+            'email.email' => __('validation.email', ['attribute' => 'Invalid Email']),
+            'phone.required' => __('validation.required', ['attribute' => 'Phone']),
         ];
     }
 }

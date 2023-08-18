@@ -83,9 +83,14 @@ class BannerController extends Controller
                 ->rawColumns(['publish'])
 
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="banners/'. $row->banner_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="banners/destroy/'. $row->banner_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
-                    return $btn1 . "" . $btn2;
+                    $btn1 = '<a href="banners/' . $row->banner_id . '/edit" class="badge badge-success p-2"><i
+                    class="fa-regular fa-pen-to-square"
+                    style="color:white;"></i></a>';
+                    $btn2 = '<a href="banners/destroy/' . $row->banner_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    <i class="fa-solid fa-trash-can" style="color:white;"></i>
+                    </a>';
+                    return $btn1 . " " . $btn2;
+
                 })
                 ->rawColumns(['action'])
 

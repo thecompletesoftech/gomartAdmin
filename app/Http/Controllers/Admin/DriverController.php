@@ -76,9 +76,14 @@ class DriverController extends Controller
                 })
                 ->rawColumns(['driver_status'])
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="drivers/' . $row->driver_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="drivers/destroy/' . $row->driver_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
-                    return $btn1 . "" . $btn2;
+
+                    $btn1 = '<a href="drivers/' . $row->driver_id . '/edit" class="badge badge-success p-2"><i
+                    class="fa-regular fa-pen-to-square"
+                    style="color:white;"></i></a>';
+                    $btn2 = '<a href="drivers/destroy/' . $row->driver_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    <i class="fa-solid fa-trash-can" style="color:white;"></i>
+                    </a>';
+                    return $btn1 . " " . $btn2;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -163,7 +168,9 @@ class DriverController extends Controller
         $data['stores'] = Stores::get(["store_name", "store_id"]);
         $data['cars'] = Car::where('driver_id', $driver->driver_id)->first();
         $data['bank_details'] = Bank::where('driver_id', $driver->driver_id)->first();
-
+        // $data['driver_list'] = DB::table('drivers')->join('orders', 'orders.driver_id', '=', 'drivers.driver_id')->select('orders.*', 'drivers.*')->where('order_status', '1')->get();
+        $data['driver_list'] = DB::table('orders')->where('order_status', '1')->where('driver_id',$driver->driver_id)->count('order_id');
+        
         return view($this->edit_view, compact('driver'), $data);
         
     }

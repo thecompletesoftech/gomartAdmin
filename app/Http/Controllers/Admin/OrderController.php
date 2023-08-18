@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Services\ManagerLanguageService;
 use App\Services\Orderservice;
 use App\Services\UtilityService;
@@ -73,10 +74,16 @@ class OrderController extends Controller
                     ($model->order_status == 1 ? 'Complete' : 'Cancel');
                 })
                 ->addColumn('action', function ($row) {
-                    $printbtn = '<a href="orders/print/' . $row->order_id . '"><i class="fa fa-eye"></i></a>';
-                    $btn1 = '<a href="orders/' . $row->order_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="orders/destroy/' . $row->order_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
-                    return $printbtn . "" . $btn1 . "" . $btn2;
+                    
+                    $printbtn = '<a href="orders/print/' . $row->order_id . '" class="badge badge-warning p-2" ><i class="fa fa-eye" style="color:white;"></i></a>';
+                    $btn1 = '<a href="orders/' . $row->order_id . '/edit" class="badge badge-success p-2"><i
+                    class="fa-regular fa-pen-to-square"
+                    style="color:white;"></i></a>';
+                    $btn2 = '<a href="orders/destroy/' . $row->order_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    <i class="fa-solid fa-trash-can" style="color:white;"></i>
+                    </a>';
+                    return $printbtn." ".$btn1." ".$btn2;
+                    
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -97,7 +104,7 @@ class OrderController extends Controller
         return view($this->create_view);
     }
 
-     /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  UserIntrestRequest $request
@@ -121,7 +128,15 @@ class OrderController extends Controller
 
     public function edit(Order $order)
     {
-        return view($this->edit_view, compact('order'));
+        $data['user'] = Order::with('user','store')->where(['order_id' => $order->order_id])->first();
+        $data['orderitem'] = OrderItem::where(['order_id' => $order->order_id])->get();
+
+        return view($this->edit_view, compact('order'),$data);
+    }
+
+    public function show(Order $order)
+    {
+        // return view($this->detail_view, compact('driver'));
     }
 
     /**
@@ -172,11 +187,10 @@ class OrderController extends Controller
     }
 
     public function print($id) {
-        
-        $data = Order::with('store', 'driver', 'user')->where(['order_id' => $id])->first();
-        $items = $data['items'];
-        $order_item = json_decode(($items), true);
-        return view($this->print_view, compact('data', 'order_item'));
+
+        $data['user'] = Order::with('store','user')->where(['order_id' => $id])->first();
+        $data['orderitem'] = OrderItem::where(['order_id' => $id])->get();
+        return view($this->print_view, compact('data'),$data);
     }
 
 }

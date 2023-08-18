@@ -315,6 +315,7 @@
     <script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/dist/Chart.bundle.js"></script>
 
     @push('scripts')
+   
         <script>
             function dashboard() {
                 $.ajax({
@@ -384,4 +385,5 @@
                 });
             };
         </script>
+
     @endpush

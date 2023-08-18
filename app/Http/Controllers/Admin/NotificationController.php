@@ -88,7 +88,10 @@ class NotificationController extends Controller
 
                 })
                 ->addColumn('action', function ($row) {
-                    $btn2 = '&nbsp;&nbsp;<a href="notifications/destroy/' . $row->notification_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
+
+                    $btn2 = '<a href="notifications/destroy/' . $row->notification_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    <i class="fa-solid fa-trash-can" style="color:white;"></i>
+                    </a>';
                     return $btn2;
                 })
                 ->rawColumns(['action'])

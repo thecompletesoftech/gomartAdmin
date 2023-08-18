@@ -52,9 +52,12 @@ class UserController extends Controller
                 ->addColumn('login_type', function ($model) {
                     return $model->login_type == '0' ? 'Store' : ($model->login_type == '1' ? 'Customer' : 'Driver');
                 })
-                ->addColumn('action', function ($row) {
-                    $btn2 = '&nbsp;&nbsp;<a href="users/destroy/' . $row->id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
+                ->addColumn('action', function ($row) { 
+                    $btn2 = '<a href="users/destroy/' . $row->id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    <i class="fa-solid fa-trash-can" style="color:white;"></i>
+                    </a>';
                     return $btn2;
+
                 })
                 ->rawColumns(['action'])
                 ->make(true);

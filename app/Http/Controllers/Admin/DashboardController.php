@@ -37,16 +37,11 @@ class DashboardController extends Controller
         // dd($user);
         // dd($user->getRoleNames(), $user->roles, $user->permissions, $user->getPermissionsViaRoles(), $user->getAllPermissions());
 
-        $data = DB::table('stores')->join('reviewandratings', 'reviewandratings.store_id', '=', 'stores.store_id')->select('stores.*', 'reviewandratings.*')->get();
-
-        // $recent_order = DB::table('order_items')
-        // ->select('orders.order_id as Id', 'order_items.*','stores.*')
-        // ->join('orders','orders.order_id', '=', 'order_items.order_id')
-        // ->join('stores','stores.store_id','=','orders.store_id')
-        // ->get();
+        $data = DB::table('stores')->
+        join('reviewandratings', 'reviewandratings.store_id', '=', 'stores.store_id')
+        ->select('stores.*', 'reviewandratings.*')->get();
 
         $recent_order = Order::with('OrderQuantity', 'store')->get();
-        // echo "<pre>"; print_r($recent_order['OrderQuantity']); die;
 
         $driver_list = DB::table('drivers')->join('orders', 'orders.driver_id', '=', 'drivers.driver_id')->select('orders.*', 'drivers.*')->where('order_status', '1')->get();
 

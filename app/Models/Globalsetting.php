@@ -19,7 +19,10 @@ class Globalsetting extends Model
         'application_color',
         'currency_name',
         'currency_code',
-        'currency_symbol'
+        'currency_symbol',
+        'address',
+        'email',
+        'phone'
     ];
 
 }

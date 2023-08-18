@@ -58,9 +58,9 @@ class ItemController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = Item::join('categories','items.category_id','=','categories.cat_id')
-                ->join('stores', 'stores.store_id','=','items.store_id')
-                ->select('items.*','categories.category_name as cat_as_name','stores.store_name as str_name');
+            $query = Item::join('categories', 'items.category_id', '=', 'categories.cat_id')
+                ->join('stores', 'stores.store_id', '=', 'items.store_id')
+                ->select('items.*', 'categories.category_name as cat_as_name', 'stores.store_name as str_name');
 
             if ($request->has('item_name')) {
                 $name = $request->input('item_name');
@@ -78,9 +78,15 @@ class ItemController extends Controller
                 ->rawColumns(['publish'])
 
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="items/' . $row->item_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="items/destroy/' . $row->item_id . '" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
-                    return $btn1 . "" . $btn2;
+
+                    $btn1 = '<a href="items/' . $row->item_id . '/edit" class="badge badge-success p-2"><i
+                    class="fa-regular fa-pen-to-square"
+                    style="color:white;"></i></a>';
+                    $btn2 = '<a href="items/destroy/' . $row->item_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    <i class="fa-solid fa-trash-can" style="color:white;"></i>
+                    </a>';
+                    return $btn1 . " " . $btn2;
+
                 })
                 ->rawColumns(['action'])
 
@@ -116,9 +122,9 @@ class ItemController extends Controller
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
 
         $storediscountprice = $input['item_price'] * $input['dis_item_price'] / 100;
-        
+
         $input['dis_item_price'] = $storediscountprice;
-        
+
         $logo = $request->file('item_image');
         $picture = FileService::fileUploaderWithoutRequest($logo, 'item/image/');
         $input['item_image'] = $picture;
@@ -170,7 +176,7 @@ class ItemController extends Controller
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
 
         $storediscountprice = $input['item_price'] * $input['dis_item_price'] / 100;
-        
+
         $input['dis_item_price'] = $storediscountprice;
 
         if (!empty($input['item_image'])) {
@@ -181,10 +187,10 @@ class ItemController extends Controller
 
         $this->intrestService->update($input, $item);
         return redirect()->route($this->index_route_name)
-        ->with('success', $this->mls->messageLanguage('updated', 'item', 1));
+            ->with('success', $this->mls->messageLanguage('updated', 'item', 1));
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\UserIntrest  $intrest

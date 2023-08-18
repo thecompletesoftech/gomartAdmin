@@ -82,9 +82,56 @@
 
     </div>
 
-    <!--end::Card body-->
+    <br />
+    <br />
 
-    @push('scripts')
-        <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-        {!! JsValidator::formRequest('App\Http\Requests\Admin\GlobalSettingRequest', 'form') !!}
-    @endpush
+    <div class="row mb-6">
+        <h1>Contact us</h1>
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Address</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::textarea('address', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.application_name', 1),
+            ]) !!}
+        </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Email</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('email', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.application_color', 1),
+            ]) !!}
+        </div>
+
+
+    </div>
+
+    <div class="row mb-6">
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Phone</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('phone', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.application_color', 1),
+            ]) !!}
+        </div>
+    </div>
+
+     
+
+</div>
+
+<!--end::Card body-->
+
+@push('scripts')
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\GlobalSettingRequest', 'form') !!}
+@endpush

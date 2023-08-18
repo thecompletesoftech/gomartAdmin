@@ -20,7 +20,7 @@
                                 <div class="text-center">
                                     <h2 class="card-title"><i class="fa-sharp fa-solid fa-cart-shopping"
                                             style="color:black;font-size:30px;"></i></h2>
-                                    <span style="color:black;font-size:30px;">0</span>
+                                    <span style="color:black;font-size:30px;">{{$driver_list}}</span>
                                     <p style="color:black;font-size:15px;">Total Order</p>
                                 </div>
 

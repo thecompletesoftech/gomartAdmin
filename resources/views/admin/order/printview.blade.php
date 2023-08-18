@@ -15,23 +15,23 @@
                             style="font-size:20px;cursor: pointer;"></i></p>
                 </div>
                 <hr />
-                <p class="mx-20" style="font-size:20px;"> {{ $data['store']['store_name'] }}</p>
-                <p class="mx-20" style="font-size:20px;"> {{ $data['store']['store_address'] }}</p>
-                <p class="mx-20" style="font-size:15px;">Phone: {{ $data['store']['store_phone'] }}</p>
+                <p class="mx-20" style="font-size:20px;"> {{ $user['store']['store_name'] }}</p>
+                <p class="mx-20" style="font-size:20px;"> {{ $user['store']['store_address'] }}</p>
+                <p class="mx-20" style="font-size:15px;">Phone: {{ $user['store']['store_phone'] }}</p>
 
                 <p class="mx-20">-----------------------------------------------------------</p>
                 <p class="mx-20">--------</p>
 
-                <p class="mx-20" style="font-size:15px;">Order Id: {{ $data->order_id }}</p>
-                <p class="mx-20" style="font-size:15px;">Order Date: {{ $data->order_date }}</p>
-                <p class="mx-20" style="font-size:15px;">Customer Name: {{ $data['user']['name'] }}</p>
-                <p class="mx-20" style="font-size:15px;">Customer Phone: {{ $data['user']['phone'] }}</p>
+                <p class="mx-20" style="font-size:15px;">Order Id: {{ $user->order_id }}</p>
+                <p class="mx-20" style="font-size:15px;">Order Date: {{ $user->order_date }}</p>
+                <p class="mx-20" style="font-size:15px;">Customer Name: {{ $user['user']['name'] }}</p>
+                <p class="mx-20" style="font-size:15px;">Customer Phone: {{ $user['user']['phone'] }}</p>
                 <p class="mx-20" style="font-size:15px;">Customer Address:</p>
 
                 <p class="mx-20">-----------------------------------------------------------</p>
                 <p class="mx-20">--------</p>
 
-                @foreach ($order_item as $item)
+                @foreach ($orderitem as $item)
                     <div class="mt-5 mx-20">
                         <div class="card" style="background-color:#F9F6EE;">
                             <div class="card-body">
@@ -42,6 +42,7 @@
                                             <th scope="col">Item Name</th>
                                             <th scope="col">Item Price</th>
                                             <th scope="col">Item Qty </th>
+                                            <th scope="col">Item Discount </th>
                                             <th scope="col">Item Photo</th>
                                             <th scope="col">Item Total </th>
                                         </tr>
@@ -53,6 +54,7 @@
                                             <td>{{ $item['item_name'] }}</td>
                                             <td>{{ $item['item_price'] }}</td>
                                             <td>{{ $item['quantity'] }}</td>
+                                            <td>{{ $item['dis_item_price'] }}</td>
                                             <td></td>
                                             <td>{{ $item['item_price'] * $item['quantity'] }} </td>
                                         </tr>
@@ -85,16 +87,16 @@
                     </div>
 
                     @php
-                        $itemPrice = collect($order_item)->sum('item_price');
-                        $Subtotal = collect($order_item)->sum('item_price');
-                        $Discount = collect($order_item)->sum('dis_item_price');
-                        $TotalPrice = $itemPrice + $Subtotal + $Discount;
+                        $itemPrice = collect($orderitem)->sum('item_price');
+                        // $Subtotal = collect($orderitem)->sum('item_price');
+                        $Discount = collect($orderitem)->sum('dis_item_price');
+                        $TotalPrice = $itemPrice + $Discount;
                     @endphp
 
                     <div class="col-4">
                         <label>{{ $itemPrice }}</label><br />
                         <label></label><br />
-                        <label>{{ $Subtotal }}</label><br />
+                        <label></label><br />
                         <label>{{ $Discount }}</label><br />
                         <label></label><br />
                         <label></label><br />
@@ -110,7 +112,6 @@
                     </div>
 
                 </div>
-
 
             </div>
             <!--end::Card-->
