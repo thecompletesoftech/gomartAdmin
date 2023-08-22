@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CoupanRequest extends FormRequest
+class CoupanEditRequest extends FormRequest
 {
     public function rules()
     {
@@ -17,8 +17,6 @@ class CoupanRequest extends FormRequest
                 'coupan_status' => 'required',
                 'discount_type' => 'required',
                 'store_id' => 'required',
-                'coupon_image' => 'required',
-                'coupon_image' => 'required',
                 'coupon_desc' => 'required|max:200',
             ];
         } else {
@@ -30,7 +28,6 @@ class CoupanRequest extends FormRequest
                 'coupan_status' => 'required',
                 'discount_type' => 'required',
                 'store_id' => 'required',
-                'coupon_image' => 'required',
                 'coupon_desc' => 'required|max:200',
             ];
         }
@@ -46,7 +43,6 @@ class CoupanRequest extends FormRequest
             'coupan_status.required' => __('validation.required', ['attribute' => 'Coupan Status']),
             'discount_type.required' => __('validation.required', ['attribute' => 'Discount Type']),
             'store_id.required' => __('validation.required', ['attribute' => 'Store Name']),
-            'coupon_image.required' => __('validation.required', ['attribute' => 'Coupon Image']),
             'coupon_desc.required' => __('validation.required', ['attribute' => 'Coupon Description']),
         ];
     }

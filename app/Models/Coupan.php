@@ -15,10 +15,13 @@ class Coupan extends Model
     
     protected $fillable = [
         'coupan_code',
-        'amount',
         'discount',
         'expiry_date',
-        'coupan_status'
+        'discount_type',
+        'store_id',
+        'coupan_status',
+        'coupon_image',
+        'coupon_desc'
     ];
 
 }

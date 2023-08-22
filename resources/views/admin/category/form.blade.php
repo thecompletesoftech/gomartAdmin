@@ -3,6 +3,7 @@
     <!--begin::Input group-->
 
     @foreach ($languages as $index => $lan)
+    
         <div class="row mb-6">
             <h4>Language_{{ $lan->language_name }}</h4>
         </div>

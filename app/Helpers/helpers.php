@@ -242,7 +242,6 @@ function itemTotal($id)
     $orderItems = DB::table('order_items')->where('order_id', $id)->get();
     $total = 0;
     foreach ($orderItems as $result) {
-        $count = DB::table('order_items')->where('order_id', $result->order_id)->count();
         $total += $result->item_price;
     }
     return $total;
@@ -251,10 +250,8 @@ function itemTotal($id)
 function itemCount($id)
 {
     $orderItems = DB::table('order_items')->where('order_id', $id)->get();
-    $total = 0;
     foreach ($orderItems as $result) {
         $count = DB::table('order_items')->where('order_id', $result->order_id)->count();
-        $total += $result->item_price;
     }
     return $count;
 }

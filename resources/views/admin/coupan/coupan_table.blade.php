@@ -34,10 +34,10 @@
                         <tr>
                             <th>ID</th>
                             <th>Coupon Code</th>
-                            <th>Amount</th>
-                            <th>Amount Discount</th>
+                            <th>Discount</th>
                             <th>Expiry Date</th>
                             <th>Coupon Status</th>
+                            <th>Description</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -71,10 +71,6 @@
                     name: 'coupan_code'
                 },
                 {
-                    data: 'amount',
-                    name: 'amount'
-                },
-                {
                     data: 'discount',
                     name: 'discount'
                 },
@@ -85,6 +81,10 @@
                 {
                     data: 'coupan_status',
                     name: 'coupan_status'
+                },
+                {
+                    data: 'coupon_desc',
+                    name: 'coupon_desc'
                 },
                 {
                     data: 'action',

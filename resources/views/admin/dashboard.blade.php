@@ -31,9 +31,21 @@
                                             <h5>{{ total_user() }}</h5>
                                         </span>
 
-                                        <a href=" {{ route('admin.users.index') }}" class="text-primary fw-bold fs-6">
+                                        <a class="text-primary fw-bold fs-6">
                                             {{ trans_choice('content.dashboard_cards.new_users', 1) }}
                                         </a>
+
+                                        <a href="{{ route('admin.users.index') }}">
+                                            <div class="mt-1">
+                                                <div class="fw-bold fs-6" style="margin-left:15px;">
+                                                    <label style="color:black;cursor: pointer;">More infos &nbsp;</label><i
+                                                        class="fa-solid fa-arrow-right p-1 fs-8"
+                                                        style="background-color: #009EF7;color:white;border-radius:12px;"></i>
+                                                </div>
+                                            </div>
+
+                                        </a>
+
                                     </div>
 
                                     <!--end::Col-->
@@ -45,9 +57,20 @@
                                         <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
                                             <h5>{{ total_store() }}</h5>
                                         </span>
-                                        <a href="{{ route('admin.stores.index') }}" class="text-primary fw-bold fs-6">
+                                        <a class="text-primary fw-bold fs-6">
                                             {{ trans_choice('content.dashboard_cards.total_store', 1) }}
                                         </a>
+
+                                        <a href="{{ route('admin.stores.index') }}" class="text-primary fw-bold fs-6">
+                                            <div class="mt-1">
+                                                <div class="fw-bold fs-6" style="margin-left:15px;">
+                                                    <label style="color:black;cursor: pointer;">More infos &nbsp;</label><i
+                                                        class="fa-solid fa-arrow-right p-1 fs-8"
+                                                        style="background-color: #009EF7;color:white;border-radius:12px;"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+
                                     </div>
 
                                     <!--end::Col-->
@@ -59,9 +82,23 @@
                                         <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
                                             <h5>{{ total_driver() }}</h5>
                                         </span>
-                                        <a href="{{ route('admin.drivers.index') }}" class="text-primary fw-bold fs-6">
+                                        <a class="text-primary fw-bold fs-6">
                                             {{ trans_choice('content.dashboard_cards.total_driver', 1) }}
                                         </a>
+
+                                        <a href="{{ route('admin.drivers.index') }}">
+
+                                            <div class="mt-1">
+                                                <div class="fw-bold fs-6" style="margin-left:15px;">
+                                                    <label style="color:black;cursor: pointer;">More infos &nbsp;</label><i
+                                                        class="fa-solid fa-arrow-right p-1 fs-8"
+                                                        style="background-color: #009EF7;color:white;border-radius:12px;"></i>
+                                                </div>
+                                            </div>
+
+                                        </a>
+
+
                                     </div>
 
                                     <!--end::Col-->
@@ -97,9 +134,22 @@
                                             <h5>{{ total_order() }}</h5>
                                         </span>
 
-                                        <a href=" {{ route('admin.orders.index') }}" class="text-primary fw-bold fs-6">
+                                        <a class="text-primary fw-bold fs-6">
                                             {{ trans_choice('content.dashboard_cards.total_orders', 1) }}
                                         </a>
+
+                                        <a href="{{ route('admin.orders.index') }}">
+
+                                            <div class="mt-1">
+                                                <div class="fw-bold fs-6" style="margin-left:15px;">
+                                                    <label style="color:black;cursor: pointer;">More infos &nbsp;</label><i
+                                                        class="fa-solid fa-arrow-right p-1 fs-8"
+                                                        style="background-color: #009EF7;color:white;border-radius:12px;"></i>
+                                                </div>
+                                            </div>
+
+                                        </a>
+
                                     </div>
 
                                     <!--end::Col-->
@@ -111,9 +161,20 @@
                                             <h5>{{ total_order() }}</h5>
                                         </span>
 
-                                        <a href="" class="text-primary fw-bold fs-6">
+                                        <a class="text-primary fw-bold fs-6">
                                             {{ trans_choice('content.dashboard_cards.total_earning', 1) }} (After taxes)
                                         </a>
+
+                                        <a>
+                                            <div class="mt-1">
+                                                <div class="fw-bold fs-6" style="margin-left:15px;">
+                                                    <label style="color:black;cursor: pointer;">More infos &nbsp;</label><i
+                                                        class="fa-solid fa-arrow-right p-1 fs-8"
+                                                        style="background-color: #009EF7;color:white;border-radius:12px;"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+
                                     </div>
                                     <!--end::Col-->
 
@@ -124,9 +185,20 @@
                                             <h5>{{ total_order() }}</h5>
                                         </span>
 
-                                        <a href=" {{ route('admin.orders.index') }}" class="text-primary fw-bold fs-6">
+                                        <a class="text-primary fw-bold fs-6">
                                             {{ trans_choice('content.dashboard_cards.total_commission', 1) }}
                                         </a>
+
+                                        <a href="">
+                                            <div class="mt-1">
+                                                <div class="fw-bold fs-6" style="margin-left:15px;">
+                                                    <label style="color:black;cursor: pointer;">More infos &nbsp;</label><i
+                                                        class="fa-solid fa-arrow-right p-1 fs-8"
+                                                        style="background-color: #009EF7;color:white;border-radius:12px;"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+
                                     </div>
                                     <!--end::Col-->
 
@@ -231,6 +303,7 @@
                             </a>
                         </div>
 
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
@@ -315,7 +388,6 @@
     <script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/dist/Chart.bundle.js"></script>
 
     @push('scripts')
-   
         <script>
             function dashboard() {
                 $.ajax({
@@ -385,5 +457,4 @@
                 });
             };
         </script>
-
     @endpush

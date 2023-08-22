@@ -90,8 +90,8 @@ return [
         'total_vendors' => 'Total Vendors',
         'total_income' => 'Total Income',
         'total_purchase' => 'Total Purchase',
-        'total_store' => 'Store',
-        'total_driver' => 'Drivers',
+        'total_store' => 'Total Store',
+        'total_driver' => 'Total Drivers',
         'total_fund_balance' => 'Total Fund Balance',
         'total_transaction' => 'Total Transaction',
         'total_amount_spent' => 'Total Amount Spent',
@@ -314,6 +314,7 @@ return [
     'discount' => 'Discount',
     'expiry_date' => 'Expiry Date',
     'coupan_status' => 'Coupan Status',
+    'coupon_desc' => 'Coupan Description',
     
     // global setting 
 

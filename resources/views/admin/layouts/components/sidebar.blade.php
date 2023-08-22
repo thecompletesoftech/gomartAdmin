@@ -336,7 +336,7 @@
 
                     <!-- start Coupan menu section --!>
 
-                    <!-- <div class="menu-item">
+                    <div class="menu-item">
                         <a class="menu-link {{ checkActiveSideBar(['coupan']) ? 'menu-item active' : '' }}"
                             href="{{ route('admin.coupans.index') }}">
                             <span class="menu-icon">
@@ -344,7 +344,7 @@
                             </span>
                             <span class="menu-title">Coupon</span>
                         </a>
-                    </div> -->
+                    </div> 
 
                     <!-- end Coupan menu section --!>
 

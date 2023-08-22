@@ -8,15 +8,16 @@
 
         <div class="col-lg-4 fv-row">
             <input type="text" class="form-control form-control-lg form-control-solid" name="coupan_code"
-                placeholder="coupon code"
-            >
+                placeholder="coupon code">
         </div>
 
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Amount</label>
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Discount Type</label>
         <div class="col-lg-4 fv-row">
-            <input type="number" class="form-control form-control-lg form-control-solid" name="amount"
-            placeholder="amount"
-            >
+            <select name="discount_type" class="form-control form-control-lg form-control-solid">
+                <option value="">Discount Type</option>
+                <option value="percentage">Percentage</option>
+                <option value="fixed">Fixed</option>
+            </select>
         </div>
 
     </div>
@@ -27,8 +28,7 @@
 
         <div class="col-lg-4 fv-row">
             <input type="number" class="form-control form-control-lg form-control-solid" name="discount"
-            placeholder="discount"
-            >
+                placeholder="discount">
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Expiry Date</label>
@@ -40,6 +40,7 @@
     </div>
 
     <div class="row mb-6">
+
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Coupan Status</label>
         <div class="col-lg-4 fv-row">
             <select name="coupan_status" class="form-control form-control-lg form-control-solid">
@@ -48,6 +49,32 @@
                 <option value="1">Deactive</option>
             </select>
         </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Name</label>
+        <div class="col-lg-4 fv-row">
+            <select name="store_id" class="form-control form-control-lg form-control-solid" name="store_id">
+                <option value="">Select Store Name</option>
+                @foreach ($stores as $data)
+                    <option value="{{ $data->store_id }}">{{ $data->store_name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+    </div>
+
+    <div class="row mb-6">
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Coupon Description</label>
+        <div class="col-lg-4 fv-row">
+            <textarea name="coupon_desc" class="form-control form-control-lg form-control-solid"></textarea>
+        </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Image</label>
+        <div class="col-lg-4 fv-row">
+            <input type="file" class="form-control form-control-lg form-control-solid" name="coupon_image"
+                accept=".png, .jpg, .jpeg" />
+        </div>
+
     </div>
 
 </div>

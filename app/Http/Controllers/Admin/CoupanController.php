@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coupan;
+use App\Models\Stores;
 use App\Services\Coupanservice;
 use App\Services\ManagerLanguageService;
 use App\Services\UtilityService;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\Datatables;
+use App\Services\FileService;
 
 class CoupanController extends Controller
 {
@@ -69,9 +71,13 @@ class CoupanController extends Controller
                 })
                 ->rawColumns(['coupan_status'])
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="coupans/'. $row->coupan_id .'/edit" class="btn btn-warning btn-sm">Edit</a>';
-                    $btn2 = '&nbsp;&nbsp;<a href="coupans/destroy/'. $row->coupan_id .'" data-toggle="tooltip" data-original-title="Delete" class="btn btn-danger btn-sm" >Delete</a>';
-                    return $btn1 . "" . $btn2;
+                    $btn1 = '<a href="coupans/' . $row->coupan_id . '/edit" class="badge badge-success p-2"><i
+                    class="fa-regular fa-pen-to-square"
+                    style="color:white;"></i></a>';
+                    $btn2 = '<a href="coupans/destroy/' . $row->coupan_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    <i class="fa-solid fa-trash-can" style="color:white;"></i>
+                    </a>';
+                    return $btn1." ".$btn2;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -84,9 +90,11 @@ class CoupanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
-        return view($this->create_view);
+        $data['stores'] = Stores::get(["store_name", "store_id"]);
+        return view($this->create_view, $data);
     }
 
     /**
@@ -98,6 +106,11 @@ class CoupanController extends Controller
     public function store(Request $request)
     {
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
+
+        $logo = $request->file('coupon_image');
+        $picture = FileService::fileUploaderWithoutRequest($logo, 'coupon/image/');
+        $input['coupon_image'] = $picture;
+
         $category = $this->coupanService->create($input);
         return redirect()->route($this->index_route_name)
         ->with('success', $this->mls->messageLanguage('created', 'currency', 1));
@@ -122,7 +135,8 @@ class CoupanController extends Controller
      */
     public function edit(Coupan $coupan)
     {
-        return view($this->edit_view, compact('coupan'));
+        $data['stores'] = Stores::get(["store_name", "store_id"]);
+        return view($this->edit_view, compact('coupan'),$data);
     }
 
     /**
@@ -137,7 +151,7 @@ class CoupanController extends Controller
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
         $this->coupanService->update($input, $coupan);
         return redirect()->route($this->index_route_name)
-        ->with('success', $this->mls->messageLanguage('updated', 'coupan', 1));
+            ->with('success', $this->mls->messageLanguage('updated', 'coupan', 1));
     }
 
     /**
@@ -152,8 +166,5 @@ class CoupanController extends Controller
         $result = DB::table('coupans')->where('coupan_id', $id)->delete();
         return redirect()->back()->withSuccess('Data Delete Successfully!');
     }
-
-
-  
 
 }
