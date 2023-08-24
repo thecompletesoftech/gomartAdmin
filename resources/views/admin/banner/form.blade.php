@@ -7,7 +7,8 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Banner Title</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="banner_title">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="banner_title"
+                placeholder="banner title">
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Banner Image</label>
@@ -27,6 +28,13 @@
                 <option value="No">No</option>
             </select>
         </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Set Order</label>
+        <div class="col-lg-4 fv-row">
+            <input type="number" class="form-control form-control-lg form-control-solid" name="set_order"
+                placeholder="set order">
+        </div>
+
 
     </div>
 

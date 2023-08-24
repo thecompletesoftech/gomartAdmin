@@ -122,9 +122,9 @@
             <!--begin::Heaeder menu toggle-->
             <div class="d-flex align-items-center d-lg-none ms-2 me-n3" title="Show header menu">
                 <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
-                    id="kt_header_menu_mobile_toggle">
+                    >
                     <!--begin::Svg Icon | path: icons/duotone/Text/Toggle-Right.svg-->
-                    <span class="svg-icon svg-icon-1">
+                    {{-- <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                             height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -137,7 +137,7 @@
                                     fill="black" />
                             </g>
                         </svg>
-                    </span>
+                    </span> --}}
                     <!--end::Svg Icon-->
                 </div>
             </div>

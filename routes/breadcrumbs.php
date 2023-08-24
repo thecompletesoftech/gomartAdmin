@@ -81,6 +81,8 @@ Breadcrumbs::resource('roles', $mls->messageLanguage('only_name', 'role', 2));
 Breadcrumbs::resource('permissions', $mls->messageLanguage('only_name', 'permission', 2));
 /*------------- Admin Category ------------------------*/
 Breadcrumbs::resource('categorys', $mls->messageLanguage('only_name', 'category', 2));
+/*------------- Admin Subcategory ------------------------*/
+Breadcrumbs::resource('subs', $mls->messageLanguage('only_name', 'subcategory', 2));
 /*------------- Admin Item ------------------------*/
 Breadcrumbs::resource('items', $mls->messageLanguage('only_name', 'item', 2));
 /*------------- Admin Banner ------------------------*/

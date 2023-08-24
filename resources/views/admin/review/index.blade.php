@@ -2,16 +2,16 @@
 
 @section('content')
     @include('admin.layouts.components.header', [
-        'title' => __('messages.list', [
-            'name' => trans_choice('content.review', 2),
+        'title' => __('messages.reviewchange', [
+            // 'name' => trans_choice('Review', 2),
         ]), 
     ])
         
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container">
+        <div id="kt_content_container" class="container-fluid">
             <!--begin::Card-->
-            <div class="card">
+            <div class="card" style="border-radius: 15px;">
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">

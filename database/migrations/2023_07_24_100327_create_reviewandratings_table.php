@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('user_id')->nullable();
             $table->string('store_id')->nullable();
             $table->string('order_id')->nullable();
-            $table->string('item_name')->nullable();
+            $table->string('item_id')->nullable();
             $table->string('order_review')->nullable();
-            $table->string('order_rate')->nullable();
+            $table->string('rating')->nullable();
             $table->timestamps();
         });
     }

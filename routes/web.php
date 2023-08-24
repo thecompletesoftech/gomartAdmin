@@ -87,6 +87,14 @@ use Illuminate\Support\Facades\Route;
         });
         Route::resource('/categorys', CategoryController::class);
 
+        // Subcategory
+
+        Route::controller(SubcategoryController::class)->group(function () {
+            Route::get('/subs/status/{id}/{status}', 'status')->name('subs.status');
+            Route::get('/subs/destroy/{id}/', 'destroy')->name('subs.destroy');
+        });
+        Route::resource('/subs', SubcategoryController::class);
+
         //Items
 
         Route::controller(ItemController::class)->group(function () {

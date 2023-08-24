@@ -14,38 +14,44 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row mt-3">
-            <div class="col-4">
-                <input type="search" name="name" class="form-control searchEmail"
-                    placeholder="Search for User name" />
+    <div class="container-fluid">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-3 col-sm-3 col-xl-3 col-lg-3">
+                <input 
+                       type="search" 
+                       name="name" 
+                       class="form-control searchEmail p-4"
+                       placeholder="Search for User name" 
+                       
+                />
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-12 table-responsive text-center">
-                <table class="table table-bordered data-table">
-                    <thead>
+        <div class="row mt-3 text-center justify-content-center">
+            <div class="col-12 table-responsive">
+                <table class="table table-bordered 
+                       data-table text-center table-striped"
+                    style="border-radius: 15px;">
+                    <thead style="font-size:14px;">
                         <tr>
                             <th>Sr No.</th>
-                            <th>PROFILE</th>
-                            <th>NAME</th>
-                            <th>EMAIL</th>
-                            <th>PHONE</th>
-                            <th>ROLE</th>
-                            <th>ACTION</th>
+                            <th>Profile</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody class="fw-blod fs-6"></tbody>
                 </table>
             </div>
         </div>
-
     </div>
 
 </body>
+
 <script type="text/javascript">
     $(function() {
-
         var table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
@@ -97,4 +103,5 @@
 
     });
 </script>
+
 </html>

@@ -187,24 +187,42 @@
                     </a>
                 </div>
 
-                <!-- start category menu section --!>
+                {{-- start category menu section  --}}
 
-                    <div class="menu-item">
-                        <a class="menu-link {{ checkActiveSideBar(['category']) ? 'menu-item active' : '' }}"
-                            href="{{ route('admin.categorys.index') }}">
-                            <span class="menu-icon">
-                                <span class="svg-icon svg-icon-2">
-                                    <i class="fa fa-bars" style="color:cyanblue;font-size:15px;"></i>
-                                </span>
-                                
+                <div class="menu-item">
+                    <a class="menu-link {{ checkActiveSideBar(['category']) ? 'menu-item active' : '' }}"
+                        href="{{ route('admin.categorys.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <i class="fa fa-bars" style="color:cyanblue;font-size:15px;"></i>
                             </span>
-                            <span class="menu-title">Categories</span>
-                        </a>
-                    </div>
 
-                    <!-- end  category menu section --!>
-                    
-                    <!-- start Store menu section --!>
+                        </span>
+                        <span class="menu-title">Categories</span>
+                    </a>
+                </div>
+
+                {{-- <!-- end  category menu section --!> --}}
+
+
+                {{-- start subcategory menu section  --}}
+
+                <div class="menu-item">
+                    <a class="menu-link {{ checkActiveSideBar(['subcategory']) ? 'menu-item active' : '' }}"
+                        href="{{ route('admin.subs.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <i class="fa fa-bars" style="color:cyanblue;font-size:15px;"></i>
+                            </span>
+
+                        </span>
+                        <span class="menu-title">Subcategory</span>
+                    </a>
+                </div>
+
+                {{-- <!-- end subcategory menu section --!> --}}
+
+                <!-- start Store menu section --!>
 
                     <div class="menu-item">
                         <a class="menu-link {{ checkActiveSideBar(['store']) ? 'menu-item active' : '' }}"
@@ -332,7 +350,7 @@
                         </a>
                     </div> -->
 
-                    <!-- end Currency menu section --!>
+                <!-- end Currency menu section --!>
 
                     <!-- start Coupan menu section --!>
 
@@ -344,7 +362,7 @@
                             </span>
                             <span class="menu-title">Coupon</span>
                         </a>
-                    </div> 
+                    </div>
 
                     <!-- end Coupan menu section --!>
 
@@ -356,7 +374,7 @@
                             <span class="menu-icon">
                                 <i class="fa fa-language" style="color:cyanblue;font-size:15px;"></i>
                             </span>
-                            <span class="menu-title">Language</span>
+                            <span class="menu-title">Languages</span>
                         </a>
                     </div>
 
@@ -374,7 +392,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Commission menu section --!>
+                <!-- end Commission menu section --!>
 
                     
                     <!-- start Commission menu section --!>
@@ -389,7 +407,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Commission menu section --!>
+                <!-- end Commission menu section --!>
 
                     <!-- start vat menu section --!>
 
@@ -403,7 +421,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end vat menu section --!>
+                <!-- end vat menu section --!>
 
                     <!-- start delivery charge menu section --!>
 
@@ -417,7 +435,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end delivery charge menu section --!>
+                <!-- end delivery charge menu section --!>
 
                     <!-- start special offer menu section --!>
 
@@ -431,7 +449,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end delivery special offer menu section --!>
+                <!-- end delivery special offer menu section --!>
 
                     <!-- start  Stores Payment menu section --!>
 
@@ -445,7 +463,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Stores Payment menu section --!>
+                <!-- end Stores Payment menu section --!>
 
                     <!-- start  Stores Payment menu section --!>
 
@@ -459,7 +477,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Stores Payment menu section --!>
+                <!-- end Stores Payment menu section --!>
 
                     <!-- start  Driver Payment menu section --!>
 
@@ -473,7 +491,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Driver Payment menu section --!>
+                <!-- end Driver Payment menu section --!>
 
                     <!-- start  Driver Payout menu section --!>
 
@@ -487,7 +505,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Driver Payout menu section --!>
+                <!-- end Driver Payout menu section --!>
 
                     <!-- start Wallet Transaction menu section --!>
 
@@ -501,7 +519,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Wallet Transaction menu section --!>
+                <!-- end Wallet Transaction menu section --!>
                     
                     <!-- start Order Transaction menu section --!>
 
@@ -515,7 +533,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Order Transaction menu section --!>
+                <!-- end Order Transaction menu section --!>
 
                     <!-- start Payment Key menu section --!>
 
@@ -523,7 +541,7 @@
                             <a class="menu-link {{ checkActiveSideBar(['payment']) ? 'menu-item active' : '' }}"
                                 href="{{ url('/') }}/admin/payments/edit/1">
                                 <span class="menu-icon">
-                                    <i  class="fa fa-key" 
+                                    <i  class="fa fa-key"
                                         style="color:cyanblue;font-size:15px;">
                                     </i>
                                 </span>
@@ -531,7 +549,7 @@
                             </a>
                         </div> -->
 
-                    <!-- end Payment Key menu section --!>
+                <!-- end Payment Key menu section --!>
 
                 </div>
                 <!--end::Menu-->

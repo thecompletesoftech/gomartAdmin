@@ -14,11 +14,11 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="row mt-3">
-            <div class="col-4" style="float:right;">
-                <input type="search" name="item_name" class="form-control searchEmail"
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-3 col-sm-3 col-xl-3 col-lg-3">
+                <input type="search" name="item_name" class="form-control searchEmail p-4"
                     placeholder="Search for Item Name" />
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="row mt-3">
 
             <div class="col-12 table-responsive text-center">
-                <table class="table table-bordered data-table">
+                <table class="table table-bordered data-table text-center table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>

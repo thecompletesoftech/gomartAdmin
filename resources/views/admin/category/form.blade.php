@@ -3,7 +3,6 @@
     <!--begin::Input group-->
 
     @foreach ($languages as $index => $lan)
-    
         <div class="row mb-6">
             <h4>Language_{{ $lan->language_name }}</h4>
         </div>
@@ -13,7 +12,10 @@
             <label class="col-lg-2 col-form-label required fw-bold fs-6">Category Name_{{ $lan->language_slug }}</label>
             <div class="col-lg-4 fv-row">
                 <input type="text" name="category_name[]" class="form-control form-control-lg form-control-solid"
-                    value={{ old('category_name.' . $index) }} />
+                    placeholder="category name" />
+
+
+                    
             </div>
 
             <label class="col-lg-2 col-form-label required fw-bold fs-6">Category Image_{{ $lan->language_slug }}</label>
@@ -41,4 +43,10 @@
     @endforeach
 
 </div>
+
+@push('scripts')
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\CategoryRequest', 'form') !!}
+@endpush
+
 <!--end::Card body-->

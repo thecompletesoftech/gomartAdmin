@@ -15,14 +15,14 @@
 
 <body>
 
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="row mt-3">
-            <div class="col-4" style="float:right;">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-3 col-sm-3 col-xl-3 col-lg-3">
                 <input 
                     type="search" 
                     name="order_review" 
-                    class="form-control searchEmail"
+                    class="form-control searchEmail p-4"
                     placeholder="Search for Order Review" />
             </div>
         </div>
@@ -30,16 +30,16 @@
 
         <div class="row mt-3">
             <div class="col-12 table-responsive text-center">
-                <table class="table table-bordered data-table">
+                <table class="table table-bordered data-table text-center table-striped">
                     <thead>
                         <tr>
                             <th>Rating ID</th>
                             <th>Order ID</th>
-                            <th>Store Name</th>
-                            <th>Item Name</th>
+                            {{-- <th>Store</th> --}}
+                            {{-- <th>Item Name</th> --}}
                             <th>Order Review</th>
                             <th>Rate</th>
-                            <th>User</th>
+                            {{-- <th>User</th> --}}
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -72,26 +72,26 @@
                     data: 'order_as_id',
                     name: 'order_as_id'
                 },
-                {
-                    data: 'store_as_name',
-                    name: 'store_as_name'
-                },
-                {
-                    data: 'item_as_name',
-                    name: 'item_as_name'
-                },
+                // {
+                //     data: 'store_as_name',
+                //     name: 'store_as_name'
+                // },
+                // {
+                //     data: 'item_as_name',
+                //     name: 'item_as_name'
+                // },
                 {
                     data: 'order_review',
                     name: 'order_review'
                 },
                 {
-                    data: 'order_rate',
-                    name: 'order_rate'
+                    data: 'rating',
+                    name: 'rating'
                 },
-                {
-                    data: 'user_name',
-                    name: 'user_name'
-                },
+                // {
+                //     data: 'user_name',
+                //     name: 'user_name'
+                // },
                 {
                     data: 'action',
                     name: 'action',

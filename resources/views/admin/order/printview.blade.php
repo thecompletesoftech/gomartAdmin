@@ -1,7 +1,7 @@
 @section('content')
     @include('admin.layouts.components.header', [
-        'title' => __('messages.storeview', [
-            'name' => trans_choice('content.store', 2),
+        'title' => __('messages.orderview', [
+            'name' => trans_choice('content.order', 2),
         ]),
     ])
 
@@ -15,102 +15,100 @@
                             style="font-size:20px;cursor: pointer;"></i></p>
                 </div>
                 <hr />
-                <p class="mx-20" style="font-size:20px;"> {{ $user['store']['store_name'] }}</p>
-                <p class="mx-20" style="font-size:20px;"> {{ $user['store']['store_address'] }}</p>
-                <p class="mx-20" style="font-size:15px;">Phone: {{ $user['store']['store_phone'] }}</p>
+                <div class="row text-center justify-content-center">
+                    <div class="col-md-1 col-sm-1 col-lg-1 col-xl-1">
+                        <p class="fw-bold fs-3">Phone:</p>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-lg-1 col-xl-1">
+                        <label class="fw-bold fs-5 mt-2">{{ $user['store']['store_phone'] }}</label>
+                    </div>
+                </div>
+
+
+                <p class="mx-20">---------------------------------------------------------------------------</p>
+                <p class="mx-20">--------</p>
+
+                <p class="mx-20 fw-bold fs-4">Order Id: {{ $user->order_id }}</p>
+                <p class="mx-20 fw-bold fs-4">Order Date: {{ $user->order_date }}</p>
+                <p class="mx-20 fw-bold fs-4">Customer Name: {{ $user['user']['name'] }}</p>
+                <p class="mx-20 fw-bold fs-4">Customer Phone: {{ $user['user']['phone'] }}</p>
+                <p class="mx-20 fw-bold fs-4">Customer Address:</p>
 
                 <p class="mx-20">-----------------------------------------------------------</p>
                 <p class="mx-20">--------</p>
 
-                <p class="mx-20" style="font-size:15px;">Order Id: {{ $user->order_id }}</p>
-                <p class="mx-20" style="font-size:15px;">Order Date: {{ $user->order_date }}</p>
-                <p class="mx-20" style="font-size:15px;">Customer Name: {{ $user['user']['name'] }}</p>
-                <p class="mx-20" style="font-size:15px;">Customer Phone: {{ $user['user']['phone'] }}</p>
-                <p class="mx-20" style="font-size:15px;">Customer Address:</p>
-
-                <p class="mx-20">-----------------------------------------------------------</p>
-                <p class="mx-20">--------</p>
-
-                @foreach ($orderitem as $item)
-                    <div class="mt-5 mx-20">
-                        <div class="card" style="background-color:#F9F6EE;">
+                <div class="row mt-5 mx-10">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-header mx-10">
+                                <span class="card-title fw-bold fs-3">Item Details</span>
+                            </div>
                             <div class="card-body">
-                                <table class="table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Item Id</th>
-                                            <th scope="col">Item Name</th>
-                                            <th scope="col">Item Price</th>
-                                            <th scope="col">Item Qty </th>
-                                            <th scope="col">Item Discount </th>
-                                            <th scope="col">Item Photo</th>
-                                            <th scope="col">Item Total </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr>
-                                            <th scope="row">{{ $item['item_id'] }}</th>
-                                            <td>{{ $item['item_name'] }}</td>
-                                            <td>{{ $item['item_price'] }}</td>
-                                            <td>{{ $item['quantity'] }}</td>
-                                            <td>{{ $item['dis_item_price'] }}</td>
-                                            <td></td>
-                                            <td>{{ $item['item_price'] * $item['quantity'] }} </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive table-bordered">
+                                    <table class="table table-striped text-center fw-bold fs-5">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Discount</th>
+                                                <th>Quantity</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($orderitem as $item)
+                                                <tr>
+                                                    <th scope="row">{{ $item['item_id'] }}</th>
+                                                    <td>{{ $item['item_name'] }}</td>
+                                                    <td>{{ $item['item_price'] }}</td>
+                                                    <td>{{ $item['dis_item_price'] }}</td>
+                                                    <td>{{ $item['quantity'] }}</td>
+                                                    <td>{{ $item['item_price'] * $item['quantity'] }} </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-
                     </div>
-                @endforeach
+                </div>
 
                 <p class="mx-20 mt-5">-----------------------------------------------------------</p>
                 <p class="mx-20">--------</p>
 
-                <div class="row mx-20">
-                    <div class="col-4">
-                        <label>Items Price:</label><br />
-                        <label>Addon Cost:</label><br />
-                        <label>Subtotal:</label><br />
-                        <label>Discount:</label><br />
-                        <label>Special Discount:</label><br />
-                        <label>VAT/TAX:</label><br />
-                        <label>DM Tips:</label><br />
-                        <label>Delivery Fee:</label><br />
+                <div class="row mt-5 mx-10">
 
-                        <hr />
+                    <div class="card">
+                        <div class="card-body">
+    
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2">
+                                    <label class="fw-bold fs-3">Discount:</label><br />
+                                    <label class="fw-bold fs-3">Subtotal:</label><br />
+                                    <hr />
+                                    <label class="fw-bold fs-3">Total Amount:</label><br />
+                                </div>
+    
+                                @php
+                                    $itemPrice = collect($orderitem)->sum('item_price');
+                                    $subTotal = collect($orderitem)->sum('item_price');
+                                    $Discount = collect($orderitem)->sum('dis_item_price');
+                                    $TotalPrice = $itemPrice + $Discount;
+                                @endphp
+    
+                                <div class="col-md-2 col-sm-2" style="display:flex;">
+                                    <label class="fw-bold fs-3">{{ $Discount }}</label><br />
+                                    <label class="fw-bold fs-3">{{ $subTotal }}</label><br />
+                                    <hr />
+                                    <label class="fw-bold fs-3">{{ $TotalPrice }}</label><br />
+                                </div>
+                            </div>
 
-                        <label>Total:</label><br />
-
+                        </div>
                     </div>
-
-                    @php
-                        $itemPrice = collect($orderitem)->sum('item_price');
-                        // $Subtotal = collect($orderitem)->sum('item_price');
-                        $Discount = collect($orderitem)->sum('dis_item_price');
-                        $TotalPrice = $itemPrice + $Discount;
-                    @endphp
-
-                    <div class="col-4">
-                        <label>{{ $itemPrice }}</label><br />
-                        <label></label><br />
-                        <label></label><br />
-                        <label>{{ $Discount }}</label><br />
-                        <label></label><br />
-                        <label></label><br />
-                        <label></label><br />
-                        <label></label><br />
-                        <hr />
-                        <label>{{ $TotalPrice }}</label><br />
-
-                        <br />
-                        <br />
-                        <br />
-
-                    </div>
-
+    
                 </div>
 
             </div>

@@ -21,7 +21,7 @@ class OrderService
             $validator = Validator::make($request->all(), [
                 'order_amount' => 'required',
                 'order_type' => 'required',
-                'items' => 'required|array',
+                // 'items' => 'required',
                 'order_date' => 'required',
                 'driver_id' => 'required',
                 'store_id' => 'required',
@@ -33,46 +33,42 @@ class OrderService
                     'error' => $validator->errors(),
                 ], 400);
             }
-
-            $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $charactersLength = strlen($characters);
-            $randomString = Str::random($charactersLength - 1);
-            $randomCharacter = $characters[rand(0, $charactersLength - 1)];
-            $randomString = substr_replace($randomString, $randomCharacter, rand(0, $charactersLength - 2), 0);
-
-            $OrderInput = [
-           
+            
+            $data= json_encode($request->items,true);
+            $new=json_decode($data);
+          
+            $OrderInput = [           
                 'user_id' => Auth::user()->id,
                 'driver_id' => $request->driver_id,
                 'store_id' => $request->store_id,
-                'items' => json_encode($request->items),
                 'order_date' => $request->order_date,
                 'order_amount' => $request->order_amount,
                 'order_type' => $request->order_type,
                 'order_status' => 0,
             ];
-
+           
             $addOrder = Order::create($OrderInput);
-            $get_order=Order::where('order_id',$addOrder->id)->first();
+           
+            $get_order=Order::where('order_id',$addOrder->order_id)->first();
+           
 
-            $countitem = $OrderInput['items'];
+            // $countitem = $OrderInput['items'];
 
-            $data = json_decode($countitem, true);
-            // $count = count($data);
+           
 
-            foreach ($data as $newdata) {
+            foreach ($new as $newdata) {
                        
                 $newdatainput = [
                     'order_id' => $get_order['order_id'],
-                    'item_id' => $newdata['item_id'],
-                    'item_name' => $newdata['item_name'],
-                    'item_price' => $newdata['item_price'],
-                    'store_id' => $newdata['store_id'],
-                    'category_id' => $newdata['category_id'],
-                    'quantity' => $newdata['quantity'],
-                    'item_publish' => $newdata['item_publish'],
-                    'dis_item_price' => $newdata['dis_item_price'],
-                    'item_description' => $newdata['item_description'],
+                    'item_id' => $newdata->item_id,
+                    'item_name' => $newdata->item_name,
+                    'item_price' => $newdata->item_price,
+                    'store_id' => $newdata->store_id,
+                    'category_id' => $newdata->category_id,
+                    'quantity' => $newdata->quantity,
+                    'item_publish' => $newdata->item_publish,
+                    'dis_item_price' => $newdata->dis_item_price,
+                    'item_description' => $newdata->item_description,
                 ];
 
                 OrderItem::create($newdatainput);

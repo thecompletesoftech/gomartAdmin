@@ -14,22 +14,18 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="row mt-3">
-            <div class="col-4" style="float:right;">
-                <input 
-                    type="search" 
-                    name="coupan_code" 
-                    class="form-control searchEmail"
-                    placeholder="Search for Coupon Name" 
-                />
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-3 col-sm-3 col-xl-3 col-lg-3">
+                <input type="search" name="coupan_code" class="form-control searchEmail p-4"
+                    placeholder="Search for Coupon Name" />
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-12 table-responsive text-center">
-                <table class="table table-bordered data-table">
+                <table class="table table-bordered data-table text-center table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -58,11 +54,10 @@
                 url: "{{ route('admin.coupans.index') }}",
                 data: function(d) {
                     d.coupan_code = $('.searchEmail').val(),
-                    d.search = $('input[type="search"]').val()
+                        d.search = $('input[type="search"]').val()
                 }
             },
-            columns: [
-                {
+            columns: [{
                     data: 'coupan_id',
                     name: 'coupan_id'
                 },
@@ -96,7 +91,7 @@
         $(".searchEmail").keyup(function() {
             table.draw();
         });
-        
+
     });
 </script>
 

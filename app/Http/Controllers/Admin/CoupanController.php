@@ -74,7 +74,7 @@ class CoupanController extends Controller
                     $btn1 = '<a href="coupans/' . $row->coupan_id . '/edit" class="badge badge-success p-2"><i
                     class="fa-regular fa-pen-to-square"
                     style="color:white;"></i></a>';
-                    $btn2 = '<a href="coupans/destroy/' . $row->coupan_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    $btn2 = '&nbsp;<a href="coupans/destroy/' . $row->coupan_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
                     <i class="fa-solid fa-trash-can" style="color:white;"></i>
                     </a>';
                     return $btn1." ".$btn2;

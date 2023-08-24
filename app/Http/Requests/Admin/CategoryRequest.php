@@ -4,11 +4,12 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class CategoryRequest extends FormRequest
 {
     public function rules()
     {
-        if (!request()->is('')) {
+        if (!request()->is('admin/category/create')) {
             return [
                 'category_name' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'category_image' => 'required',

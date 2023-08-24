@@ -198,13 +198,13 @@ return [
     'two_step_title' => 'Two-Step',
 
     'user' => 'User|Users',
-    'category' => 'Category|Categorys',
+    'category' => 'Category|Category',
     'item' => 'Item|Items',
     'banner' => 'Banner|Banners',
     'order' => 'Order|Orders',
     'notification' => 'Notification|Notifications',
     'customer' => 'Customer|Customers',
-    'review' => 'Review|Reviews',
+    'review' => 'Review',
     'globalsetting' => 'Globalsetting|Globalsettings',
     'currency' => 'Currency|Currencys',
     'coupan' => 'Coupon|Coupons',
@@ -291,6 +291,7 @@ return [
     
     // banner 
     'banner_title' => 'Banner Title',
+    'set_order' => 'Banner Set Order',
 
     // notification 
     'notification_subject' => 'Notification Subject',

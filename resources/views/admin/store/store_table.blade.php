@@ -14,18 +14,18 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="row mt-3">
-            <div class="col-4">
-                <input type="search" name="store_name" class="form-control search"
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-3 col-sm-3 col-xl-3 col-lg-3">
+                <input type="search" name="store_name" class="form-control search p-4"
                     placeholder="Search for Store Name" />
             </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col-12 table-responsive text-center">
-                <table class="table table-bordered data-table">
+            <div class="col-12 table-responsive">
+                <table class="table table-bordered data-table table-striped text-center">
                     <thead>
                         <tr>
                             <th>ID</th>

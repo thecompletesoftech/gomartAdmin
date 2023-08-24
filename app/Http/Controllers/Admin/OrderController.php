@@ -76,10 +76,10 @@ class OrderController extends Controller
                 ->addColumn('action', function ($row) {
                     
                     $printbtn = '<a href="orders/print/' . $row->order_id . '" class="badge badge-warning p-2" ><i class="fa fa-eye" style="color:white;"></i></a>';
-                    $btn1 = '<a href="orders/' . $row->order_id . '/edit" class="badge badge-success p-2"><i
+                    $btn1 = '&nbsp;<a href="orders/' . $row->order_id . '/edit" class="badge badge-success p-2"><i
                     class="fa-regular fa-pen-to-square"
                     style="color:white;"></i></a>';
-                    $btn2 = '<a href="orders/destroy/' . $row->order_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    $btn2 = '&nbsp;<a href="orders/destroy/' . $row->order_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
                     <i class="fa-solid fa-trash-can" style="color:white;"></i>
                     </a>';
                     return $printbtn." ".$btn1." ".$btn2;

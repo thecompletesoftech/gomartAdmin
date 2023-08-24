@@ -15,26 +15,28 @@ class RatingService
     {
         try {
 
-            // $validator = Validator::make($request->all(), [
-            //     'order_review' => 'required',
-            //     'order_rate' => 'required',
-            //     'store_id' => 'required',
-            //     'item_name' => 'required',
-            // ]);
-            // if ($validator->fails()) {
-            //     return response()->json([
-            //         'message' => 'Validation fails',
-            //         'error' => $validator->errors(),
-            //     ], 400);
-            // }
+            $validator = Validator::make($request->all(), [
+                'order_review' => 'required',
+                'rating' => 'required|numeric|min:1|max:5',
+                'store_id' => 'required',
+                'order_id' => 'required',
+                'item_id' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Validation fails',
+                    'error' => $validator->errors(),
+                ], 400);
+            }
 
             $AddratingInput = [
-                'item_name' => $request->item_name,
-                'name' => Auth::user()->id,
+                'item_id' => $request->item_id,
+                'user_id' => Auth::user()->id,
                 'store_id' => $request->store_id,
                 'order_id' => $request->order_id,
                 'order_review' => $request->order_review,
-                'order_rate' => $request->order_rate,
+                'rating' => $request->rating,
             ];
 
             $addOrder = Reviewandrating::create($AddratingInput);

@@ -17,9 +17,9 @@ class Reviewandrating extends Model
         'store_id',
         'order_id',
         'order_review',
-        'order_rate',
+        'rating',
         'user_id',
-        'item_name'
+        'item_id'
     ];
 
     public function getItemname(){

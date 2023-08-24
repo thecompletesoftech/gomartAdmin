@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 @section('content')
     @include('admin.layouts.components.header', [
-        'title' => __('messages.create', ['name' => trans_choice('content.banner', 1)]),
+        'title' => __('messages.create_banner', ['name' => trans_choice('content.banner', 1)]),
     ])
 
     <!--begin::Post-->

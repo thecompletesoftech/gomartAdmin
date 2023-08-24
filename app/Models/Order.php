@@ -20,6 +20,7 @@ class Order extends Model
         'driver_id',
         'store_id',
         'user_id',
+        'items',
         'order_amount',
         'order_type',
         'order_date',

@@ -81,10 +81,10 @@ class StoreController extends Controller
                 ->rawColumns(['store_active'])
                 ->addColumn('action', function ($row) {
                     $storeview = '<a href="stores/storeview/' . $row->store_id . '" class="badge badge-warning p-2" ><i class="fa fa-eye" style="color:white;"></i></a>';
-                    $btn1 = '<a href="stores/' . $row->store_id . '/edit" class="badge badge-success p-2"><i
+                    $btn1 = '&nbsp;<a href="stores/' . $row->store_id . '/edit" class="badge badge-success p-2"><i
                     class="fa-regular fa-pen-to-square"
                     style="color:white;"></i></a>';
-                    $btn2 = '<a href="stores/destroy/' . $row->store_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    $btn2 = '&nbsp;<a href="stores/destroy/' . $row->store_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
                     <i class="fa-solid fa-trash-can" style="color:white;"></i>
                     </a>';
                     return $storeview." ".$btn1." ".$btn2;

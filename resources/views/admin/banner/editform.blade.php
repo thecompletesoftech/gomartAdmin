@@ -40,6 +40,19 @@
                 <option value="No" {{ $banner->banner_publish == 'No' ? 'selected' : '' }}>No</option>
             </select>
         </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Set Order</label>
+
+        <div class="col-lg-4 fv-row">
+            {!! Form::number('set_order', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.set_order', 1),
+            ]) !!}
+        </div>
+
     </div>
 
 </div>

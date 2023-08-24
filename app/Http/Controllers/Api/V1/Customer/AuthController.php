@@ -110,7 +110,7 @@ class AuthController extends Controller
         return $this->apiAuthService->profileUpdate($request);
     }
 
-    /**
+     /**
      * get Category
      *
      * @param  \Illuminate\Http\Request  $request
@@ -120,6 +120,18 @@ class AuthController extends Controller
     public function getCategory(Request $request)
     {
         return $this->categoryservice->getCategory($request);
+    }
+
+     /**
+     * get Product By Category Id     
+     * *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getProductByCatID(Request $request)
+    {
+        return $this->itemservice->getProductByCatID($request);
     }
 
     /**

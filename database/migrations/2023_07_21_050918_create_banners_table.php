@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('banner_image');
             $table->string('banner_title');
             $table->string('banner_publish');
+            $table->string('set_order');
             $table->timestamps();
         });
     }

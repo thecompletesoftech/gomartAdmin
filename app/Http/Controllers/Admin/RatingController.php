@@ -61,12 +61,10 @@ class RatingController extends Controller
 
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
 
-            $query =
-            Reviewandrating::Join('users', 'users.id', '=', 'reviewandratings.user_id')
-                ->Join('items', 'items.item_id', '=', 'reviewandratings.item_name')
+            $query = Reviewandrating::Join('users', 'users.id', '=', 'reviewandratings.user_id')
+                ->Join('items', 'items.item_id', '=', 'reviewandratings.item_id')
                 ->Join('orders', 'orders.order_id', '=', 'reviewandratings.order_id')
                 ->Join('stores', 'stores.store_id', '=', 'reviewandratings.store_id')
                 ->select(
@@ -85,28 +83,26 @@ class RatingController extends Controller
                         ->orWhere('reviewandratings.order_review', 'like', '%' . $searchValue . '%');
                 });
             }
-
+            
             return DataTables::of($query)->addIndexColumn()
 
-                ->addColumn('order_rate', function ($product) {
-                    $rating = $product->order_rate;
+                ->addColumn('rating', function ($product) {
+                    $rating = $product->rating;
                     $stars = '';
                     for ($i = 1; $i <= 5; $i++) {
                         $stars .= ($i <= $rating) ? '★' : '☆';
                     }
                     return `<div>` . $stars . `</div>`;
                 })
-                ->rawColumns(['order_rate'])
+                ->rawColumns(['rating'])
                 ->addColumn('action', function ($row) {
-
                     $btn1 = '<a href="reviews/' . $row->rating_id . '/edit" class="badge badge-success p-2"><i
                     class="fa-regular fa-pen-to-square"
                     style="color:white;"></i></a>';
-                    $btn2 = '<a href="reviews/destroy/' . $row->rating_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    $btn2 = '&nbsp;<a href="reviews/destroy/' . $row->rating_id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
                     <i class="fa-solid fa-trash-can" style="color:white;"></i>
                     </a>';
                     return $btn1 . " " . $btn2;
-
                 })
                 ->rawColumns(['action'])
                 ->make(true);

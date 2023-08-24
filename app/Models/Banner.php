@@ -16,7 +16,9 @@ class Banner extends Model
     protected $fillable = [
         'banner_image',
         'banner_title',
-        'banner_publish'
+        'banner_publish',
+        'set_order'
     ];
+
 
 }

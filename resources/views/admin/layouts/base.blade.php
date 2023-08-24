@@ -36,7 +36,8 @@
 <!--begin::Body-->
 
 <body id="kt_body"
-    class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed"
+    class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed 
+        aside-enabled aside-fixed"
     style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
 
     <!--begin::Main-->
@@ -77,7 +78,7 @@
                         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                             <a href="javascript:void(0)" class="d-lg-none">
                                 <img alt="Logo"
-                                    src="{{asset('admin/dist/media/logos/consultant_side.png')}}"
+                                    src="{{asset('admin/dist/media/logos/gomartlogo.png')}}"
                                     class="h-40px"  style="border-radius:5px"/>
                             </a>
                         </div>

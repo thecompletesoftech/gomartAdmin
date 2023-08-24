@@ -1,13 +1,13 @@
 @extends('admin.layouts.base')
 @section('content')
     @include('admin.layouts.components.header', [
-        'title' => __('messages.create', ['name' => trans_choice('content.category', 1)]),
+        'title' => __('messages.create', ['name' => trans_choice('categories', 1)]),
     ])
 
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container">
+        <div id="kt_content_container" class="container-fluid">
             <!--begin::Careers - Apply-->
             <div class="card">
                 <!--begin::Body-->

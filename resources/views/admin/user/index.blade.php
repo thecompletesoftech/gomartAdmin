@@ -8,9 +8,9 @@
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container">
+        <div id="kt_content_container" class="container-fluid">
             <!--begin::Card-->
-            <div class="card">
+            <div class="card" style="border-radius:10px;">
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">

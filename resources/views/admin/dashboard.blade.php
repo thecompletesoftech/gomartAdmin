@@ -8,7 +8,7 @@
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container">
+        <div id="kt_content_container" class="container-fluid">
             <!--begin::Row-->
 
             <div class="row gy-5 g-xl-8">
@@ -215,9 +215,9 @@
             </div>
 
             <!-- start earning and top stores -->
-            <div class="row gy-5 g-xl-8 mt-5 mb-5 d-flex ">
+            <div class="row gy-5 g-xl-8 mt-5 mb-5 d-flex">
                 <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
+                    <div class="card h-100">
                         <div class="card-header">
                             <div class="float-left mt-5">
                                 <h1 class="card-title" style="font-size:18px;">Earnings</h1>
@@ -237,7 +237,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
+                    <div class="card h-100">
                         <div class="card-header">
                             <h4 class="card-title">Stores</h4>
                             <a href=" {{ route('admin.stores.index') }}">
@@ -246,8 +246,8 @@
                             </a>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div class="table-responsive table-bordered">
+                                <table class="table table-striped fw-bold fs-4">
                                     <thead>
                                         <tr>
                                             <th>Image</th>
@@ -264,7 +264,7 @@
                                                         style="width:50px; height:50px;" />
                                                 </td>
                                                 @php
-                                                    $rating = $stores->order_rate;
+                                                    $rating = $stores->rating;
                                                     $stars = '';
                                                     for ($i = 1; $i <= 5; $i++) {
                                                         $stars .= $i <= $rating ? '★' : '☆';
@@ -280,7 +280,9 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach 
+
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -292,9 +294,9 @@
 
             <!-- start recent order and top driver list -->
 
-            <div class="row gy-5 g-xl-8 mt-5 mb-5 d-flex ">
+            <div class="row gy-5 g-xl-8 mt-5 mb-5 d-flex">
                 <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
+                    <div class="card h-100">
                         <div class="card-header">
                             <h3 class="card-title">Recent Orders</h3>
                             <a href=" {{ route('admin.orders.index') }}">
@@ -303,10 +305,9 @@
                             </a>
                         </div>
 
-
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div class="table-responsive table-bordered">
+                                <table class="table table-striped fw-bold fs-4">
                                     <thead>
                                         <tr>
                                             <th>Order ID</th>
@@ -334,7 +335,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
+                    <div class="card h-100">
                         <div class="card-header">
                             <h4 class="card-title">Top Drivers</h4>
                             <a href=" {{ route('admin.drivers.index') }}">
@@ -343,8 +344,8 @@
                             </a>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div class="table-responsive table-bordered">
+                                <table class="table table-striped fw-bold fs-4">
                                     <thead>
                                         <tr>
                                             <th>Image</th>

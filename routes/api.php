@@ -34,7 +34,9 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('verifyOtp', 'verifyOtp');
         Route::post('forgetPassword', 'forgetPassword');
         Route::post('getsettingdata','getsettingdata');
-        
+        Route::post('getCategory', 'getCategory');
+        Route::post('getBanner', 'getBanner');
+        Route::post('getProductByCatID', 'getProductByCatID');    
     });
 
     // -------- Register And Login API ----------
@@ -43,9 +45,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::controller(AuthController::class)->group(function () {
             Route::post('logout', 'logout');
             Route::post('addOrder', 'addOrder');
-            Route::post('getCategory', 'getCategory');
             Route::post('getProduct', 'getProduct');
-            Route::post('getBanner', 'getBanner');
             Route::post('cancelOrder', 'cancelOrder');
             Route::post('addRating', 'addRating');
             Route::post('Addcart', 'Addcart');
