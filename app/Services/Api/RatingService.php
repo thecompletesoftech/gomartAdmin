@@ -20,7 +20,8 @@ class RatingService
                 'rating' => 'required|numeric|min:1|max:5',
                 'store_id' => 'required',
                 'order_id' => 'required',
-                'item_id' => 'required'
+                'item_id' => 'required',
+                'user_id' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -36,7 +37,7 @@ class RatingService
                 'store_id' => $request->store_id,
                 'order_id' => $request->order_id,
                 'order_review' => $request->order_review,
-                'rating' => $request->rating,
+                'rating' => round($request->rating),
             ];
 
             $addOrder = Reviewandrating::create($AddratingInput);

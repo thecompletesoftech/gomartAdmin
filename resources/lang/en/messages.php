@@ -20,6 +20,7 @@ return [
     'adventure' => 'Adventure |Adventures',
     'notification' => 'Notification|Notifications',
     'category' => 'Category|Categorys',
+    'subcategory' => 'Subcategory|Subcategory',
     'item' => 'Item|Items',
     'banner' => 'Banner|Banners',
     'order' => 'Order|Orders',

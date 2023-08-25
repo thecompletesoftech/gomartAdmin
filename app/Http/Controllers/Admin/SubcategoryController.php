@@ -25,12 +25,12 @@ class SubcategoryController extends Controller
     public function __construct()
     {
         //Data
-        $this->uploads_image_directory = 'files/subs';
+        $this->uploads_image_directory = 'files/subcategorys';
         //route
-        $this->index_route_name = 'admin.subs.index';
-        $this->create_route_name = 'admin.subs.create';
-        $this->detail_route_name = 'admin.subs.show';
-        $this->edit_route_name = 'admin.subs.edit';
+        $this->index_route_name = 'admin.subcategorys.index';
+        $this->create_route_name = 'admin.subcategorys.create';
+        $this->detail_route_name = 'admin.subcategorys.show';
+        $this->edit_route_name = 'admin.subcategorys.edit';
 
         //view files
         $this->index_view = 'admin.subcategory.index';
@@ -69,10 +69,10 @@ class SubcategoryController extends Controller
             return DataTables::of($query)->addIndexColumn()
 
                 ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="subs/' . $row->id . '/edit" class="badge badge-success p-2"><i
+                    $btn1 = '<a href="subcategorys/' . $row->id . '/edit" class="badge badge-success p-2"><i
                     class="fa-regular fa-pen-to-square"
                     style="color:white;"></i></a>';
-                    $btn2 = '&nbsp;<a href="subs/destroy/' . $row->id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
+                    $btn2 = '&nbsp;<a href="subcategorys/destroy/' . $row->id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
                     <i class="fa-solid fa-trash-can" style="color:white;"></i>
                     </a>';
                     return $btn1 . " " . $btn2;
@@ -139,7 +139,7 @@ class SubcategoryController extends Controller
     public function edit(Subcategory $subcategory)
     {
         $data['category'] = Category::get(["category_name", "cat_id"]);
-        return view($this->edit_view, compact('subcategory'),$data);
+        return view($this->edit_view,compact('subcategory'),$data);
     }
 
     /**

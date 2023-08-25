@@ -209,7 +209,7 @@
 
                 <div class="menu-item">
                     <a class="menu-link {{ checkActiveSideBar(['subcategory']) ? 'menu-item active' : '' }}"
-                        href="{{ route('admin.subs.index') }}">
+                        href="{{ route('admin.subcategorys.index') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <i class="fa fa-bars" style="color:cyanblue;font-size:15px;"></i>

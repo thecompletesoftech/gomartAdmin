@@ -13,6 +13,7 @@ use App\Services\Api\GloalService;
 use App\Services\Api\ItemService;
 use App\Services\Api\OrderService;
 use App\Services\Api\RatingService;
+use App\Services\Api\SubcategoryServices;
 use App\Services\HelperService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class AuthController extends Controller
     $apicommonService, $apibannerService
     , $apipromocodeService, $apiserviceService,
     $apiclothtypeService,
-    $apibagService, $cartService;
+    $apibagService, $cartService,$subcategoryService;
 
     public function __construct()
     {
@@ -39,6 +40,7 @@ class AuthController extends Controller
         $this->apiratingService = new RatingService();
         $this->apiglobalService = new GloalService();
         $this->cartService = new CartItemService();
+        $this->subcategoryService = new SubcategoryServices();
     }
 
     /**
@@ -122,6 +124,19 @@ class AuthController extends Controller
         return $this->categoryservice->getCategory($request);
     }
 
+    /**
+     * get SubCategory
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function getSubcategory(Request $request)
+     {
+         return $this->subcategoryService->getSubcategory($request);
+     }
+     
+
      /**
      * get Product By Category Id     
      * *
@@ -157,6 +172,20 @@ class AuthController extends Controller
     {
         return $this->cartService->Addcart($request);
     }
+
+    // Start Remove Add To Cart
+    public function RemoveAddcart(Request $request)
+    {
+        return $this->cartService->RemoveAddcart($request);
+    }
+    // End Remove Add To Cart
+
+    // Start Get Cart Item
+    public function getCartItem(Request $request)
+    {
+        return $this->cartService->getCartItem($request);
+    }
+    // End Get Cart Item
 
     /**
      * get banner list

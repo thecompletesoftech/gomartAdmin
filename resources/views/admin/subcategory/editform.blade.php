@@ -22,7 +22,7 @@
             @if ($subcategory->id)
                 <input type="file" class="form-control form-control-lg form-control-solid" name="subcategory_image"
                     accept=".png, .jpg, .jpeg">
-                <img src={{ env('APP_URL') }}/uploads/{{ $category->subcategory_image }}
+                <img src={{ env('APP_URL') }}/uploads/{{ $subcategory->subcategory_image }}
                     style="width:50px; height:50px; border-radius:1rem;" />
             @else
                 <input type="file" class="form-control form-control-lg form-control-solid" name="subcategory_image"
@@ -50,7 +50,7 @@
             <select class="form-control form-control-solid" name="category_id">
                 <option value="">Select Category</option>
                 @foreach ($category as $data)
-                    <option value="{{ $data->cat_id }}" {{ $store->category_name == $data->cat_id ? 'selected' : '' }}>
+                    <option value="{{ $data->cat_id }}" {{ $subcategory->category_id == $data->cat_id ? 'selected' : '' }}>
                         {{ $data->category_name }}</option>
                 @endforeach
             </select>
@@ -62,5 +62,5 @@
 
 @push('scripts')
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\EditCategoryRequest', 'form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\EditSubcategoryRequest', 'form') !!}
 @endpush

@@ -18,12 +18,12 @@
                         <div class="flex-lg-row-fluid me-0 me-lg-20">
 
                             <!--begin::Form-->
-                            {!! Form::open(['route' => 'admin.subs.store', 'method' => 'POST', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open(['route' => 'admin.subcategorys.store', 'method' => 'POST', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
 
                             @include('admin.subcategory.form')
                             <!--begin::Actions-->
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                <a href="{{ route('admin.subs.index') }}"
+                                <a href="{{ route('admin.subcategorys.index') }}"
                                     class="btn btn-light btn-active-light-primary me-2 text-black">{{ __('content.back_title') }}</a>
                                 <button type="submit" class="btn btn-primary">{{ __('content.create_title') }}</button>
                             </div>

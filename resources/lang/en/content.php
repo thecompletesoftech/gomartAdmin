@@ -199,6 +199,7 @@ return [
 
     'user' => 'User|Users',
     'category' => 'Category|Category',
+    'subcategory' => 'Subcategory|Subcategory',
     'item' => 'Item|Items',
     'banner' => 'Banner|Banners',
     'order' => 'Order|Orders',

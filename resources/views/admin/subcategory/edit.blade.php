@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 @section('content')
     @include('admin.layouts.components.header', [
-        'title' => __('messages.edit', ['name' => trans_choice('content.category', 1)]),
+        'title' => __('messages.edit', ['name' => trans_choice('content.subcategory', 1)]),
     ])
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -15,11 +15,10 @@
                     <div class="d-flex flex-column flex-lg-row mb-17">
                         <!--begin::Content-->
                         <div class="flex-lg-row-fluid me-0 me-lg-20">
-
                             <!--begin::Form-->
-                            {!! Form::model($category, [
+                            {!! Form::model($subcategory, [
                                 'method' => 'PATCH',
-                                'route' => ['admin.subs.update', $subcategory->id],
+                                'route' => ['admin.subcategorys.update', $subcategory->id],
                                 'class' => 'form mb-15',
                                 'enctype' => 'multipart/form-data',
                             ]) !!}
@@ -30,7 +29,7 @@
 
                             <!--begin::Actions-->
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                <a href="{{ route('admin.subs.index') }}"
+                                <a href="{{ route('admin.subcategorys.index') }}"
                                     class="btn btn-light btn-active-light-primary me-2 text-black">{{ __('content.back_title') }}</a>
                                 <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save
                                     Changes</button>

@@ -2,11 +2,11 @@
 @section('content')
     @include('admin.layouts.components.header', [
         'title' => __('messages.list', [
-            'name' => trans_choice('content.category', 2),
+            'name' => trans_choice('content.subcategory', 2),
         ]),
         'create_btn' => [
             'status' => true,
-            'route' => route('admin.subs.create'),
+            'route' => route('admin.subcategorys.create'),
             'name' => __('messages.create', [
                 'name' => trans_choice('content.subcategory', 1),
             ]),

@@ -7,36 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class ItemService
+class SubcategoryServices
 {
 
-    public static function getProduct()
-    {
-        $getItem = DB::table('items')->where('item_publish', 'Yes')->get();
-
-        if (count($getItem) > 0) {
-            return response()->json(
-                [
-                    'status' => true,
-                    'message' => 'Successfully',
-                    'data' => $getItem,
-                ],
-                200
-            );
-        } else {
-            return response()->json(
-                [
-                    'status' => false,
-                    'message' => 'Data not Found',
-                    'data' => [],
-                ],
-                200
-            );
-        }
-
-    }
-
-    public static function getProductByCatID(Request $request)
+    public static function getSubcategory(Request $request)
     {
         try {
 
@@ -51,19 +25,14 @@ class ItemService
                 ], 400);
             }
 
-            $getProductByCatId['product'] = DB::table('items')->where('items.category_id', $request->category_id)->get();
+            $getData = DB::table('subcategorys')->where('category_id', $request->category_id)->get();
 
-            foreach ($getProductByCatId['product'] as $rating) {
-                $rating->rating = DB::table('reviewandratings')
-                    ->where('item_id', $rating->item_id)->avg('rating');
-            }
-
-            if (count($getProductByCatId) > 0) {
+            if (count($getData) > 0) {
                 return response()->json(
                     [
                         'status' => true,
                         'message' => 'Successfully',
-                        'data' => $getProductByCatId,
+                        'data' => $getData,
                     ],
                     200
                 );
@@ -84,5 +53,7 @@ class ItemService
                 'message' => $e->getMessage(),
             ]);
         }
+
     }
+
 }

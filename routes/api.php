@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 Route::get('/v1/test', 'Api\V1\TestController@test');
 
@@ -21,9 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'namespace' => 'Api\V1\Customer'], function () {
-    
+
     Route::get('/test', [CTestController::class, 'test']);
 
     // -------- Register And Login API ----------
@@ -33,10 +32,12 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('sendOtp', 'sendOtp');
         Route::post('verifyOtp', 'verifyOtp');
         Route::post('forgetPassword', 'forgetPassword');
-        Route::post('getsettingdata','getsettingdata');
+        Route::post('getsettingdata', 'getsettingdata');
         Route::post('getCategory', 'getCategory');
         Route::post('getBanner', 'getBanner');
-        Route::post('getProductByCatID', 'getProductByCatID');    
+        Route::post('getProductByCatID', 'getProductByCatID');
+        Route::post('getProduct', 'getProduct');
+        Route::post('getSubcategory', 'getSubcategory');
     });
 
     // -------- Register And Login API ----------
@@ -45,12 +46,13 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::controller(AuthController::class)->group(function () {
             Route::post('logout', 'logout');
             Route::post('addOrder', 'addOrder');
-            Route::post('getProduct', 'getProduct');
             Route::post('cancelOrder', 'cancelOrder');
             Route::post('addRating', 'addRating');
             Route::post('Addcart', 'Addcart');
-            Route::post('deleteorder','deleteorder');
-            Route::post('getOrderdetail','getOrderdetail');
+            Route::post('getCartItem', 'getCartItem');
+            Route::post('RemoveAddcart', 'RemoveAddcart');
+            Route::post('deleteorder', 'deleteorder');
+            Route::post('getOrderdetail', 'getOrderdetail');
         });
 
         /* Profile Controller */
@@ -60,6 +62,6 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::put('update-profile', 'updateProfile');
             Route::post('update-profile-image', 'updateProfileImage');
         });
-        
+
     });
 });

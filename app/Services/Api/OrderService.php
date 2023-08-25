@@ -50,12 +50,7 @@ class OrderService
             $addOrder = Order::create($OrderInput);
            
             $get_order=Order::where('order_id',$addOrder->order_id)->first();
-           
-
-            // $countitem = $OrderInput['items'];
-
-           
-
+        
             foreach ($new as $newdata) {
                        
                 $newdatainput = [

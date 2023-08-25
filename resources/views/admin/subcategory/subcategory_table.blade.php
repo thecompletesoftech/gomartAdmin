@@ -53,7 +53,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.subs.index') }}",
+                url: "{{ route('admin.subcategorys.index') }}",
                 data: function(d) {
                     d.subcategory_name = $('.searchEmail').val(),
                         d.search = $('input[type="search"]').val()

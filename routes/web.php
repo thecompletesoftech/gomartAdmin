@@ -90,10 +90,10 @@ use Illuminate\Support\Facades\Route;
         // Subcategory
 
         Route::controller(SubcategoryController::class)->group(function () {
-            Route::get('/subs/status/{id}/{status}', 'status')->name('subs.status');
-            Route::get('/subs/destroy/{id}/', 'destroy')->name('subs.destroy');
+            Route::get('/subcategorys/status/{id}/{status}', 'status')->name('subcategorys.status');
+            Route::get('/subcategorys/destroy/{id}/','destroy')->name('subcategorys.destroy');
         });
-        Route::resource('/subs', SubcategoryController::class);
+        Route::resource('/subcategorys', SubcategoryController::class);
 
         //Items
 
