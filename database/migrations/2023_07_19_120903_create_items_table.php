@@ -23,6 +23,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('dis_item_price')->nullable();
             $table->string('item_image');
+            $table->string('item_weight');
+            $table->string('item_expiry_date');
             $table->string('item_description');
             $table->timestamps();
         });

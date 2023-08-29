@@ -21,7 +21,6 @@ class OrderService
             $validator = Validator::make($request->all(), [
                 'order_amount' => 'required',
                 'order_type' => 'required',
-                // 'items' => 'required',
                 'order_date' => 'required',
                 'driver_id' => 'required',
                 'store_id' => 'required',
@@ -210,7 +209,6 @@ class OrderService
 
     public static function getOrderdetail(Request $request)
     {
-
         try {
             $validator = Validator::make($request->all(), [
                 'user_id' => 'required',

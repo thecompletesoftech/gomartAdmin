@@ -47,14 +47,22 @@
             <input type="text" class="form-control form-control-lg form-control-solid" name="store_address"
                 placeholder="Store Address" />
         </div>
+        
+    </div>
+
+    <div class="row mb-6">
+        <p>* Don't Know your cordinates ? use <a href="https://www.latlong.net/" 
+            target="_blank"
+            style="color:green;">Latitude and Longitude Finder</a></p>
+    </div>
+
+    <div class="row mb-6">
+
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Latitude</label>
         <div class="col-lg-4 fv-row">
             <input type="text" class="form-control form-control-lg form-control-solid" name="store_latitude"
                 placeholder="Store Latitude" />
         </div>
-    </div>
-
-    <div class="row mb-6">
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Longititude</label>
         <div class="col-lg-4 fv-row">
@@ -62,21 +70,28 @@
                 placeholder="Store Longitude" />
         </div>
 
+        
+
+    </div>
+
+    <div class="row mb-6">
+
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Opening Time</label>
         <div class="col-lg-4 fv-row">
             <input type="time" class="form-control form-control-lg form-control-solid" name="store_opening_time"
                 placeholder="Store Opening Time" />
         </div>
 
-    </div>
-
-    <div class="row mb-6">
-
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Closing Time</label>
         <div class="col-lg-4 fv-row">
             <input type="time" class="form-control form-control-lg form-control-solid" name="store_closing_time"
                 placeholder="Store Closing Time" />
         </div>
+
+       
+    </div>
+
+    <div class="row mb-6">
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Status</label>
         <div class="col-lg-4 fv-row">
@@ -86,9 +101,7 @@
                 <option value="1">Open</option>
             </select>
         </div>
-    </div>
 
-    <div class="row mb-6">
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Active</label>
         <div class="col-lg-4 fv-row">
             <select name="store_active" class="form-control form-control-lg form-control-solid">

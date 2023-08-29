@@ -34,8 +34,6 @@ Breadcrumbs::macro('resource', function ($name, $title, $list = false) {
         $trail->push($title, route("admin.$name.index"));
     });
 
-
-
     // Home > $title > Add New
     Breadcrumbs::for("admin.$name.create", function ($trail) use ($name, $title) {
         $trail->parent("admin.$name.index");

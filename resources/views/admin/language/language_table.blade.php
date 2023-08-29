@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row mt-5 justify-content-center">
             <div class="col-md-3 col-sm-3 col-xl-3 col-lg-3">

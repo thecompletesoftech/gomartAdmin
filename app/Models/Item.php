@@ -23,6 +23,8 @@ class Item extends Model
         'quantity',
         'item_publish',
         'item_description',
+        'item_weight',
+        'item_expiry_date'
     ];
 
 }

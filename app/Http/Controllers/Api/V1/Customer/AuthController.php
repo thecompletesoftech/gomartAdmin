@@ -9,6 +9,7 @@ use App\Services\Api\AuthService;
 use App\Services\Api\Bannerservice;
 use App\Services\Api\CartItemService;
 use App\Services\Api\CategoryServices;
+use App\Services\Api\CouponCodeService;
 use App\Services\Api\GloalService;
 use App\Services\Api\ItemService;
 use App\Services\Api\OrderService;
@@ -26,7 +27,7 @@ class AuthController extends Controller
     $apicommonService, $apibannerService
     , $apipromocodeService, $apiserviceService,
     $apiclothtypeService,
-    $apibagService, $cartService,$subcategoryService;
+    $apibagService, $cartService, $subcategoryService, $coupancodeservice;
 
     public function __construct()
     {
@@ -41,6 +42,7 @@ class AuthController extends Controller
         $this->apiglobalService = new GloalService();
         $this->cartService = new CartItemService();
         $this->subcategoryService = new SubcategoryServices();
+        $this->coupancodeservice = new CouponCodeService();
     }
 
     /**
@@ -112,7 +114,7 @@ class AuthController extends Controller
         return $this->apiAuthService->profileUpdate($request);
     }
 
-     /**
+    /**
      * get Category
      *
      * @param  \Illuminate\Http\Request  $request
@@ -131,14 +133,13 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function getSubcategory(Request $request)
-     {
-         return $this->subcategoryService->getSubcategory($request);
-     }
-     
+    public function getSubcategory(Request $request)
+    {
+        return $this->subcategoryService->getSubcategory($request);
+    }
 
-     /**
-     * get Product By Category Id     
+    /**
+     * get Product By Category Id
      * *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -161,6 +162,18 @@ class AuthController extends Controller
         return $this->itemservice->getProduct($request);
     }
 
+     /**
+     * get Item By Id
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function getProductByItemID(Request $request)
+     {
+         return $this->itemservice->getProductByItemID($request);
+     }
+
     /**
      * Item Add to cart
      *
@@ -172,6 +185,27 @@ class AuthController extends Controller
     {
         return $this->cartService->Addcart($request);
     }
+
+    // start add coupon code
+    public function addCouponcode(Request $request)
+    {
+        return $this->coupancodeservice->addCouponcode($request);
+    }
+    // end coupon code
+
+    // start coupon code list
+    public function getCouponcode(Request $request)
+    {
+        return $this->coupancodeservice->getCouponcode($request);
+    }
+    // end conpon code list
+
+    // start Remove Coupon Code
+    public function RemoveCouponcode(Request $request)
+    {
+        return $this->coupancodeservice->RemoveCouponcode($request);
+    }
+    // end Remove Coupon Code
 
     // Start Remove Add To Cart
     public function RemoveAddcart(Request $request)
@@ -211,7 +245,7 @@ class AuthController extends Controller
         return $this->orderservice->addOrder($request);
     }
 
-     /**
+    /**
      * delete order
      *
      * @param  \Illuminate\Http\Request  $request
@@ -223,7 +257,7 @@ class AuthController extends Controller
         return $this->orderservice->deleteorder($request);
     }
 
-     /**
+    /**
      * get OrdersDetail
      *
      * @param  \Illuminate\Http\Request  $request
@@ -235,7 +269,7 @@ class AuthController extends Controller
         return $this->orderservice->getOrderdetail($request);
     }
 
-     /**
+    /**
      * add rating
      *
      * @param  \Illuminate\Http\Request  $request

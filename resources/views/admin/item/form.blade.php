@@ -7,19 +7,15 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Name</label>
 
         <div class="col-lg-4 fv-row">
-            <input 
-                type="text" 
-                class="form-control form-control-lg form-control-solid" name="item_name" 
-                placeholder="item name"
-            >
+            <input type="text" class="form-control form-control-lg form-control-solid" name="item_name"
+                placeholder="item name">
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Price</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="number" class="form-control form-control-lg form-control-solid" name="item_price" 
-                placeholder="item price"
-            >
+            <input type="number" class="form-control form-control-lg form-control-solid" name="item_price"
+                placeholder="item price">
         </div>
 
     </div>
@@ -29,9 +25,8 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Discount Price</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="number" class="form-control form-control-lg form-control-solid" name="dis_item_price" 
-                placeholder="discount"
-            >
+            <input type="number" class="form-control form-control-lg form-control-solid" name="dis_item_price"
+                placeholder="discount">
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Category</label>
@@ -52,12 +47,8 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Quantity</label>
 
         <div class="col-lg-4 fv-row">
-            <input 
-                type="number" 
-                class="form-control form-control-lg form-control-solid" 
-                name="quantity" 
-                placeholder="Quantity"
-            >
+            <input type="number" class="form-control form-control-lg form-control-solid" name="quantity"
+                placeholder="Quantity">
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Image</label>
@@ -116,13 +107,28 @@
     </div>
 
     <div class="row mb-6">
+
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Description</label>
-        <div class="col-lg-12 fv-row">
-            <textarea 
-                name="item_description" 
-                class="form-control form-control-lg form-control-solid"
-                placeholder="Description"
-            ></textarea>
+        <div class="col-lg-4 fv-row">
+            <textarea name="item_description" class="form-control form-control-lg form-control-solid" placeholder="Description"></textarea>
+        </div>
+
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Weight</label>
+        <div class="col-lg-4 fv-row">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="item_weight"
+                placeholder="Item Weight">
+        </div>
+
+    </div>
+
+    <div class="row mb-6">
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Expiry Date</label>
+        <div class="col-lg-4 fv-row">
+            <input 
+                type="number" 
+                class="form-control form-control-lg form-control-solid" 
+                name="item_expiry_date"
+                placeholder="Item Expiry Date">
         </div>
     </div>
 

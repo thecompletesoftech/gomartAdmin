@@ -58,6 +58,12 @@
     </div>
 
     <div class="row mb-6">
+        <p>* Don't Know your cordinates ? use <a href="https://www.latlong.net/" 
+            target="_blank"
+            style="color:green;">Latitude and Longitude Finder</a></p>
+    </div>
+
+    <div class="row mb-6">
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Category Name</label>
         <div class="col-lg-4 fv-row">

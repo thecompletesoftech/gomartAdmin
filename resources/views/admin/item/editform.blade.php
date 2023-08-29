@@ -138,7 +138,7 @@
 
     <div class="row mb-6">
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Description</label>
-        <div class="col-lg-12 fv-row">
+        <div class="col-lg-4 fv-row">
             {!! Form::textarea('item_description', null, [
                 'min' => 2,
                 'max' => 6,
@@ -146,15 +146,39 @@
                 'class' => 'form-control form-control-lg form-control-solid',
                 'placeholder' => trans_choice('content.item_description', 1),
             ]) !!}
+        </div>
 
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Weight</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::number('item_weight', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.item_weight', 1),
+            ]) !!}
+        </div>
+
+    </div>
+
+    <div class="row mb-6">
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Item Date Expiry</label>
+        <div class="col-lg-4 fv-row">
+            {!! Form::text('item_expiry_date', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.item_expiry_date', 1),
+            ]) !!}
         </div>
     </div>
 
 </div>
 <!--end::Card body-->
 
-
 @push('scripts')
+    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 

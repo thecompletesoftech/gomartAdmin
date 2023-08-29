@@ -35,11 +35,8 @@
                         <tr>
                             <th>Rating ID</th>
                             <th>Order ID</th>
-                            {{-- <th>Store</th> --}}
-                            {{-- <th>Item Name</th> --}}
                             <th>Order Review</th>
                             <th>Rate</th>
-                            {{-- <th>User</th> --}}
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -72,14 +69,6 @@
                     data: 'order_as_id',
                     name: 'order_as_id'
                 },
-                // {
-                //     data: 'store_as_name',
-                //     name: 'store_as_name'
-                // },
-                // {
-                //     data: 'item_as_name',
-                //     name: 'item_as_name'
-                // },
                 {
                     data: 'order_review',
                     name: 'order_review'
@@ -88,10 +77,6 @@
                     data: 'rating',
                     name: 'rating'
                 },
-                // {
-                //     data: 'user_name',
-                //     name: 'user_name'
-                // },
                 {
                     data: 'action',
                     name: 'action',

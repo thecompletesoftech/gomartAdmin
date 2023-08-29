@@ -288,8 +288,10 @@ return [
     'item_price' => 'Item Price',
     'item_discount' => 'Item Discount',
     'item_description' => 'Description',
+    'item_weight' => 'Item Weight',
     'quantity' => 'Quantity',
-    
+    'item_expiry_date' => 'Item Expiry Date',
+
     // banner 
     'banner_title' => 'Banner Title',
     'set_order' => 'Banner Set Order',

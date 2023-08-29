@@ -7,7 +7,7 @@
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container">
+        <div id="kt_content_container" class="container-fluid">
             <!--begin::Careers - Apply-->
             <div class="card">
                 <!--begin::Body-->

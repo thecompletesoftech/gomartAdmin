@@ -16,9 +16,13 @@
                     <div class="d-flex flex-column flex-lg-row">
                         <!--begin::Content-->
                         <div class="flex-lg-row-fluid me-0 me-lg-20">
-
                             <!--begin::Form-->
-                            {!! Form::open(['route' => 'admin.stores.store', 'method' => 'POST', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open([
+                                'route' => 'admin.stores.store',
+                                'method' => 'POST',
+                                'class' => 'form',
+                                'enctype' => 'multipart/form-data',
+                            ]) !!}
                             @include('admin.store.form')
                             <!--begin::Actions-->
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
@@ -27,7 +31,6 @@
                                 <button type="submit" class="btn btn-primary">{{ __('content.create_title') }}</button>
                             </div>
                             <!--end::Actions-->
-
                             {!! Form::close() !!}
                             <!--end::Form-->
                         </div>

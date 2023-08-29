@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use Yajra\DataTables\Facades\Datatables;
-
+use GuzzleHttp\Client;
 class StoreController extends Controller
 {
     protected $mls, $change_password, $assign_role, $uploads_image_directory;
@@ -142,6 +142,7 @@ class StoreController extends Controller
         Bank::create($bankdetail);
 
         return redirect()->route($this->index_route_name)->with('success', $this->mls->messageLanguage('created', 'store', 1));
+        
     }
 
     /**

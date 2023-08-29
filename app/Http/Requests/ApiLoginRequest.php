@@ -21,7 +21,6 @@ class ApiLoginRequest extends FormRequest
         ];
     }
 
-
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -35,7 +34,6 @@ class ApiLoginRequest extends FormRequest
             'email.exists' => "This Email doesn't registered with us.",
             'password.required' => __('validation.required', ['attribute' => 'Password']),
             'login_type.required' => __('validation.required', ['attribute' => 'Login Type']),
-            
         ];
     }
 }

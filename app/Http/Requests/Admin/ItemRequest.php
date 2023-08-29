@@ -16,8 +16,10 @@ class ItemRequest extends FormRequest
                 'item_publish' => 'required',
                 'dis_item_price' => 'required',
                 'item_image' => 'required',
+                'item_weight' => 'required|regex:/(^[A-Za-z0-9]+$)+/',
                 'quantity' => 'required',
                 'store_id' => 'required',
+                'item_expiry_date' => 'required',
                 'item_description' => 'required|max:200',
             ];
         } else {
@@ -28,8 +30,10 @@ class ItemRequest extends FormRequest
                 'item_publish' => 'required',
                 'dis_item_price' => 'required',
                 'item_image' => 'required',
+                'item_weight' => 'required|regex:/(^[A-Za-z0-9]+$)+/',
                 'quantity' => 'required',
                 'store_id' => 'required',
+                'item_expiry_date' => 'required',
                 'item_description' => 'required|max:200',
             ];
         }
@@ -44,9 +48,11 @@ class ItemRequest extends FormRequest
             'item_publish.required' => __('validation.required', ['attribute' => 'item Publish']),
             'dis_item_price.required' => __('validation.required', ['attribute' => 'item Discount Price']),
             'item_image.required' => __('validation.required', ['attribute' => 'item Image']),
+            'item_weight.required' => __('validation.required', ['attribute' => 'item Weight']),
             'quantity.required' => __('validation.required', ['attribute' => 'item Quantity']),
             'quantity.integer' => __('validation.integer', ['attribute' => 'Enter only integer']),
             'item_description.required' => __('validation.required', ['attribute' => 'item description']),
+            'item_expiry_date.required' => __('validation.required', ['attribute' => 'item expiry date']),
             'store_id.required' => __('validation.required', ['attribute' => 'Store Name']),
         ];
     }

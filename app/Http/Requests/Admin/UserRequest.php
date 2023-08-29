@@ -62,7 +62,6 @@ class UserRequest extends FormRequest
             'mobile_no.required' => __('validation.required', ['attribute' => 'Mobile Number']),
             'wallet_amount.required' => __('validation.required', ['attribute' => 'Wallet Amount']),
             'roles.required' => __('validation.required', ['attribute' => 'Role']),
-           
         ];
     }
 }

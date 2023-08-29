@@ -33,13 +33,12 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('verifyOtp', 'verifyOtp');
         Route::post('forgetPassword', 'forgetPassword');
         Route::post('getsettingdata', 'getsettingdata');
-        Route::post('getCategory', 'getCategory');
-        Route::post('getBanner', 'getBanner');
-        Route::post('getProductByCatID', 'getProductByCatID');
-        Route::post('getProduct', 'getProduct');
+        Route::post('addCouponcode', 'addCouponcode');
+        Route::post('getCouponcode', 'getCouponcode');
+        Route::post('RemoveCouponcode', 'RemoveCouponcode');
         Route::post('getSubcategory', 'getSubcategory');
     });
-
+    
     // -------- Register And Login API ----------
     Route::group(['middleware' => ['jwt.auth']], function () {
         /* logout APi */
@@ -49,9 +48,14 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('cancelOrder', 'cancelOrder');
             Route::post('addRating', 'addRating');
             Route::post('Addcart', 'Addcart');
+            Route::post('getBanner', 'getBanner');
+            Route::post('getCategory', 'getCategory');
+            Route::post('getProductByCatID', 'getProductByCatID');
             Route::post('getCartItem', 'getCartItem');
             Route::post('RemoveAddcart', 'RemoveAddcart');
             Route::post('deleteorder', 'deleteorder');
+            Route::post('getProduct', 'getProduct');
+            Route::post('getProductByItemID', 'getProductByItemID');
             Route::post('getOrderdetail', 'getOrderdetail');
         });
 

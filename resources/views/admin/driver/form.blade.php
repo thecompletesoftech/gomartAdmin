@@ -62,26 +62,25 @@
 
     <div class="row mb-6">
 
+        <p>* Don't Know your cordinates ? use <a href="https://www.latlong.net/" target="_blank"
+                style="color:green;">Latitude and Longitude Finder</a></p>
+
+    </div>
+
+    <div class="row mb-6">
+
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Driver Longitude</label>
 
         <div class="col-lg-4 fv-row">
-            <input 
-                type="text" 
-                class="form-control form-control-lg form-control-solid" 
-                name="driver_longitude"
-                placeholder="Driver Longitude" 
-            />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="driver_longitude"
+                placeholder="Driver Longitude" />
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Driver Latitude</label>
 
         <div class="col-lg-4 fv-row">
-            <input 
-                type="text" 
-                class="form-control form-control-lg form-control-solid" 
-                name="driver_latitude"
-                placeholder="Driver Latitude" 
-            />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="driver_latitude"
+                placeholder="Driver Latitude" />
         </div>
 
     </div>
@@ -120,8 +119,8 @@
             accept=".png, .jpg, .jpeg">
     </div>
 
-    <br/>
-    <br/>
+    <br />
+    <br />
 
     <div class="row mb-6 mt-5">
         <h1>Bank Details</h1>
@@ -149,12 +148,8 @@
         <input type="text" class="form-control form-control-lg form-control-solid" name="holder_name"
             placeholder="Holder Name" />
         <label class="col-lg-4 col-form-label required fw-bold fs-6">Account Number</label>
-        <input 
-            type="text" 
-            class="form-control form-control-lg form-control-solid" 
-            name="account_number"
-            placeholder="Account Number" 
-        />
+        <input type="text" class="form-control form-control-lg form-control-solid" name="account_number"
+            placeholder="Account Number" />
 
     </div>
 
