@@ -35,7 +35,9 @@ class CartItemService
             'item_quantity' => $request->item_quantity,
             'item_image' => $ItemImage,
             'item_weight' => $request->item_weight,
-            'item_total' => $request->item_price * $request->item_quantity,
+            'item_expiry_date' => $request->item_expiry_date,
+            'item_description' => $request->item_description,
+            'dis_item_price' => $request->dis_item_price
         ]);
 
         if ($cartItem) {
@@ -101,10 +103,9 @@ class CartItemService
     {
         $request->validate([
             'user_id' => 'required',
-            'item_id' => 'required',
         ]);
 
-        $cartItem = DB::table('cart_items')->where('item_id', $request->item_id)->orWhere('user_id', $request->user_id)->get();
+        $cartItem = DB::table('cart_items')->where('user_id', $request->user_id)->get();
 
         if ($cartItem) {
             return response()->json(

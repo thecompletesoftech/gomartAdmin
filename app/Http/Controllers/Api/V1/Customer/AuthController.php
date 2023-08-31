@@ -14,7 +14,9 @@ use App\Services\Api\GloalService;
 use App\Services\Api\ItemService;
 use App\Services\Api\OrderService;
 use App\Services\Api\RatingService;
+use App\Services\Api\CheckoutService;
 use App\Services\Api\SubcategoryServices;
+use App\Services\Api\PlaceorderService;
 use App\Services\HelperService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -27,7 +29,7 @@ class AuthController extends Controller
     $apicommonService, $apibannerService
     , $apipromocodeService, $apiserviceService,
     $apiclothtypeService,
-    $apibagService, $cartService, $subcategoryService, $coupancodeservice;
+    $apibagService, $cartService, $subcategoryService, $coupancodeservice,$checkoutservice,$placeorderservice;
 
     public function __construct()
     {
@@ -43,6 +45,8 @@ class AuthController extends Controller
         $this->cartService = new CartItemService();
         $this->subcategoryService = new SubcategoryServices();
         $this->coupancodeservice = new CouponCodeService();
+        $this->checkoutservice = new CheckoutService();
+        $this->placeorderservice = new PlaceorderService();
     }
 
     /**
@@ -304,6 +308,42 @@ class AuthController extends Controller
     {
         return $this->orderservice->cancelOrder($request);
     }
+
+    /**
+     * Checkout list
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function Checkoutlist(Request $request)
+    {
+        return $this->checkoutservice->Checkoutlist($request);
+    }
+
+    /**
+     * Place Order
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function Placeorder(Request $request)
+     {
+         return $this->placeorderservice->Placeorder($request);
+     }
+
+     /**
+     * Checkout 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function Checkout(Request $request)
+     {
+         return $this->checkoutservice->Checkout($request);
+     }
 
     /**
      * Forget Password

@@ -6,31 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-     /**
+    /**
      * Run the migrations.
      *
      * @return void
      */
-    
     public function up()
     {
-        Schema::create('cart_items', function (Blueprint $table) {
+        Schema::create('checkout', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
             $table->string('item_id');
             $table->string('item_name');
-            $table->string('item_weight');
-            $table->string('item_quantity');
             $table->string('item_price');
             $table->string('item_image');
-            $table->string('item_description');
-            $table->string('dis_item_price');
-            $table->string('item_expiry_date'); 
+            $table->string('item_quantity');
+            $table->string('item_weight');
+            $table->string('item_dis_price');
+            $table->string('item_total');
             $table->timestamps();
         });
     }
 
-     /**
+    /**
      * Reverse the migrations.
      *
      * @return void
@@ -38,6 +36,7 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('cart_items');
+        Schema::dropIfExists('checkout');
     }
+    
 };

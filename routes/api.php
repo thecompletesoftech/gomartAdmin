@@ -38,7 +38,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('RemoveCouponcode', 'RemoveCouponcode');
         Route::post('getSubcategory', 'getSubcategory');
     });
-    
+
     // -------- Register And Login API ----------
     Route::group(['middleware' => ['jwt.auth']], function () {
         /* logout APi */
@@ -49,6 +49,9 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('addRating', 'addRating');
             Route::post('Addcart', 'Addcart');
             Route::post('getBanner', 'getBanner');
+            Route::post('Checkoutlist', 'Checkoutlist');
+            Route::post('Checkout','Checkout');
+            Route::post('Placeorder','Placeorder');
             Route::post('getCategory', 'getCategory');
             Route::post('getProductByCatID', 'getProductByCatID');
             Route::post('getCartItem', 'getCartItem');
