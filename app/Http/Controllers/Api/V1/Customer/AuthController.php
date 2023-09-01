@@ -17,6 +17,7 @@ use App\Services\Api\RatingService;
 use App\Services\Api\CheckoutService;
 use App\Services\Api\SubcategoryServices;
 use App\Services\Api\PlaceorderService;
+use App\Services\Api\AddaddressService;
 use App\Services\HelperService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -27,8 +28,7 @@ class AuthController extends Controller
     protected $helperService, $userService, $orderservice, $apiratingService, $apiglobalService,
     $apiAuthService, $walletService, $categoryservice, $itemservice, $bannerservice,
     $apicommonService, $apibannerService
-    , $apipromocodeService, $apiserviceService,
-    $apiclothtypeService,
+    ,$apipromocodeService, $apiserviceService,$apiclothtypeService,$addressservice,
     $apibagService, $cartService, $subcategoryService, $coupancodeservice,$checkoutservice,$placeorderservice;
 
     public function __construct()
@@ -47,6 +47,7 @@ class AuthController extends Controller
         $this->coupancodeservice = new CouponCodeService();
         $this->checkoutservice = new CheckoutService();
         $this->placeorderservice = new PlaceorderService();
+        $this->addressservice = new AddaddressService();
     }
 
     /**
@@ -211,6 +212,13 @@ class AuthController extends Controller
     }
     // end Remove Coupon Code
 
+    // start update cart item quantity 
+    public function updateItemQuantity(Request $request)
+    {
+        return $this->itemservice->updateItemQuantity($request);
+    }   
+    // end update cart item quantity
+
     // Start Remove Add To Cart
     public function RemoveAddcart(Request $request)
     {
@@ -225,7 +233,7 @@ class AuthController extends Controller
     }
     // End Get Cart Item
 
-    /**
+     /**
      * get banner list
      *
      * @param  \Illuminate\Http\Request  $request
@@ -237,17 +245,17 @@ class AuthController extends Controller
         return $this->bannerservice->getBanner($request);
     }
 
-    /**
+     /**
      * add order
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
 
-    public function addOrder(Request $request)
-    {
-        return $this->orderservice->addOrder($request);
-    }
+    // public function addOrder(Request $request)
+    // {
+    //     return $this->orderservice->addOrder($request);
+    // }
 
     /**
      * delete order
@@ -261,7 +269,19 @@ class AuthController extends Controller
         return $this->orderservice->deleteorder($request);
     }
 
-    /**
+     /**
+     * Order Status update
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function OrderStatusUpdate(Request $request)
+     {
+         return $this->orderservice->OrderStatusUpdate($request);
+     }
+
+     /**
      * get OrdersDetail
      *
      * @param  \Illuminate\Http\Request  $request
@@ -297,7 +317,7 @@ class AuthController extends Controller
         return $this->apiglobalService->getsettingdata($request);
     }
 
-    /**
+     /**
      * cancel order
      *
      * @param  \Illuminate\Http\Request  $request
@@ -309,7 +329,7 @@ class AuthController extends Controller
         return $this->orderservice->cancelOrder($request);
     }
 
-    /**
+     /**
      * Checkout list
      *
      * @param  \Illuminate\Http\Request  $request
@@ -321,7 +341,7 @@ class AuthController extends Controller
         return $this->checkoutservice->Checkoutlist($request);
     }
 
-    /**
+     /**
      * Place Order
      *
      * @param  \Illuminate\Http\Request  $request
@@ -345,7 +365,7 @@ class AuthController extends Controller
          return $this->checkoutservice->Checkout($request);
      }
 
-    /**
+     /**
      * Forget Password
      *
      * @param  \Illuminate\Http\Request  $request
@@ -353,7 +373,6 @@ class AuthController extends Controller
      */
     public function forgetPassword(Request $request)
     {
-
         return $this->apiAuthService->forgetPassword($request);
     }
 
@@ -368,6 +387,30 @@ class AuthController extends Controller
     {
         return $this->apicommonService->deleteAccount($request);
     }
+
+     /**
+     * Add user address
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function useraddress(Request $request)
+     {
+         return $this->addressservice->useraddress($request);
+     }
+
+     /**
+     * user address list
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function listuseraddress(Request $request)
+     {
+         return $this->addressservice->listuseraddress($request);
+     }
 
     /**
      * Logout user.

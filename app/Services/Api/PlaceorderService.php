@@ -13,7 +13,9 @@ class PlaceorderService
             'user_id' => 'required',
         ]);
 
-        $getItem['Products'] = DB::table('checkout')->where('user_id', $request->user_id)->get();
+        $details=array();
+
+        $getItem = DB::table('checkout')->where('user_id',$request->user_id)->get();
 
         $subtotal = 0;
         $discountvalue = 0;
@@ -24,26 +26,31 @@ class PlaceorderService
             $discountvalue += $data->item_dis_price;
             $finaltotal += $data->item_total - $data->item_dis_price;
         }
-
-        // if ($getItem) {
-        //     return response()->json(
-        //         [
-        //             'status' => true,
-        //             'message' => 'Successfully',
-        //             'data' => $getItem,
-        //         ],
-        //         200
-        //     );
-        // } else {
-        //     return response()->json(
-        //         [
-        //             'status' => false,
-        //             'message' => 'Data not Found',
-        //             'data' => [],
-        //         ],
-        //         200
-        //     );
-        // }
+        
+        $details['product'] =$getItem;
+        $details['finaltotal'] =$finaltotal;
+        $details['discount'] =$discountvalue;
+        $details['subtotal'] =$subtotal;
+        
+        if ($details) {
+            return response()->json(
+                [
+                    'status' => true,
+                    'message' => 'Successfully',
+                    'data' => $details,
+                ],
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'message' => 'Data not Found',
+                    'data' => [],
+                ],
+                200
+            );
+        }
 
     }
 

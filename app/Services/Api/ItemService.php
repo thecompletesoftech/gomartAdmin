@@ -134,4 +134,52 @@ class ItemService
         }
     }
 
+    public static function updateItemQuantity(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'item_id' => 'required',
+                'item_quantity' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Validation fails',
+                    'error' => $validator->errors(),
+                ], 400);
+            }
+            
+            $data['item_quantity'] = $request->item_quantity;
+
+            $updatequanity = DB::table('cart_items')
+                ->where('item_id', $request->item_id)
+                ->update($data);
+
+            if ($updatequanity) {
+                return response()->json(
+                    [
+                        'status' => true,
+                        'message' => 'Quantity Updated Successfully',
+                    ],
+                    200
+                );
+            } else {
+                return response()->json(
+                    [
+                        'status' => false,
+                        'message' => 'not updated',
+                    ],
+                    200
+                );
+            }
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+    }
+
 }
