@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PasswordReset extends Model
 {
     use HasFactory;
-//    public $table='password_resets';
+   public $table='password_resets';
    public $timestamps = false;  
    protected $primaryKey='email';
 
@@ -16,7 +16,6 @@ class PasswordReset extends Model
     'email',
     'token', 
     'created_at',
-    
 ];
 
 }

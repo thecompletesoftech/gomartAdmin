@@ -10,7 +10,7 @@ class MasterOtp extends Model
     use HasFactory;
     protected $guarded = ['id'];
     protected $fillable = [
-        'phone',
+        'email',
         'otp',
         'role_id',
     ];

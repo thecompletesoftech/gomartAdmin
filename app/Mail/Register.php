@@ -20,7 +20,7 @@ class Register extends Mailable
    
     public function build()
     {
-        return $this->subject('Laundry')
+        return $this->subject('Go Mart')
                     ->view('admin.email.registermail');
     }
 }

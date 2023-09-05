@@ -20,7 +20,7 @@ class ForgetEmail extends Mailable
 
     public function build()
     {
-        return $this->subject('Reset Password')
+        return $this->subject('Mail from Go Mart')
                     ->view('admin.email.forgetPasswordMail');
     }
 }

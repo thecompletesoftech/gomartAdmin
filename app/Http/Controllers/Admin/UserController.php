@@ -52,7 +52,7 @@ class UserController extends Controller
                 ->addColumn('login_type', function ($model) {
                     return $model->login_type == '0' ? 'Store' : ($model->login_type == '1' ? 'Customer' : 'Driver');
                 })
-                ->addColumn('action', function ($row) { 
+                ->addColumn('action', function ($row) {
                     $btn2 = '<a href="users/destroy/' . $row->id . '" data-toggle="tooltip" data-original-title="Delete" class="badge badge-danger p-2">
                     <i class="fa-solid fa-trash-can" style="color:white;"></i>
                     </a>';
@@ -359,59 +359,19 @@ class UserController extends Controller
         }
     }
 
-    // public function blockuser($id,$status,$email)
-    // {
-
-    //     $update=array('status' => $status);
-    //     $result = UserService::status($update, $id);
-    //     if($status==1){
-    //         $detail=array();
-    //         $detail['title']='Consultation';
-    //         $detail['body']='Dear Sir/mam Your Account Has Been Temprory Blocked';
-    //         UserService::status_update($detail,$email);
-    //         return redirect()->back()->withSuccess('Account Blocked Successfully!');
-    //     }
-    //     else
-    //     {
-    //         $detail=array();
-    //         $detail['title']='Consultation';
-    //         $detail['body']='Dear Sir/mam Your Account Has Been Activated';
-    //         UserService::status_update($detail,$email);
-    //         return redirect()->back()->withSuccess('Account Unblocked !');
-    //     }
-
-    //     if ($result) {
-    //         return response()->json([
-    //             'status' => 1,
-    //             'message' => $this->mls->messageLanguage('updated', 'status', 1),
-    //             'status_name' => 'success'
-    //         ]);
-    //     } else {
-    //         return response()->json([
-    //             'status' => 0,
-    //             'message' => $this->mls->messageLanguage('not_updated', 'status', 1),
-    //             'status_name' => 'error'
-    //         ]);
-    //     }
-    // }
-
-/**
- * Forget Password.
- *
- * @param  \Illuminate\Http\Request  $request
- * @return \Illuminate\Http\Response
- */
+    /**
+     * Forget Password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
 
     public function resetPasswordLoad(Request $request)
     {
-
         $resetData = DB::table('password_resets')->where('token', $request->token)->first();
-
         if ($resetData) {
             if (isset($request->token)) {
-
                 $user = User::where('email', $resetData->email)->get();
-
                 return view('admin.email.resetPassword', compact('user'));
             } else {
                 return view('admin.email.404');
@@ -436,11 +396,18 @@ class UserController extends Controller
 
         PasswordReset::where('email', $user->email)->delete();
 
-        return "<div style='text-align:center;margin-top:20%;background-color:green;color:white;padding-top:10px;padding-bottom:10px'>
-
-            <p style='font-size:50px'> Your password has been reset successfully.</p>
+        return "
+        <div class='container'>
+            <div class='row justify-content-center vh-100'>
+                <div class='col-md-6 col-sm-6 col-lg-6 col-xl-6 mx-auto'>
+                    <div class='card'>
+                        <div class='card-body d-flex flex-column align-items-center'>
+                            <p class='card-text'>Your password has been reset successfully.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            ";
+        </div>";
 
     }
 

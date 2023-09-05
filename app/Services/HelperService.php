@@ -74,7 +74,7 @@ class HelperService
     {
         if (!empty($otp)) {
             $data = [  
-                'phone' => $number,
+                'email' => $number,
                 'otp' => $otp,
                 'role_id' => 2
             ];
