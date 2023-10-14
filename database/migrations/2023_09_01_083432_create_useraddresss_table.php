@@ -20,7 +20,11 @@ return new class extends Migration
             $table->string('address');
             $table->string('zip');
             $table->string('city');
+            $table->string('building');
+            $table->string('address_type')->default(0)->comment('0:home,1:office,2:other');
+            $table->string('other_address')->default(0)->comment('0:false,1:true');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

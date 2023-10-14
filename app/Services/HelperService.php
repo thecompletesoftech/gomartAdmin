@@ -62,7 +62,7 @@ class HelperService
     /** SMS Send Service */
     public static function createOtp()
     {
-        if (env('PRODUCTION', false)) {
+        if (env('PRODUCTION', true)) {
             $otp = rand(1000, 9999);
         } else {
             $otp = 1234;

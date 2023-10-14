@@ -37,6 +37,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('getCouponcode', 'getCouponcode');
         Route::post('RemoveCouponcode', 'RemoveCouponcode');
         Route::post('getSubcategory', 'getSubcategory');
+        
     });
 
     // -------- Register And Login API ----------
@@ -64,6 +65,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('updateItemQuantity', 'updateItemQuantity');
             Route::post('getProductByItemID', 'getProductByItemID');
             Route::post('getOrderdetail', 'getOrderdetail');
+            Route::post('profileBytoken', 'profileBytoken');
         });
 
         /* Profile Controller */

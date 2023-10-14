@@ -17,6 +17,9 @@ class Adduseraddress extends Model
         'order_id',
         'address',
         'zip',
-        'city'
+        'city',
+        'address_type',
+        'building',
+        'other_address'
     ];
 }

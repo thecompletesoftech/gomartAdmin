@@ -129,23 +129,21 @@ class ItemController extends Controller
         $picture = FileService::fileUploaderWithoutRequest($logo, 'item/image/');
         $input['item_image'] = $picture;
 
-        $category = $this->intrestService->create($input);
+        $logo1 = $request->file('organic_image');
+        $picture1 = FileService::fileUploaderWithoutRequest($logo1, 'item/image/');
+        $input['organic_image'] = $picture1;
 
-        if (!empty($request->add_size) || !empty($request->add_price) || !empty($request->addons_title) || !empty($request->addons_price)) {
+        $input['item_weight'] = json_encode($request->item_weight);
 
-            $addsize['item_id'] = $category->item_id;
-            $addsize['add_size'] = json_encode($request->add_size);
-            $addsize['add_price'] = json_encode($request->add_price);
+        $item = $this->intrestService->create($input);
 
-            Addsize::create($addsize);
-
-            $addons['item_id'] = $category->item_id;
-            $addons['addons_title'] = json_encode($request->addons_title);
-            $addons['addons_price'] = json_encode($request->addons_price);
-
-            Addons::create($addons);
-
-        }
+        // if (!empty($request->item_weight)) 
+        // {
+            // $addons['item_id'] = $category->item_id;
+            // $addons['addons_title'] = json_encode($request->addons_title);
+            // $addons['addons_price'] = json_encode($request->addons_price);
+            // Addons::create($addons);
+        // }
 
         return redirect()->route($this->index_route_name)
             ->with('success', $this->mls->messageLanguage('created', 'item', 1));
@@ -183,6 +181,12 @@ class ItemController extends Controller
             $logo = $request->file('item_image');
             $picture = FileService::fileUploaderWithoutRequest($logo, 'item/image/');
             $input['item_image'] = $picture;
+        }
+
+        if (!empty($input['organic_image'])) {
+            $oraganic_image = $request->file('organic_image');
+            $store_image = FileService::fileUploaderWithoutRequest($oraganic_image, 'item/image/');
+            $input['organic_image'] = $store_image;
         }
 
         $this->intrestService->update($input, $item);

@@ -15,11 +15,14 @@ class AddaddressService
         try {
 
             $validator = Validator::make($request->all(), [
-                'user_id' => 'required',
                 'order_id' => 'required',
                 'address' => 'required',
                 'zip' => 'required',
                 'city' => 'required',
+                'address' => 'required',
+                'address_type' => 'required',
+                'building' => 'required',
+                'other_address' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -30,11 +33,14 @@ class AddaddressService
             }
 
             $addressinput = [
-                'user_id' => $request->user_id,
+                'user_id' => auth()->user()->id,
                 'order_id' => $request->order_id,
                 'address' => $request->address,
                 'zip' => $request->zip,
                 'city' => $request->city,
+                'address_type' => $request->address_type,
+                'building' => $request->building,
+                'other_address' => $request->other_address
             ];
 
             $add = Adduseraddress::create($addressinput);
@@ -64,7 +70,6 @@ class AddaddressService
                 'message' => $e->getMessage(),
             ]);
         }
-
     }
 
     public static function listuseraddress(Request $request)

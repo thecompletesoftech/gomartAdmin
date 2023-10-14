@@ -24,7 +24,8 @@ class Item extends Model
         'item_publish',
         'item_description',
         'item_weight',
-        'item_expiry_date'
+        'item_expiry_date',
+        'organic_image'
     ];
 
 }

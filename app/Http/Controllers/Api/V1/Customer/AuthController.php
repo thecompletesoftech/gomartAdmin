@@ -388,6 +388,17 @@ class AuthController extends Controller
         return $this->apicommonService->deleteAccount($request);
     }
 
+    /**
+     * Profile By Token
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profileBytoken()
+    {
+        return $this->apiAuthService->profileBytoken();
+    }
+
+
      /**
      * Add user address
      *

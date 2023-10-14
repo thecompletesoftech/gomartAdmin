@@ -2,6 +2,7 @@
 
 namespace App\Services\Api;
 
+use App\Models\Item;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -142,20 +143,33 @@ class ItemService
                 'item_id' => 'required',
                 'item_quantity' => 'required',
             ]);
+
             if ($validator->fails()) {
                 return response()->json([
                     'message' => 'Validation fails',
                     'error' => $validator->errors(),
                 ], 400);
             }
-            
-            $data['item_quantity'] = $request->item_quantity;
 
-            $updatequanity = DB::table('cart_items')
-                ->where('item_id', $request->item_id)
-                ->update($data);
+            $newdata = Item::where('item_id', $request->item_id)->first();
 
-            if ($updatequanity) {
+            if ($newdata->quantity < $request->item_quantity) 
+            {
+                return response()->json(
+                    [
+                        'status' => false,
+                        'message' => 'Stock in Not Available According Your Quantity',
+                    ],
+                    400
+                );
+            } else {
+
+                $data['item_quantity'] = $request->item_quantity;
+                $updatequanity = DB::table('cart_items')->where('item_id', $request->item_id)->update($data);
+
+            }
+
+            if ($updatequanity > 0) {
                 return response()->json(
                     [
                         'status' => true,
@@ -167,9 +181,9 @@ class ItemService
                 return response()->json(
                     [
                         'status' => false,
-                        'message' => 'not updated',
+                        'message' => 'Data Not Updated',
                     ],
-                    200
+                    400
                 );
             }
 

@@ -209,7 +209,7 @@ class AuthService
 
                 $otp = HelperService::createOtp();
                 $input = [
-                    'phone' => $request->email,
+                    'email' => $request->email,
                     'otp' => $otp,
                     'role' => 1,
                 ];
@@ -298,6 +298,56 @@ class AuthService
     }
 
     /**
+     * Get Profile By Token
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+     public static function profileBytoken()
+     {
+         $profile = User::where('id', auth()->user()->id)->get();
+         
+         foreach ($profile as $data) {
+             if (!empty($data->picture)) {
+                 $data->picture = FileService::image_path($data->picture);
+             }
+             if (!empty($data->certificate_image)) {
+                 $image_aws = [];
+                 foreach (
+                     json_decode($data->certificate_image, true)
+                     as $users
+                 ) {
+                     array_push($image_aws, FileService::image_path($users));
+                 }
+                 $aws_multiple_certificate = json_encode($image_aws);
+                 $data->certificate_image = $aws_multiple_certificate;
+             }
+         }
+ 
+         if ($profile) {
+             return response()->json(
+                 [
+                     'status' => true,
+                     'message' => 'Profile Find successfully',
+                     'data' => $profile,
+                 ],
+                 200
+             );
+         } else {
+             return response()->json(
+                 [
+                     'status' => false,
+                     'message' => 'Data not Found',
+                     'data' => [],
+                 ],
+                 200
+             );
+         }
+     }
+
+
+
+    /**
      * Verify Otp
      *
      * @param  \Illuminate\Http\Request  $request
@@ -309,7 +359,7 @@ class AuthService
 
             $validator = Validator::make($request->all(), [
                 'email' => 'required',
-                'otp' => 'required|numeric|min:1|max:4'
+                'otp' => 'required|numeric|min:1|max:6'
             ]);
 
             if ($validator->fails()) {

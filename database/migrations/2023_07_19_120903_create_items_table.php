@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('item_name');
             $table->string('item_price');
             $table->string('item_publish');
+            $table->string('organic_image')->nullable();
             $table->integer('quantity');
             $table->string('dis_item_price')->nullable();
             $table->string('item_image');
