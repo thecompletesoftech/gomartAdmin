@@ -95,7 +95,8 @@
         </table>
     </div>
 
-    {{-- <div class="row mt-6">
+    {{-- 
+    <div class="row mt-6">
         <table class="table table-bordered" id="dynamicAddaddons">
             <div class="row mb-6">
                 <div class="col-lg-4 fv-row">
@@ -104,7 +105,8 @@
                 </div>
             </div>
         </table>
-    </div> --}}
+    </div> 
+    --}}
 
     <div class="row mb-6">
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Description</label>
@@ -133,8 +135,8 @@
 </div>
 <!--end::Card body-->
 
-
 @push('scripts')
+    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 

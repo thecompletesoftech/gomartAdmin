@@ -59,6 +59,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('RemoveAddcart', 'RemoveAddcart');
             Route::post('deleteorder', 'deleteorder');
             Route::post('useraddress', 'useraddress');
+            Route::post('userChangepassword', 'userChangepassword');
             Route::post('listuseraddress', 'listuseraddress');
             Route::post('getProduct', 'getProduct');
             Route::post('OrderStatusUpdate', 'OrderStatusUpdate');

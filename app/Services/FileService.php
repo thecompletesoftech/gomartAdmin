@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Services;
+
 use App\Services\Config;
-
-
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\File;
@@ -142,7 +141,7 @@ class FileService
      */
     public static function imageUploader(Request $request, $key, $url, $name = '')
     {
-         $filesystem_disk = env('FILESYSTEM_DISK');
+        $filesystem_disk = env('FILESYSTEM_DISK');
         $image_name = "";
         if ($request->hasFile($key)) {
             $image = $request->file($key);
@@ -153,33 +152,33 @@ class FileService
                 $image_name = time() . '_' . uniqid() . '.' . $ext;
             }
             if (request()->is('*api/*')) {
-            try {
-                if($filesystem_disk!='s3'){
-                    $image->storeAs($url, $image_name, 'public');                
-                }else{
-                    // dd($url.$image_name);
-                    Storage::disk($filesystem_disk)->put($url.$image_name, file_get_contents($image));
-                    // dd(getS3Image($url,$image_name));
-                    // Storage::temporaryUrl($url.$image_name,now()->addMinutes(5));
-                
-                }
-                    return $url.$image_name;
+                try {
+                    if ($filesystem_disk != 's3') {
+                        $image->storeAs($url, $image_name, 'public');
+                    } else {
+                        // dd($url.$image_name);
+                        Storage::disk($filesystem_disk)->put($url . $image_name, file_get_contents($image));
+                        // dd(getS3Image($url,$image_name));
+                        // Storage::temporaryUrl($url.$image_name,now()->addMinutes(5));
+
+                    }
+                    return $url . $image_name;
                 } catch (Exception $e) {
-                    Log::error('Image not uploaded. Request is Error: - '. $e);
+                    Log::error('Image not uploaded. Request is Error: - ' . $e);
                     return null;
                 }
             } else {
                 try {
-                    if($filesystem_disk!='s3'){
-                        $image->storeAs($url, $image_name, 'public');                
-                    }else{
+                    if ($filesystem_disk != 's3') {
+                        $image->storeAs($url, $image_name, 'public');
+                    } else {
                         // dd(Storage::disk($filesystem_disk)->put($url.$image_name, $image));
-                        Storage::disk($filesystem_disk)->put($url.$image_name, file_get_contents($image));
-                }
+                        Storage::disk($filesystem_disk)->put($url . $image_name, file_get_contents($image));
+                    }
 
-                    return $url.$image_name;
+                    return $url . $image_name;
                 } catch (Exception $e) {
-                    
+
                     // Log::error('Image not uploaded. Request is' . $request->all(), 'Error: - ' . $e);
                     return null;
                 }
@@ -189,28 +188,26 @@ class FileService
         }
     }
 
-
-    public static function image_path($url){
-    $filesystem_disk = env('FILESYSTEM_DISK');
-    if($filesystem_disk!='s3'){
-      return  $url;                
-    }
-    return Storage::temporaryUrl($url,now()->addMinutes(5));
-    }
-
-    public static function multi_image_path(array $url){
+    public static function image_path($url)
+    {
         $filesystem_disk = env('FILESYSTEM_DISK');
-        
-            if($filesystem_disk!='s3'){
-            return  $url;                
-         }
-         foreach($url as $ur){
-         return Storage::temporaryUrl($url,now()->addMinutes(5));
+        if ($filesystem_disk != 's3') {
+            return $url;
         }
-        
-        
-       
+        return Storage::temporaryUrl($url, now()->addMinutes(5));
+    }
+
+    public static function multi_image_path(array $url)
+    {
+        $filesystem_disk = env('FILESYSTEM_DISK');
+
+        if ($filesystem_disk != 's3') {
+            return $url;
         }
+        foreach ($url as $ur) {
+            return Storage::temporaryUrl($url, now()->addMinutes(5));
+        }
+    }
 
     /**
      * Upload Multiple file in storage.
@@ -236,7 +233,7 @@ class FileService
     //         if (request()->is('*api/*')) {
     //         try {
     //             if($filesystem_disk!='s3'){
-    //                 $image->storeAs($url, $image_name, 'public');                
+    //                 $image->storeAs($url, $image_name, 'public');
     //             }else{
     //                 Storage::disk($filesystem_disk)->put($url.$image_name, file_get_contents($image));
     //             }
@@ -248,7 +245,7 @@ class FileService
     //         } else {
     //             try {
     //                 if($filesystem_disk!='s3'){
-    //                     $image->storeAs($url, $image_name, 'public');                
+    //                     $image->storeAs($url, $image_name, 'public');
     //                 }else{
     //                     Storage::disk($filesystem_disk)->put($url.$image_name, $image);
     //             }
@@ -263,13 +260,12 @@ class FileService
     //     }
     // }
 
-
     public static function multipleImageUploader(Request $request, $key, $url, $name = '')
     {
-   
+
         $filesystem_disk = env('FILESYSTEM_DISK');
         $image_name = [];
-        if ($request->hasFile($key)) {    
+        if ($request->hasFile($key)) {
             foreach ($request->file($key) as $image) {
                 // $image = $request->file($key);
                 $ext = $image->getClientOriginalExtension() !== "" ? $image->getClientOriginalExtension() : $image->extension();
@@ -277,18 +273,18 @@ class FileService
                     $image_name_str = $name;
                 } else {
                     $image_name_str = time() . '_' . uniqid() . '.' . $ext;
-                }         
+                }
                 // echo $image_name_str;
-             if($filesystem_disk!='s3'){
-              $image->storeAs($url, $image_name_str, 'public');
-            }else{
-                // Storage::disk($filesystem_disk)->put($url.$image_name, $image,'public');
-                Storage::disk($filesystem_disk)->put($url.$image_name_str, file_get_contents($image)); 
-            } 
-             array_push($image_name, $url.$image_name_str);
-            
+                if ($filesystem_disk != 's3') {
+                    $image->storeAs($url, $image_name_str, 'public');
+                } else {
+                    // Storage::disk($filesystem_disk)->put($url.$image_name, $image,'public');
+                    Storage::disk($filesystem_disk)->put($url . $image_name_str, file_get_contents($image));
+                }
+                array_push($image_name, $url . $image_name_str);
+
             }
-            
+
             // return $url.$image_name;
             return $image_name;
         } else {
@@ -313,71 +309,60 @@ class FileService
         }
     }
 
-         public static function fileUploaderWithoutRequest(UploadedFile $image, $url, $name = '')
+    public static function fileUploaderWithoutRequest(UploadedFile $image, $url, $name = '')
     {
         $filesystem_disk = env('FILESYSTEM_DISK');
-        
-        $ext = $image->getClientOriginalExtension() !== "" ? $image->getClientOriginalExtension() : $image->extension();
-        
-             if ($name) {
-                $image_name = $name;
-       
-                } else {
-                $image_name = time() . '_' . uniqid() . '.' . $ext;
-                }
 
-        try { 
-            if($filesystem_disk!='s3'){  
-             
-                $image->storeAs($url, $image_name, 'public');                  
-            }else{   
-                Storage::disk($filesystem_disk)->put($url.$image_name, file_get_contents($image));
-              
+        $ext = $image->getClientOriginalExtension() !== "" ? $image->getClientOriginalExtension() : $image->extension();
+
+        if ($name) {
+            $image_name = $name;
+
+        } else {
+            $image_name = time() . '_' . uniqid() . '.' . $ext;
+        }
+
+        try {
+            if ($filesystem_disk != 's3') {
+
+                $image->storeAs($url, $image_name, 'public');
+            } else {
+                Storage::disk($filesystem_disk)->put($url . $image_name, file_get_contents($image));
+
             }
-            
-            return $url.$image_name;
+
+            return $url . $image_name;
         } catch (Exception $e) {
             Log::error('Image not uploaded. Request is' . request()->all(), 'Error: - ' . $e);
             return null;
         }
     }
 
-
-
-
-
-
-
 }
 
-
-
-
-
-    /**
-     * This Function used for get S3 image
-     */
-    // public static function getS3Image($image_name = null, $dir = null, $type = "private") {
-    //     $image = "";
-    //     if (!empty($image_name)) {
-    //         $s3 = Storage::disk('s3');
-    //         $client = $s3->Files();
-    //         $bucket = Config::get('filesystems.disks.s3.bucket');
-    //         $img = $dir . '/' . $image_name;
-    //         $ifExist = $client->doesObjectExist($bucket, $img);
-    //         if (!empty($ifExist)) {
-    //             if ($type == "private") {
-    //                 $command = $client->getCommand('GetObject', [
-    //                     'Bucket' => $bucket,
-    //                     'Key' => $img
-    //                 ]);
-    //                 $awsRequest = $client->createPresignedRequest($command, '+500 minutes');
-    //                 $image = (string) $awsRequest->getUri();
-    //             } else {
-    //                 $image = (string) $s3->url($img);
-    //             }
-    //         }
-    //     }
-    //     return $image;
-    // }
-
+/**
+ * This Function used for get S3 image
+ */
+// public static function getS3Image($image_name = null, $dir = null, $type = "private") {
+//     $image = "";
+//     if (!empty($image_name)) {
+//         $s3 = Storage::disk('s3');
+//         $client = $s3->Files();
+//         $bucket = Config::get('filesystems.disks.s3.bucket');
+//         $img = $dir . '/' . $image_name;
+//         $ifExist = $client->doesObjectExist($bucket, $img);
+//         if (!empty($ifExist)) {
+//             if ($type == "private") {
+//                 $command = $client->getCommand('GetObject', [
+//                     'Bucket' => $bucket,
+//                     'Key' => $img
+//                 ]);
+//                 $awsRequest = $client->createPresignedRequest($command, '+500 minutes');
+//                 $image = (string) $awsRequest->getUri();
+//             } else {
+//                 $image = (string) $s3->url($img);
+//             }
+//         }
+//     }
+//     return $image;
+// }

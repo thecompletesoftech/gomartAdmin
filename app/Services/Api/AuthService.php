@@ -193,6 +193,53 @@ class AuthService
     }
 
     /**
+     * Change Password
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public static function userChangepassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'password' => 'required|min:2|max:100',
+            'confirm_password' => 'required|same:password',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'message' => 'Validation fails',
+                    'error' => $validator->errors(),
+                ],
+                400
+            );
+        }
+
+        $user = $request->user();
+        if (Hash::check($request->old_password, $user->password)) {
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+            return response()->json(
+                [
+                    'status' => true,
+                    'message' => 'Password Update Successfully',
+                ],
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'message' => 'Old Password does not matched',
+                ],
+                400
+            );
+        }
+    }
+
+
+    /**
      * Send Otp
      *
      * @param  \Illuminate\Http\Request  $request
@@ -359,7 +406,7 @@ class AuthService
 
             $validator = Validator::make($request->all(), [
                 'email' => 'required',
-                'otp' => 'required|numeric|min:1|max:6'
+                'otp' => 'required|numeric'
             ]);
 
             if ($validator->fails()) {
@@ -369,7 +416,7 @@ class AuthService
                 ], 400);
             }
 
-            $data = MasterOtp::where('email', $request->phone)
+            $data = MasterOtp::where('email', $request->email)
                 ->where('otp', $request->otp)
                 ->orderBy('created_at', 'desc')
                 ->first();

@@ -377,6 +377,17 @@ class AuthController extends Controller
     }
 
     /**
+     * Change Password
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function userChangepassword(Request $request)
+    {
+        return $this->apiAuthService->userChangepassword($request);
+    }
+
+    /**
      * Delete User
      *
      * @param  \Illuminate\Http\Request  $request

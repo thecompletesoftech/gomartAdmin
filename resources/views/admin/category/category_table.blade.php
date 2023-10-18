@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="./category.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -28,7 +27,6 @@
                             <th>Category Name</th>
                             <th>Category Image</th>
                             <th>Description</th>
-                            <th>Language Name</th>
                             <th width="100px">Action</th>
                         </tr>
                     </thead>
@@ -78,10 +76,6 @@
                 {
                     data: 'description',
                     name: 'description'
-                },
-                {
-                    data: 'lang_name',
-                    name: 'lang_name'
                 },
                 {
                     data: 'action',

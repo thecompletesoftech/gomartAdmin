@@ -55,8 +55,7 @@ class CategoryController extends Controller
     {
         if ($request->ajax()) {
 
-            $query = Category::Join('languages', 'languages.language_id', '=', 'categories.language_id')
-                ->select('languages.language_name as lang_name', 'categories.*');
+            $query = Category::select('categories.*');
 
             if ($request->has('category_name')) {
                 $searchValue = $request->input('category_name');
@@ -107,41 +106,40 @@ class CategoryController extends Controller
     {
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
 
-        $data = [
-            'category_name' => $input['category_name'],
-            'description' => $input['description'],
-            'category_image' => $input['category_image'],
-            'language_id' => $input['language_id'],
-        ];
+        $logo = $request->file('category_image');
+        $picture = FileService::fileUploaderWithoutRequest($logo, 'category/image/');
+        $input['category_image'] = $picture;
 
-        $data = $request->all();
+        $category = $this->intrestService->create($input);
 
-        $rules = [
-            'category_name' => 'required|array',
-            'description' => 'required|array',
-            'language_id' => 'required|array',
-            'category_image' => 'required|array',
-        ];
+        // $data = [
+        //     'category_name' => $input['category_name'],
+        //     'description' => $input['description'],
+        //     'category_image' => $input['category_image'],
+        //     'language_id' => $input['language_id'],
+        // ];
+        // $data = $request->all();
+        // $rules = [
+        //     'category_name' => 'required|array',
+        //     'description' => 'required|array',
+        //     'language_id' => 'required|array',
+        //     'category_image' => 'required|array',
+        // ];
+        // $validator = Validator::make($data, $rules);
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // } else {
+        //     foreach ($data['category_name'] as $index => $categoryName) {
+        //         $picture = FileService::fileUploaderWithoutRequest($data['category_image'][$index], 'category/image/');
+        //         Category::create([
+        //             'category_name' => $categoryName,
+        //             'description' => $data['description'][$index],
+        //             'language_id' => $data['language_id'][$index],
+        //             'category_image' => $picture,
+        //         ]);
+        //     }
+        // }
 
-        $validator = Validator::make($data, $rules);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        } else {
-
-            foreach ($data['category_name'] as $index => $categoryName) {
-
-                $picture = FileService::fileUploaderWithoutRequest($data['category_image'][$index], 'category/image/');
-
-                Category::create([
-                    'category_name' => $categoryName,
-                    'description' => $data['description'][$index],
-                    'language_id' => $data['language_id'][$index],
-                    'category_image' => $picture,
-                ]);
-
-            }
-        }
         return redirect()->route($this->index_route_name)
             ->with('success', $this->mls->messageLanguage('created', 'category', 1));
     }
