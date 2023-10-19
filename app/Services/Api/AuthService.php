@@ -3,23 +3,23 @@
 namespace App\Services\Api;
 
 use App\Models\MasterOtp;
-use App\Models\User;
 use App\Models\PasswordReset;
+use App\Models\User;
 use App\Services\FileService;
+use App\Services\ForgotPasswordService;
 use App\Services\HelperService;
 use App\Services\UserService;
-use App\Services\ForgotPasswordService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Mail\ForgetEmail;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 class AuthService
 {
     /**
@@ -201,10 +201,10 @@ class AuthService
     public static function userChangepassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'old_password' => 'required',
-            'password' => 'required|min:2|max:100',
-            'confirm_password' => 'required|same:password',
+            'new_password' => 'required|min:6',
+            'c_password' => 'required|required_with:new_password|same:new_password|min:6',
         ]);
+
         if ($validator->fails()) {
             return response()->json(
                 [
@@ -215,15 +215,16 @@ class AuthService
             );
         }
 
-        $user = $request->user();
-        if (Hash::check($request->old_password, $user->password)) {
-            $user->update([
-                'password' => Hash::make($request->password),
-            ]);
+        $user = User::find(auth()->user()->id);
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        if ($user) {
             return response()->json(
                 [
                     'status' => true,
-                    'message' => 'Password Update Successfully',
+                    'message' => 'Password  Update Successfully',
+
                 ],
                 200
             );
@@ -231,13 +232,14 @@ class AuthService
             return response()->json(
                 [
                     'status' => false,
-                    'message' => 'Old Password does not matched',
+                    'message' => 'Password Not Updated',
+                    'data' => [],
                 ],
-                400
+                200
             );
         }
+            
     }
-
 
     /**
      * Send Otp
@@ -350,49 +352,46 @@ class AuthService
      * @return \Illuminate\Http\Response
      */
 
-     public static function profileBytoken()
-     {
-         $profile = User::where('id', auth()->user()->id)->get();
-         
-         foreach ($profile as $data) {
-             if (!empty($data->picture)) {
-                 $data->picture = FileService::image_path($data->picture);
-             }
-             if (!empty($data->certificate_image)) {
-                 $image_aws = [];
-                 foreach (
-                     json_decode($data->certificate_image, true)
-                     as $users
-                 ) {
-                     array_push($image_aws, FileService::image_path($users));
-                 }
-                 $aws_multiple_certificate = json_encode($image_aws);
-                 $data->certificate_image = $aws_multiple_certificate;
-             }
-         }
- 
-         if ($profile) {
-             return response()->json(
-                 [
-                     'status' => true,
-                     'message' => 'Profile Find successfully',
-                     'data' => $profile,
-                 ],
-                 200
-             );
-         } else {
-             return response()->json(
-                 [
-                     'status' => false,
-                     'message' => 'Data not Found',
-                     'data' => [],
-                 ],
-                 200
-             );
-         }
-     }
+    public static function profileBytoken()
+    {
+        $profile = User::where('id', auth()->user()->id)->get();
 
+        foreach ($profile as $data) {
+            if (!empty($data->picture)) {
+                $data->picture = FileService::image_path($data->picture);
+            }
+            if (!empty($data->certificate_image)) {
+                $image_aws = [];
+                foreach (
+                    json_decode($data->certificate_image, true) as $users
+                ) {
+                    array_push($image_aws, FileService::image_path($users));
+                }
+                $aws_multiple_certificate = json_encode($image_aws);
+                $data->certificate_image = $aws_multiple_certificate;
+            }
+        }
 
+        if ($profile) {
+            return response()->json(
+                [
+                    'status' => true,
+                    'message' => 'Profile Find successfully',
+                    'data' => $profile,
+                ],
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'message' => 'Data not Found',
+                    'data' => [],
+                ],
+                200
+            );
+        }
+    }
 
     /**
      * Verify Otp
@@ -406,7 +405,7 @@ class AuthService
 
             $validator = Validator::make($request->all(), [
                 'email' => 'required',
-                'otp' => 'required|numeric'
+                'otp' => 'required|numeric',
             ]);
 
             if ($validator->fails()) {
@@ -446,9 +445,10 @@ class AuthService
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public static function forgetPassword(Request $request){
-        try{
-           
+    public static function forgetPassword(Request $request)
+    {
+        try {
+
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
             ]);
@@ -460,51 +460,51 @@ class AuthService
                 ], 400);
             }
 
-            $user=User::where('email',$request->email)->first();
-            
-            if($user){
-            
-                $token=Str::random(40);
-                $domain= url('/') ;
-                $url=$domain.'/reset-password?token='.$token; 
+            $user = User::where('email', $request->email)->first();
 
-                $details['url']=$url;
-                $details['email']=$request->email;
-                $details['title']="Password Reset";
-                $details['body']="Please click on below link to reset your password";
+            if ($user) {
 
-                ForgotPasswordService::send_forgetmail($details,$request->email);   
-        
-                $datetime=Carbon::now()->format('Y-m-d H:i:s');
+                $token = Str::random(40);
+                $domain = url('/');
+                $url = $domain . '/reset-password?token=' . $token;
+
+                $details['url'] = $url;
+                $details['email'] = $request->email;
+                $details['title'] = "Password Reset";
+                $details['body'] = "Please click on below link to reset your password";
+
+                ForgotPasswordService::send_forgetmail($details, $request->email);
+
+                $datetime = Carbon::now()->format('Y-m-d H:i:s');
                 PasswordReset::updateorCreate(
-                    ['email'=>$request->email],
+                    ['email' => $request->email],
                     [
-                        'email'=>$request->email,
-                        'token'=>$token,
-                        'created_at'=>$datetime 
-                    ]  
+                        'email' => $request->email,
+                        'token' => $token,
+                        'created_at' => $datetime,
+                    ]
                 );
-               
-                return response()->json([
-                    'status'=>true,
-                    'message'=>'Pleasen Check your mail to reset your password.!'
-                ]);
-
-            }else{
 
                 return response()->json([
-                    'status'=>false,
-                    'message'=>'User Not Found!'
+                    'status' => true,
+                    'message' => 'Pleasen Check your mail to reset your password.!',
                 ]);
-                
+
+            } else {
+
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User Not Found!',
+                ]);
+
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
-                'success'=>false,
-                'message'=>$e->getMessage()
+                'success' => false,
+                'message' => $e->getMessage(),
             ]);
         }
-     }
+    }
 
     /**
      * Get Profile By Token
