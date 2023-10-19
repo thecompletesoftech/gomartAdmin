@@ -114,11 +114,7 @@ class CartItemService
     // Start get Add To Cart Record
     public static function getCartItem(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required',
-        ]);
-
-        $cartItem = DB::table('cart_items')->where('user_id', $request->user_id)->get();
+        $cartItem = DB::table('cart_items')->where('user_id', auth()->user()->id)->get();
 
         if ($cartItem) {
             return response()->json(
