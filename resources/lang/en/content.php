@@ -39,7 +39,6 @@ return [
         'encryption_id_title'=>'Encryption ID',
         'payment_id_title'=>'Payment ID',
         'payment_password_title'=>'Payment Password',
-        
         'home_page_title' => 'Home Page Title',
         'address_title' => 'Address Title',
     ),
@@ -313,7 +312,7 @@ return [
 
     // coupan setting 
 
-    'coupan_code' => 'Coupon Code', 
+    'coupan_title' => 'Coupon Title', 
     'amount' => 'Amount', 
     'discount' => 'Discount',
     'expiry_date' => 'Expiry Date',

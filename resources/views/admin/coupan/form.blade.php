@@ -4,11 +4,11 @@
 
     <div class="row mb-6">
 
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Coupon Code</label>
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Coupon Title</label>
 
         <div class="col-lg-4 fv-row">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="coupan_code"
-                placeholder="coupon code">
+            <input type="text" class="form-control form-control-lg form-control-solid" name="coupan_title"
+                placeholder="coupon title">
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Discount Type</label>
@@ -67,12 +67,6 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Coupon Description</label>
         <div class="col-lg-4 fv-row">
             <textarea name="coupon_desc" class="form-control form-control-lg form-control-solid"></textarea>
-        </div>
-
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Image</label>
-        <div class="col-lg-4 fv-row">
-            <input type="file" class="form-control form-control-lg form-control-solid" name="coupon_image"
-                accept=".png, .jpg, .jpeg" />
         </div>
 
     </div>

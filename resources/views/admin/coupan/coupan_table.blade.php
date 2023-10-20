@@ -18,8 +18,8 @@
 
         <div class="row mt-5 justify-content-center">
             <div class="col-md-3 col-sm-3 col-xl-3 col-lg-3">
-                <input type="search" name="coupan_code" class="form-control searchEmail p-4"
-                    placeholder="Search for Coupon Name" />
+                <input type="search" name="coupan_title" class="form-control searchEmail p-4"
+                    placeholder="Search for Coupon title" />
             </div>
         </div>
 
@@ -29,7 +29,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Coupon Code</th>
+                            <th>Coupon Title</th>
                             <th>Discount</th>
                             <th>Expiry Date</th>
                             <th>Coupon Status</th>
@@ -53,7 +53,7 @@
             ajax: {
                 url: "{{ route('admin.coupans.index') }}",
                 data: function(d) {
-                    d.coupan_code = $('.searchEmail').val(),
+                    d.coupan_title = $('.searchEmail').val(),
                         d.search = $('input[type="search"]').val()
                 }
             },
@@ -62,8 +62,8 @@
                     name: 'coupan_id'
                 },
                 {
-                    data: 'coupan_code',
-                    name: 'coupan_code'
+                    data: 'coupan_title',
+                    name: 'coupan_title'
                 },
                 {
                     data: 'discount',

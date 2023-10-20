@@ -80,7 +80,7 @@ class CouponCodeService
 
     public static function getCouponcode(Request $request)
     {
-        $getCouponCode = DB::table('coupans')->get();
+        $getCouponCode = DB::table('coupans')->where(['coupan_status' => 0])->get();
 
         if (count($getCouponCode) > 0) {
             return response()->json(
@@ -133,5 +133,7 @@ class CouponCodeService
             );
         }
     }
+
+    
 
 }

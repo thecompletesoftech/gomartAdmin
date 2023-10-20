@@ -57,11 +57,11 @@ class CoupanController extends Controller
 
             $query = Coupan::query();
 
-            if ($request->has('coupan_code')) {
-                $name = $request->input('coupan_code');
+            if ($request->has('coupan_title')) {
+                $name = $request->input('coupan_title');
                 $query->where(function ($query) use ($name) {
-                    $query->whereRaw('LOWER(coupan_code) LIKE ?', ['%' . strtolower($name) . '%'])
-                        ->orWhereRaw('UPPER(coupan_code) LIKE ?', ['%' . strtoupper($name) . '%']);
+                    $query->whereRaw('LOWER(coupan_title) LIKE ?', ['%' . strtolower($name) . '%'])
+                        ->orWhereRaw('UPPER(coupan_title) LIKE ?', ['%' . strtoupper($name) . '%']);
                 });
             }
 
@@ -106,12 +106,7 @@ class CoupanController extends Controller
     public function store(Request $request)
     {
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
-
-        $logo = $request->file('coupon_image');
-        $picture = FileService::fileUploaderWithoutRequest($logo, 'coupon/image/');
-        $input['coupon_image'] = $picture;
-
-        $category = $this->coupanService->create($input);
+        $this->coupanService->create($input);
         return redirect()->route($this->index_route_name)
         ->with('success', $this->mls->messageLanguage('created', 'currency', 1));
     }

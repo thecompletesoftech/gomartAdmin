@@ -11,11 +11,7 @@ class CheckoutService
 {
     public static function Checkoutlist(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required',
-        ]);
-
-        $getItem = DB::table('checkout')->where('user_id', $request->user_id)->get();
+        $getItem = DB::table('checkout')->where('user_id',auth()->user()->id)->get();
 
         if ($getItem) {
             return response()->json(

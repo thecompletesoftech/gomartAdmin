@@ -10,8 +10,7 @@ class CoupanEditRequest extends FormRequest
     {
         if (!request()->is('admin/coupan/create')) {
             return [
-                'coupan_code' => 'required|regex:/^[^\s]+$/',
-                'amount' => 'required',
+                'coupan_title' => 'required|regex:/^[^\s]+$/',
                 'discount' => 'required',
                 'expiry_date' => 'required',
                 'coupan_status' => 'required',
@@ -21,8 +20,7 @@ class CoupanEditRequest extends FormRequest
             ];
         } else {
             return [
-                'coupan_code' => 'required|regex:/^[^\s]+$/',
-                'amount' => 'required',
+                'coupan_title' => 'required|regex:/^[^\s]+$/',
                 'discount' => 'required',
                 'expiry_date' => 'required',
                 'coupan_status' => 'required',
@@ -36,7 +34,7 @@ class CoupanEditRequest extends FormRequest
     public function messages()
     {
         return [
-            'coupan_code.required' => __('validation.required', ['attribute' => 'Coupan Code']),
+            'coupan_title.required' => __('validation.required', ['attribute' => 'Coupon Title']),
             'amount.required' => __('validation.required', ['attribute' => 'Amount']),
             'discount.required' => __('validation.required', ['attribute' => 'Discount']),
             'expiry_date.required' => __('validation.required', ['attribute' => 'Expiry Date']),
