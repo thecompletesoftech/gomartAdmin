@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('vat_tax');
             $table->string('vat_type')->comment('0:percentage,1:fixed');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

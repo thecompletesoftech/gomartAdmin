@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('razorpay_key');
             $table->string('razorpay_secret');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

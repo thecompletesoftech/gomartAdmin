@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('dis_item_price');
             $table->string('item_description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

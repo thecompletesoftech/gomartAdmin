@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('amount');
             $table->string('note');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('driver_address');
             $table->string('driver_longitude');
             $table->string('driver_latitude');
-            $table->string('driver_address');
             $table->string('driver_status')->default(0)->comment('0:disable,1:enable');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

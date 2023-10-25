@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('notification_date');
             $table->string('notification_send_to')->comment('0:store, 1:customer,2:driver');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

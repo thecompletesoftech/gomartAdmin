@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('special_id');
             $table->string('enable_special_discount')->comment('0:disable,1:enable');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

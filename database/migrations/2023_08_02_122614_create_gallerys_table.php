@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('gallery_image');
             $table->string('store_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

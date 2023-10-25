@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('otp', 20)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

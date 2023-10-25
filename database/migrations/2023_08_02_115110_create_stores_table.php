@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('store_status')->comment('0:close,1:open')->default(0);
             $table->string('store_active')->comment('0:enable,1:disable')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

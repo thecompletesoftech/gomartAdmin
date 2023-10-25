@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('store_nearby');
             $table->string('radius_nearby');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

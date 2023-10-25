@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('symbol_at_right');
             $table->string('currency_status')->default(0)->comment('0:active,1:deactive');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

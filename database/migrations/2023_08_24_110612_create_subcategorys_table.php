@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('subcategory_image');
             $table->string('subcategory_desc');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

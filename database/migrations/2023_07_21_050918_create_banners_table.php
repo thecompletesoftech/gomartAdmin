@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('banner_publish');
             $table->string('set_order');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

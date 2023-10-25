@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('minimum_delivery_charge');
             $table->string('minimum_delivery_charge_with_km');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

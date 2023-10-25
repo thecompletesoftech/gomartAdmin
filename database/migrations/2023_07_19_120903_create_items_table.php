@@ -22,12 +22,13 @@ return new class extends Migration
             $table->string('item_publish');
             $table->string('organic_image')->nullable();
             $table->integer('quantity');
-            $table->string('dis_item_price')->nullable();
+            $table->string('dis_item_price')->nullable()->default(0);
             $table->string('item_image');
             $table->string('item_weight');
             $table->string('item_expiry_date');
             $table->string('item_description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('expiry_date')->nullable();
             $table->string('coupan_status')->default(0)->comment('0:active,1:deactive');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

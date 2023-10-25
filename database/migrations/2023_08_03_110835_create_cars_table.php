@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('car_name');
             $table->string('car_image');
             $table->timestamps();
+            $table->softDeletes();  
         });
     }
 

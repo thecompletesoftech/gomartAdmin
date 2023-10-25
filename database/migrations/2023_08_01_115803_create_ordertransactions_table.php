@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('store_name');
             $table->string('order_status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

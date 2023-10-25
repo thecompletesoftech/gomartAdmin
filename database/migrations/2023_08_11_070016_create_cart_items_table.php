@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    
+
     public function up()
     {
         Schema::create('cart_items', function (Blueprint $table) {
@@ -24,10 +24,11 @@ return new class extends Migration
             $table->string('item_price');
             $table->string('item_image');
             $table->string('item_description');
-            $table->string('dis_item_price');
-            $table->string('promocode_discount')->nullable();
-            $table->string('item_expiry_date'); 
+            $table->string('dis_item_price')->nullable()->default(0);
+            $table->string('promocode_discount')->nullable()->default(0);
+            $table->string('item_expiry_date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

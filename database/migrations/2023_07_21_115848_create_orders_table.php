@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('order_type');
             $table->string('order_status')->default(0)->comment('0:pending,1:complete,2:cancel');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

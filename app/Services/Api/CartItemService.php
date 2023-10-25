@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Services\FileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CartItemService
 {
@@ -17,7 +18,6 @@ class CartItemService
     {
 
         $request->validate([
-            'user_id' => 'required|integer',
             'item_id' => 'required|integer',
             'item_name' => 'required',
             'item_price' => 'required',
@@ -40,7 +40,7 @@ class CartItemService
             );
         } else {
             $cartItem = Cart::Create([
-                'user_id' => $request->user_id,
+                'user_id' => auth()->user()->id,
                 'item_id' => $request->item_id,
                 'item_name' => $request->item_name,
                 'item_price' => $request->item_price,

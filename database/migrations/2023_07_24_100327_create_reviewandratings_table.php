@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('order_review')->nullable();
             $table->string('rating')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

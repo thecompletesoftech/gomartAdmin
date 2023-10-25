@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('addons_title')->nullable();
             $table->string('addons_price')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

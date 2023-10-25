@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('commission_type')->comment('0:percentage,1:fixed')->default(0);
             $table->string('admin_commission');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -33,11 +33,11 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('verifyOtp', 'verifyOtp');
         Route::post('forgetPassword', 'forgetPassword');
         Route::post('getsettingdata', 'getsettingdata');
-        Route::post('addCouponcode', 'addCouponcode');
+
         Route::post('getCouponcode', 'getCouponcode');
         Route::post('RemoveCouponcode', 'RemoveCouponcode');
         Route::post('getSubcategory', 'getSubcategory');
-        
+
     });
 
     // -------- Register And Login API ----------
@@ -48,6 +48,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('addOrder', 'addOrder');
             Route::post('cancelOrder', 'cancelOrder');
             Route::post('addRating', 'addRating');
+            Route::post('addCouponcode', 'addCouponcode');
             Route::post('Addcart', 'Addcart');
             Route::post('getBanner', 'getBanner');
             Route::post('Checkoutlist', 'Checkoutlist');

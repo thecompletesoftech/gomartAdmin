@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('language_slug');
             $table->string('language_status')->default(0)->comment('0:active,1:deactive');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
