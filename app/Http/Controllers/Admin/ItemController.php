@@ -123,7 +123,10 @@ class ItemController extends Controller
 
         $storediscountprice = $input['item_price'] * $input['dis_item_price'] / 100;
 
+        $mainprice = $input['item_price'] * $input['quantity']  ;
+
         $input['dis_item_price'] = $storediscountprice;
+        $input['item_price'] = $mainprice;
 
         $logo = $request->file('item_image');
         $picture = FileService::fileUploaderWithoutRequest($logo, 'item/image/');
@@ -137,7 +140,7 @@ class ItemController extends Controller
 
         $item = $this->intrestService->create($input);
 
-        // if (!empty($request->item_weight)) 
+        // if (!empty($request->item_weight))
         // {
             // $addons['item_id'] = $category->item_id;
             // $addons['addons_title'] = json_encode($request->addons_title);
