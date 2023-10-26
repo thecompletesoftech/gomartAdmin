@@ -34,8 +34,6 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('forgetPassword', 'forgetPassword');
         Route::post('getsettingdata', 'getsettingdata');
 
-        Route::post('getCouponcode', 'getCouponcode');
-        Route::post('RemoveCouponcode', 'RemoveCouponcode');
         Route::post('getSubcategory', 'getSubcategory');
 
     });
@@ -49,6 +47,11 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('cancelOrder', 'cancelOrder');
             Route::post('addRating', 'addRating');
             Route::post('addCouponcode', 'addCouponcode');
+            Route::post('getCouponcode', 'getCouponcode');
+            Route::post('RemoveCouponcode', 'RemoveCouponcode');
+            Route::post('addFavorite', 'addFavorite');
+            Route::post('getFavoriteList', 'getFavoriteList');
+            Route::post('RemoveFavorite', 'RemoveFavorite');
             Route::post('Addcart', 'Addcart');
             Route::post('getBanner', 'getBanner');
             Route::post('Checkoutlist', 'Checkoutlist');

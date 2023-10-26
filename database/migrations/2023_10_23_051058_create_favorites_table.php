@@ -6,40 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-     /**
+    /**
      * Run the migrations.
      *
      * @return void
      */
-
     public function up()
     {
-        Schema::create('cart_items', function (Blueprint $table) {
+        Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
             $table->string('item_id');
-            $table->string('item_name');
-            $table->string('item_weight');
-            $table->string('item_quantity');
-            $table->string('item_price');
-            $table->string('item_image');
-            $table->string('item_description');
-            $table->string('dis_item_price')->default(0);
-            $table->string('promocode_discount')->default(0);
-            $table->string('item_expiry_date');
+            $table->string('like_status')->comment('0:dislike,1:like');
             $table->timestamps();
             $table->softDeletes();
         });
     }
 
-     /**
+    /**
      * Reverse the migrations.
      *
      * @return void
      */
-
     public function down()
     {
-        Schema::dropIfExists('cart_items');
+        Schema::dropIfExists('favorites');
     }
 };

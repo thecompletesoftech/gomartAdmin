@@ -3,7 +3,6 @@
 namespace App\Services\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +14,8 @@ class CouponCodeService
             'coupan_id' => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails())
+        {
             return response()->json([
                 'message' => 'Validation fails',
                 'error' => $validator->errors(),
@@ -25,9 +25,10 @@ class CouponCodeService
         $getCodeData = DB::table('coupans')->where('coupan_id', $request->coupan_id)->first();
         $getCartDatabyuser = DB::table('cart_items')->where('user_id', auth()->user()->id)->get();
 
-        if ($getCartDatabyuser) {
+        if ($getCartDatabyuser)
+        {
             foreach ($getCartDatabyuser as $obj) {
-                DB::table('cart_items')->where('item_id', $obj->item_id)->update(['promocode_discount' => $getCodeData->discount]);
+                DB::table('cart_items')->where('item_id', $obj->item_id)->update(['promocode_discount' => $getCodeData->id]);
             }
         }
 
@@ -44,7 +45,7 @@ class CouponCodeService
             return response()->json(
                 [
                     'status' => true,
-                    'message' => 'Coupan Add Successfully',
+                    'message' => 'Data Not Found',
                     'Data' => $getCodeData,
                 ],
                 200

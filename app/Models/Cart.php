@@ -11,7 +11,7 @@ class Cart extends Model
 
     protected $table = 'cart_items';
     protected $primaryKey = 'id';
-    
+
     protected $fillable = [
         'user_id',
         'item_id',
@@ -23,5 +23,6 @@ class Cart extends Model
         'item_expiry_date',
         'dis_item_price',
         'item_description',
+        'coupon_id'
     ];
 }

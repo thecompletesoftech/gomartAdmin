@@ -20,6 +20,7 @@ use App\Services\Api\PlaceorderService;
 use App\Services\Api\AddaddressService;
 use App\Services\HelperService;
 use App\Services\UserService;
+use App\Services\Api\FavoriteService;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -29,7 +30,7 @@ class AuthController extends Controller
     $apiAuthService, $walletService, $categoryservice, $itemservice, $bannerservice,
     $apicommonService, $apibannerService
     ,$apipromocodeService, $apiserviceService,$apiclothtypeService,$addressservice,
-    $apibagService, $cartService, $subcategoryService, $coupancodeservice,$checkoutservice,$placeorderservice;
+    $apibagService, $cartService, $subcategoryService, $coupancodeservice,$checkoutservice,$placeorderservice,$favoritelist;
 
     public function __construct()
     {
@@ -48,6 +49,7 @@ class AuthController extends Controller
         $this->checkoutservice = new CheckoutService();
         $this->placeorderservice = new PlaceorderService();
         $this->addressservice = new AddaddressService();
+        $this->favoritelist = new FavoriteService();
     }
 
     /**
@@ -107,6 +109,44 @@ class AuthController extends Controller
     {
         return $this->apiAuthService->userProfile();
     }
+
+    /**
+     * Add Favorite
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function addFavorite(Request $request)
+     {
+         return $this->favoritelist->addFavorite($request);
+     }
+
+
+     /**
+     * List Favorite
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function getFavoriteList(Request $request)
+     {
+         return $this->favoritelist->getFavoriteList($request);
+     }
+
+     /**
+     * Remove Favorite
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function RemoveFavorite(Request $request)
+     {
+         return $this->favoritelist->RemoveFavorite($request);
+     }
+
 
     /**
      * Update User Profile
@@ -212,11 +252,11 @@ class AuthController extends Controller
     }
     // end Remove Coupon Code
 
-    // start update cart item quantity 
+    // start update cart item quantity
     public function updateItemQuantity(Request $request)
     {
         return $this->itemservice->updateItemQuantity($request);
-    }   
+    }
     // end update cart item quantity
 
     // Start Remove Add To Cart
@@ -354,7 +394,7 @@ class AuthController extends Controller
      }
 
      /**
-     * Checkout 
+     * Checkout
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
