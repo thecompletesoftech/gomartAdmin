@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('item_image');
             $table->string('item_description');
             $table->string('dis_item_price')->default(0);
-            $table->string('promocode_discount')->default(0);
+            $table->string('coupan_id')->default(0);
             $table->string('item_expiry_date');
             $table->timestamps();
             $table->softDeletes();

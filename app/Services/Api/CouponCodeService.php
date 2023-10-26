@@ -28,7 +28,7 @@ class CouponCodeService
         if ($getCartDatabyuser)
         {
             foreach ($getCartDatabyuser as $obj) {
-                DB::table('cart_items')->where('item_id', $obj->item_id)->update(['promocode_discount' => $getCodeData->id]);
+                DB::table('cart_items')->where('item_id', $obj->item_id)->update(['coupan_id' => $getCodeData->coupan_id]);
             }
         }
 

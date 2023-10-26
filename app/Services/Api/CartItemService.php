@@ -36,7 +36,7 @@ class CartItemService
                 400
             );
         } else {
-            $percent=$request->item_price * $data->dis_item_price/100;
+            $percent = $request->item_price * $data->dis_item_price / 100;
             $actual_price = $request->item_price - $percent;
 
             $cartItem = Cart::Create([
@@ -52,7 +52,7 @@ class CartItemService
 
             ]);
             $discount_amount = $request->item_price * $data->dis_item_price / 100;
-            $cartItem['discount_amount']=round($discount_amount);
+            $cartItem['discount_amount'] = round($discount_amount);
 
         }
 
@@ -117,20 +117,52 @@ class CartItemService
     // Start get Add To Cart Record
     public static function getCartItem(Request $request)
     {
+        // $secondcartitemlist = DB::table('items')
+        //     ->join('cart_items', 'cart_items.item_id', '=', 'items.item_id')
+        //     ->select(
+        //         'items.item_image', 'cart_items.item_id',
+        //         'cart_items.item_name', 'cart_items.id',
+        //         'cart_items.item_weight', 'cart_items.item_quantity',
+        //         'cart_items.item_price', 'cart_items.dis_item_price',
+        //         'cart_items.item_description', 'cart_items.item_expiry_date')
+        //     ->where('cart_items.coupan_id', '=', 0)
+        //     ->where('cart_items.user_id', auth()->user()->id)
+        //     ->get();
+
+        // if ($secondcartitemlist) {
+        //     return response()->json(
+        //         [
+        //             'status' => true,
+        //             'message' => 'Data Find Successfully',
+        //             'data' => $secondcartitemlist,
+        //         ],
+        //         200
+        //     );
+        // } else {
+        //     return response()->json(
+        //         [
+        //             'status' => false,
+        //             'message' => 'Data not Found',
+        //             'data' => [],
+        //         ],
+        //         200
+        //     );
+        // }
+
         $cartItem = DB::table('items')
             ->join('cart_items', 'cart_items.item_id', '=', 'items.item_id')
-            ->join('coupans', 'coupans.coupan_id', '=', 'cart_items.coupon_id')
+            ->join('coupans', 'coupans.coupan_id', '=', 'cart_items.coupan_id')
             ->select(
                 'items.item_image', 'cart_items.item_id',
                 'cart_items.item_name', 'cart_items.id',
                 'cart_items.item_weight', 'cart_items.item_quantity',
                 'cart_items.item_price', 'cart_items.dis_item_price',
-                'cart_items.item_description', 'cart_items.item_expiry_date',
-                'cart_items.coupon_id')
-            ->where('cart_items.user_id', auth()->user()->id)->get();
+                'cart_items.item_description', 'cart_items.item_expiry_date', 'coupans.discount')
+            ->where('cart_items.coupan_id', '>', 0)
+            ->where('cart_items.user_id', auth()->user()->id)
+            ->get();
 
-        if ($cartItem)
-        {
+        if ($cartItem) {
             return response()->json(
                 [
                     'status' => true,
