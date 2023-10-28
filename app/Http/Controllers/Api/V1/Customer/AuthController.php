@@ -263,7 +263,7 @@ class AuthController extends Controller
     // start update cart item quantity
     public function updateItemQuantity(Request $request)
     {
-        return $this->itemservice->updateItemQuantity($request);
+        return $this->cartService->updateItemQuantity($request);
     }
     // end update cart item quantity
 
@@ -305,7 +305,7 @@ class AuthController extends Controller
         return $this->orderservice->addOrder($request);
     }
 
-    /**
+     /**
      * Get Order by Order No
      *
      * @param  \Illuminate\Http\Request  $request
@@ -317,7 +317,7 @@ class AuthController extends Controller
          return $this->orderservice->getOrderByOrderNo($request);
      }
 
-    /**
+     /**
      * delete order
      *
      * @param  \Illuminate\Http\Request  $request

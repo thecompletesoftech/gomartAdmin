@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PHPUnit\Framework\Constraint\Count;
 
 class ItemService
 {
@@ -133,67 +134,6 @@ class ItemService
                 'message' => $e->getMessage(),
             ]);
         }
-    }
-
-    public static function updateItemQuantity(Request $request)
-    {
-        try {
-
-            $validator = Validator::make($request->all(), [
-                'item_id' => 'required',
-                'item_quantity' => 'required',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => 'Validation fails',
-                    'error' => $validator->errors(),
-                ], 400);
-            }
-
-            $newdata = Item::where('item_id', $request->item_id)->first();
-
-            if ($newdata->quantity < $request->item_quantity) 
-            {
-                return response()->json(
-                    [
-                        'status' => false,
-                        'message' => 'Stock in Not Available According Your Quantity',
-                    ],
-                    400
-                );
-            } else {
-
-                $data['item_quantity'] = $request->item_quantity;
-                $updatequanity = DB::table('cart_items')->where('item_id', $request->item_id)->update($data);
-
-            }
-
-            if ($updatequanity > 0) {
-                return response()->json(
-                    [
-                        'status' => true,
-                        'message' => 'Quantity Updated Successfully',
-                    ],
-                    200
-                );
-            } else {
-                return response()->json(
-                    [
-                        'status' => false,
-                        'message' => 'Data Not Updated',
-                    ],
-                    400
-                );
-            }
-
-        } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ]);
-        }
-
     }
 
 }

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->tinyInteger('push_notification')->default(0)->comment('0:enable 1:disable');
             $table->tinyInteger('is_active')->default(0)->comment('0:Active, 1:Inactive');
             $table->tinyInteger('mob_verify')->default(0)->comment('0:Unverify, 1:Verify');
-            $table->string('fcm_token', 200)->nullable();  
+            $table->string('fcm_token', 200)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -30,10 +30,8 @@
                         <tr>
                             <th>Order ID </th>
                             <th>Client </th>
-                            <th>Store Name </th>
                             <th>Amount </th>
                             <th>Drivers </th>
-                            <th>Date </th>
                             <th>Order Type </th>
                             <th>Order Status </th>
                             <th width="100px">Action</th>
@@ -70,16 +68,8 @@
                     name: 'user_name'
                 },
                 {
-                    data: 'Order_store_name',
-                    name: 'Order_store_name'
-                },
-                {
                     data: 'order_amount',
                     name: 'order_amount'
-                },
-                {
-                    data: 'dri_name',
-                    name: 'dri_name'
                 },
                 {
                     data: 'order_date',
@@ -96,7 +86,7 @@
                 {
                     data: 'action',
                     name: 'action',
-                },
+                }
             ]
         });
 
@@ -105,5 +95,5 @@
         });
 
     });
-</script> 
+</script>
 </html>

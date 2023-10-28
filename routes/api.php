@@ -33,9 +33,12 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
         Route::post('verifyOtp', 'verifyOtp');
         Route::post('forgetPassword', 'forgetPassword');
         Route::post('getsettingdata', 'getsettingdata');
-
         Route::post('getSubcategory', 'getSubcategory');
-
+        Route::post('getCategory', 'getCategory');
+        Route::post('getProductByCatID', 'getProductByCatID');
+        Route::post('getBanner', 'getBanner');
+        Route::post('getProduct', 'getProduct');
+        Route::post('getProductByItemID', 'getProductByItemID');
     });
 
     // -------- Register And Login API ----------
@@ -54,22 +57,17 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('getFavoriteList', 'getFavoriteList');
             Route::post('RemoveFavorite', 'RemoveFavorite');
             Route::post('Addcart', 'Addcart');
-            Route::post('getBanner', 'getBanner');
-            Route::post('Checkoutlist', 'Checkoutlist');
-            Route::post('Checkout', 'Checkout');
-            Route::post('Placeorder', 'Placeorder');
-            Route::post('getCategory', 'getCategory');
-            Route::post('getProductByCatID', 'getProductByCatID');
             Route::post('getCartItem', 'getCartItem');
+            // Route::post('Checkoutlist', 'Checkoutlist');
+            // Route::post('Checkout', 'Checkout');
+            // Route::post('Placeorder', 'Placeorder');
             Route::post('RemoveAddcart', 'RemoveAddcart');
             Route::post('deleteorder', 'deleteorder');
             Route::post('useraddress', 'useraddress');
             Route::post('userChangepassword', 'userChangepassword');
             Route::post('listuseraddress', 'listuseraddress');
-            Route::post('getProduct', 'getProduct');
             Route::post('OrderStatusUpdate', 'OrderStatusUpdate');
             Route::post('updateItemQuantity', 'updateItemQuantity');
-            Route::post('getProductByItemID', 'getProductByItemID');
             Route::post('getOrderdetail', 'getOrderdetail');
             Route::post('getOrderByOrderNo', 'getOrderByOrderNo');
             Route::post('profileBytoken', 'profileBytoken');

@@ -4,9 +4,11 @@ namespace App\Services\Api;
 
 use App\Models\Cart;
 use App\Models\Item;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CartItemService
 {
@@ -115,6 +117,7 @@ class CartItemService
     // End Remove Add To Cart
 
     // Start get Add To Cart Record
+
     public static function getCartItem(Request $request)
     {
         $secondcartitemlist = DB::table('items')
@@ -149,5 +152,74 @@ class CartItemService
         }
 
     }
+
     // End get Add To Cart Record
+
+    // Start Update Add to Cart quantity and amount
+
+    public static function updateItemQuantity(Request $request)
+    {
+        try {
+
+            $getcartdata = DB::table('cart_items')->where('user_id',auth()->user()->id)->get();
+
+            // $validator = Validator::make($request->all(), [
+            //     'item_id' => 'required',
+            //     'item_quantity' => 'required',
+            // ]);
+            // if ($validator->fails())
+            // {
+            //     return response()->json([
+            //         'message' => 'Validation fails',
+            //         'error' => $validator->errors(),
+            //     ], 400);
+            // }
+            // $newdata = Item::where('item_id', $request->item_id)->first();
+
+            // if ($newdata->quantity < $request->item_quantity)
+            // {
+            //     return response()->json(
+            //         [
+            //             'status' => false,
+            //             'message' => 'Stock in Not Available According Your Quantity',
+            //         ],
+            //         400
+            //     );
+            // } else {
+            //     $data['item_quantity'] = $request->item_quantity;
+            //     $updatequanity = DB::table('cart_items')->where('item_id', $request->item_id)->update($data);
+            // }
+
+            if ($getcartdata)
+            {
+                return response()->json(
+                    [
+                        'status' => true,
+                        'message' => 'Data Find Successfully',
+                        'data' => $getcartdata
+                    ],
+                    200
+                );
+            } else
+            {
+                return response()->json(
+                    [
+                        'status' => false,
+                        'message' => 'Data Not Updated',
+                    ],
+                    400
+                );
+            }
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+    }
+
+    // End Update Add to Cart quantity and amount
+
 }

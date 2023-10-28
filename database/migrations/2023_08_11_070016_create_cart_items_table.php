@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('item_weight');
             $table->string('item_quantity');
             $table->string('item_price');
-            $table->string('item_image');
             $table->string('item_description');
             $table->string('dis_item_price')->default(0);
             $table->string('coupan_id')->default(0);

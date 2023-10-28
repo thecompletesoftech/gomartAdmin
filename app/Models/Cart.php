@@ -19,7 +19,6 @@ class Cart extends Model
         'item_weight',
         'item_quantity',
         'item_price',
-        'item_image',
         'item_expiry_date',
         'dis_item_price',
         'item_description',

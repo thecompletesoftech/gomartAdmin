@@ -10,9 +10,7 @@ class CategoryServices
     public static function getCategory()
     {
 
-        $getData = DB::table('categories')->join('languages', 'languages.language_id', '=', 'categories.language_id')
-            ->select('categories.*','languages.language_name','languages.language_slug')
-            ->get();
+        $getData = DB::table('categories')->get();
 
         if (count($getData) > 0) {
             return response()->json(

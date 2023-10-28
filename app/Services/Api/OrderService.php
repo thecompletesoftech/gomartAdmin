@@ -33,7 +33,6 @@ class OrderService
             $currentDate = Date::now()->format('m/d/Y');
             $currentDateInIST = Date::now('Asia/Kolkata');
             $currentFormattedTime = $currentDateInIST->format('g:ia');
-
             $randomString = Str::random(8);
             $orderNumber = $randomString;
 
@@ -300,28 +299,28 @@ class OrderService
             }
 
             $result =
-                DB::table('orders')
+            DB::table('orders')
                 ->join('users', 'orders.user_id', '=', 'users.id')
                 ->join('order_items', 'orders.order_no', '=', 'order_items.order_no')
-                ->join('cart_items','order_items.item_id','=','cart_items.item_id')
-                ->join('items','order_items.item_id','=','items.item_id')
+                ->join('cart_items', 'order_items.item_id', '=', 'cart_items.item_id')
+                ->join('items', 'order_items.item_id', '=', 'items.item_id')
                 ->leftJoin('coupans', function ($join) {
                     $join->on('orders.coupon_id', '=', 'coupans.coupan_id')
                         ->where(function ($query) {
                             $query->where('coupans.coupan_id', '<>', 'orders.coupon_id')
-                                  ->orWhere('coupans.coupan_id', '=', 0);
+                                ->orWhere('coupans.coupan_id', '=', 0);
                         });
                 })
                 ->select(
-                'orders.*',
-                'users.name as user_name',
-                'cart_items.item_id',
-                'cart_items.item_name',
-                'cart_items.item_weight',
-                'cart_items.item_quantity',
-                'cart_items.item_price',
-                'items.item_image',
-                'coupans.discount as coupon_discount')
+                    'orders.*',
+                    'users.name as user_name',
+                    'cart_items.item_id',
+                    'cart_items.item_name',
+                    'cart_items.item_weight',
+                    'cart_items.item_quantity',
+                    'cart_items.item_price',
+                    'items.item_image',
+                    'coupans.discount as coupon_discount')
                 ->where('orders.order_no', '=', $request->order_no)
                 ->get();
 
