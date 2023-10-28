@@ -46,8 +46,9 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('addOrder', 'addOrder');
             Route::post('cancelOrder', 'cancelOrder');
             Route::post('addRating', 'addRating');
-            Route::post('addCouponcode', 'addCouponcode');
+            // Route::post('addCouponcode', 'addCouponcode');
             Route::post('getCouponcode', 'getCouponcode');
+            Route::post('getCouponcodeByid', 'getCouponcodeByid');
             Route::post('RemoveCouponcode', 'RemoveCouponcode');
             Route::post('addFavorite', 'addFavorite');
             Route::post('getFavoriteList', 'getFavoriteList');
@@ -70,6 +71,7 @@ Route::group(['middleware' => ['optimizeImages'], 'prefix' => '/v1/customer', 'n
             Route::post('updateItemQuantity', 'updateItemQuantity');
             Route::post('getProductByItemID', 'getProductByItemID');
             Route::post('getOrderdetail', 'getOrderdetail');
+            Route::post('getOrderByOrderNo', 'getOrderByOrderNo');
             Route::post('profileBytoken', 'profileBytoken');
         });
 

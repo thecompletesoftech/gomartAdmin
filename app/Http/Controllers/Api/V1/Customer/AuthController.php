@@ -232,10 +232,10 @@ class AuthController extends Controller
     }
 
     // start add coupon code
-    public function addCouponcode(Request $request)
-    {
-        return $this->coupancodeservice->addCouponcode($request);
-    }
+    // public function addCouponcode(Request $request)
+    // {
+    //     return $this->coupancodeservice->addCouponcode($request);
+    // }
     // end coupon code
 
     // start coupon code list
@@ -251,6 +251,14 @@ class AuthController extends Controller
         return $this->coupancodeservice->RemoveCouponcode($request);
     }
     // end Remove Coupon Code
+
+
+    // start get Coupon Code by id
+    public function getCouponcodeByid(Request $request)
+    {
+        return $this->coupancodeservice->getCouponcodeByid($request);
+    }
+    // end get Coupon Code by id
 
     // start update cart item quantity
     public function updateItemQuantity(Request $request)
@@ -292,10 +300,22 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    // public function addOrder(Request $request)
-    // {
-    //     return $this->orderservice->addOrder($request);
-    // }
+    public function addOrder(Request $request)
+    {
+        return $this->orderservice->addOrder($request);
+    }
+
+    /**
+     * Get Order by Order No
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function getOrderByOrderNo(Request $request)
+     {
+         return $this->orderservice->getOrderByOrderNo($request);
+     }
 
     /**
      * delete order

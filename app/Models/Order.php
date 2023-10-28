@@ -15,12 +15,16 @@ class Order extends Model
 
     protected $table = 'orders';
     protected $primaryKey = 'order_id';
-    
+
     protected $fillable = [
         'driver_id',
         'store_id',
         'user_id',
+        'order_no',
+        'coupon_id',
         'order_amount',
+        'address',
+        'order_time',
         'order_type',
         'order_date',
         'order_status',

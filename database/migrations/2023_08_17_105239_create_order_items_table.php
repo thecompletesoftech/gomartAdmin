@@ -15,16 +15,12 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id');
-            $table->string('item_name');
-            $table->string('item_image');
-            $table->string('item_price');
-            $table->string('store_id');
-            $table->string('category_id');
-            $table->string('quantity');
-            $table->string('item_publish');
-            $table->string('dis_item_price');
-            $table->string('item_description');
+            $table->string('order_no')->nullable();
+            $table->string('item_id')->nullable();
+            $table->string('item_name')->nullable();
+            $table->string('item_price')->nullable();
+            $table->string('store_id')->nullable();
+            $table->string('quantity')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -131,7 +131,7 @@
                                     <div class="col bg-light-primary px-6 py-8 rounded-2 me-7 mb-7 text-center">
                                         <i class="fa fa-cart-shopping" style="font-size:35px;color:#009EF7;"></i>
                                         <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
-                                            <h5>{{ total_order() }}</h5>
+                                            {{--  <h5>{{ total_order() }}</h5>  --}}
                                         </span>
 
                                         <a class="text-primary fw-bold fs-6">
@@ -158,7 +158,7 @@
                                     <div class="col bg-light-primary px-6 py-8 rounded-2 me-7 mb-7 text-center">
                                         <i class="fa fa-building-columns" style="font-size:35px;color:#009EF7;"></i>
                                         <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
-                                            <h5>{{ total_order() }}</h5>
+                                            {{--  <h5>{{ total_order() }}</h5>  --}}
                                         </span>
 
                                         <a class="text-primary fw-bold fs-6">
@@ -182,7 +182,7 @@
                                     <div class="col bg-light-primary px-6 py-8 rounded-2 me-7 mb-7 text-center">
                                         <i class="fa fa-wallet" style="font-size:35px;color:#009EF7;"></i>
                                         <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
-                                            <h5>{{ total_order() }}</h5>
+                                            {{--  <h5>{{ total_order() }}</h5>  --}}
                                         </span>
 
                                         <a class="text-primary fw-bold fs-6">
@@ -257,7 +257,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $stores)
+                                        {{--  @foreach ($data as $stores)
                                             <tr>
                                                 <td>
                                                     <img src={{ env('IMAGE_URL') }}/uploads/{{ $stores->store_image }}
@@ -280,9 +280,9 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                        @endforeach 
+                                        @endforeach  --}}
 
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -318,7 +318,7 @@
                                     </thead>
 
                                     <tbody>
-                                        @foreach ($recent_order as $order)
+                                        {{--  @foreach ($recent_order as $order)
                                             <tr>
                                                 <td>{{ $order->order_id }}</td>
                                                 <td>{{ $order['store']['store_name'] }}</td>
@@ -327,7 +327,7 @@
                                                         style="color: #009EF7; font-size:15px;"></i>
                                                     &nbsp;{{ itemCount($order->order_id) }}</td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach  --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -355,7 +355,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($driver_list as $driver)
+                                        {{--  @foreach ($driver_list as $driver)
                                             <tr>
                                                 <td> <img src={{ env('IMAGE_URL') }}/uploads/{{ $driver->driver_image }}
                                                         style="width:50px; height:50px;" /></td>
@@ -370,7 +370,7 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach  --}}
                                     </tbody>
                                 </table>
                             </div>

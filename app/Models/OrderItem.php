@@ -12,20 +12,13 @@ class OrderItem extends Model
 
     protected $table = 'order_items';
     protected $primaryKey = 'id';
-    
+
     protected $fillable = [
-        'order_id',
+        'order_no',
         'item_id',
         'item_name',
-        'item_image',
         'item_price',
-        'store_id',
-        'category_id',
         'quantity',
-        'item_publish',
-        'item_description',
-        'dis_item_price'
     ];
 
-    
 }

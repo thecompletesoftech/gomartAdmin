@@ -5,54 +5,55 @@ namespace App\Services\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Cart;
+use App\Models\Promocode_and_cartitem;
 
 class CouponCodeService
 {
-    public static function addCouponcode(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'coupan_id' => 'required',
-        ]);
+    // public static function addCouponcode(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'coupan_id' => 'required',
+    //     ]);
 
-        if ($validator->fails())
-        {
-            return response()->json([
-                'message' => 'Validation fails',
-                'error' => $validator->errors(),
-            ], 400);
-        }
+    //     if ($validator->fails())
+    //     {
+    //         return response()->json([
+    //             'message' => 'Validation fails',
+    //             'error' => $validator->errors(),
+    //         ], 400);
+    //     }
 
-        $getCodeData = DB::table('coupans')->where('coupan_id', $request->coupan_id)->first();
-        $getCartDatabyuser = DB::table('cart_items')->where('user_id', auth()->user()->id)->get();
+    //     $getCodeData = DB::table('coupans')->where('coupan_id', $request->coupan_id)->first();
+    //     // $getCartDatabyuser = DB::table('cart_items')->where('user_id', auth()->user()->id)->get();
+    //     // if ($getCartDatabyuser)
+    //     // {
+    //     //     foreach ($getCartDatabyuser as $obj) {
+    //     //         DB::table('cart_items')->where('item_id', $obj->item_id)->update(['coupan_id' => $getCodeData->coupan_id]);
+    //     //     }
+    //     // }
 
-        if ($getCartDatabyuser)
-        {
-            foreach ($getCartDatabyuser as $obj) {
-                DB::table('cart_items')->where('item_id', $obj->item_id)->update(['coupan_id' => $getCodeData->coupan_id]);
-            }
-        }
+    //     if ($getCodeData) {
+    //         return response()->json(
+    //             [
+    //                 'status' => true,
+    //                 'message' => 'Add Successfully',
+    //                 'Data' => $getCodeData,
+    //             ],
+    //             200
+    //         );
+    //     } else {
+    //         return response()->json(
+    //             [
+    //                 'status' => true,
+    //                 'message' => 'Data Not Found',
+    //                 'Data' => $getCodeData,
+    //             ],
+    //             200
+    //         );
+    //     }
 
-        if ($getCodeData) {
-            return response()->json(
-                [
-                    'status' => true,
-                    'message' => 'Add Successfully',
-                    'Data' => $getCodeData,
-                ],
-                200
-            );
-        } else {
-            return response()->json(
-                [
-                    'status' => true,
-                    'message' => 'Data Not Found',
-                    'Data' => $getCodeData,
-                ],
-                200
-            );
-        }
-
-    }
+    // }
 
     public static function getCouponcode(Request $request)
     {
@@ -107,6 +108,36 @@ class CouponCodeService
                 200
             );
         }
+    }
+
+    public static function getCouponcodeByid(Request $request)
+    {
+        $request->validate([
+            'coupan_id' => 'required|integer',
+        ]);
+
+        $getCouponCodeByid = DB::table('coupans')->where(['coupan_id' => $request->coupan_id])->get();
+
+        if (count($getCouponCodeByid) > 0) {
+            return response()->json(
+                [
+                    'status' => true,
+                    'message' => 'Successfully',
+                    'data' => $getCouponCodeByid,
+                ],
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'message' => 'Data not Found',
+                    'data' => [],
+                ],
+                200
+            );
+        }
+
     }
 
 }
