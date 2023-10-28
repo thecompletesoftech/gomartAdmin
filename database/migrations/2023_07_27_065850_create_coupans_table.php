@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('coupans', function (Blueprint $table) {
             $table->increments('coupan_id');
             $table->string('coupan_title');
-            $table->string('discount');
+            $table->string('discount')->default(0);
             $table->string('discount_type')->default('percentage')->comment('percentage,fixed');
             $table->string('store_id')->nullable();
             $table->string('coupon_desc');

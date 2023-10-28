@@ -31,9 +31,7 @@ class OrderService
             ]);
 
             $currentDate = Date::now()->format('m/d/Y');
-            // Set the timezone to Indian Standard Time
             $currentDateInIST = Date::now('Asia/Kolkata');
-            // Format the time in the desired format (12-hour format with am/pm)
             $currentFormattedTime = $currentDateInIST->format('g:ia');
 
             $randomString = Str::random(8);
@@ -112,7 +110,7 @@ class OrderService
         try {
 
             $validator = Validator::make($request->all(), [
-                'order_id' => 'required',
+                'order_no' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -124,7 +122,7 @@ class OrderService
 
             $input['order_status'] = 2;
 
-            $result = DB::table('orders')->where('order_id', $request->order_id)->update($input);
+            $result = DB::table('orders')->where('order_no', $request->order_no)->update($input);
 
             if ($result) {
                 return response()->json(
@@ -138,7 +136,7 @@ class OrderService
                 return response()->json(
                     [
                         'status' => false,
-                        'message' => 'Data not Updated',
+                        'message' => 'Data not cancel',
                         'data' => [],
                     ],
                     200
@@ -160,8 +158,7 @@ class OrderService
         try {
 
             $validator = Validator::make($request->all(), [
-                'user_id' => 'required',
-                'order_id' => 'required',
+                'order_no' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -172,8 +169,7 @@ class OrderService
             }
 
             $orderdelete = DB::table('orders')
-                ->where('order_id', $request->order_id)
-                ->orWhere('name', $request->user_id)->delete();
+                ->where('order_no', $request->order_no)->delete();
 
             if ($orderdelete) {
                 return response()->json(
@@ -245,7 +241,7 @@ class OrderService
         try {
 
             $validator = Validator::make($request->all(), [
-                'order_id' => 'required',
+                'order_no' => 'required',
                 'order_status' => 'required',
             ]);
 
@@ -259,7 +255,7 @@ class OrderService
             $data['order_status'] = $request->order_status;
 
             $result = DB::table('orders')
-                ->where('order_status', $request->order_id)->update($data);
+                ->where('order_status', $request->order_no)->update($data);
 
             if ($result) {
                 return response()->json(
@@ -303,12 +299,19 @@ class OrderService
                 ], 400);
             }
 
-            $result = DB::table('orders')
+            $result =
+                DB::table('orders')
                 ->join('users', 'orders.user_id', '=', 'users.id')
                 ->join('order_items', 'orders.order_no', '=', 'order_items.order_no')
                 ->join('cart_items','order_items.item_id','=','cart_items.item_id')
                 ->join('items','order_items.item_id','=','items.item_id')
-                ->leftJoin('coupans', 'orders.coupon_id', '=', 'coupans.coupan_id')
+                ->leftJoin('coupans', function ($join) {
+                    $join->on('orders.coupon_id', '=', 'coupans.coupan_id')
+                        ->where(function ($query) {
+                            $query->where('coupans.coupan_id', '<>', 'orders.coupon_id')
+                                  ->orWhere('coupans.coupan_id', '=', 0);
+                        });
+                })
                 ->select(
                 'orders.*',
                 'users.name as user_name',
