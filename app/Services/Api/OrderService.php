@@ -2,6 +2,7 @@
 
 namespace App\Services\Api;
 
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Exception;
@@ -59,7 +60,19 @@ class OrderService
                     'item_price' => $newdata['item_price'],
                     'quantity' => $newdata['item_quantity'],
                 ];
+
                 OrderItem::create($newdatainput);
+
+                $updatestatus = [
+                    'purchased_status' => 0,
+                ];
+
+                $updatethepurchasestatus =
+                Cart::where([
+                    'user_id' => auth()->user()->id,
+                    'item_id' => $newdata['item_id']])
+                    ->update($updatestatus);
+
             }
 
             // $data = [

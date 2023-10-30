@@ -30,6 +30,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Coupon Title</th>
+                            <th>Coupon Code</th>
+                            <th>Coupon Image</th>
                             <th>Discount</th>
                             <th>Expiry Date</th>
                             <th>Coupon Status</th>
@@ -64,6 +66,18 @@
                 {
                     data: 'coupan_title',
                     name: 'coupan_title'
+                },
+                {
+                    data: 'coupan_code',
+                    name: 'coupan_code'
+                },
+                {
+                    data: 'coupon_image',
+                    name: 'coupon_image',
+                    render: function(data) {
+                        return '<img src="{{ env('APP_URL') }}/uploads/' + data +
+                            '" class="avatar" width="50" height="50"/>';
+                    }
                 },
                 {
                     data: 'discount',

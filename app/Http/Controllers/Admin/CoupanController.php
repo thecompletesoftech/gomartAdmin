@@ -90,7 +90,7 @@ class CoupanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function create()
     {
         $data['stores'] = Stores::get(["store_name", "store_id"]);
@@ -106,6 +106,14 @@ class CoupanController extends Controller
     public function store(Request $request)
     {
         $input = $request->except(['_token', 'proengsoft_jsvalidation']);
+
+        $randomString = Str::random(8);
+        $input['coupan_code'] = $randomString;
+
+        $logo = $request->file('coupon_image');
+        $picture = FileService::fileUploaderWithoutRequest($logo, 'coupon/image/');
+        $input['coupon_image'] = $picture;
+
         $this->coupanService->create($input);
         return redirect()->route($this->index_route_name)
         ->with('success', $this->mls->messageLanguage('created', 'currency', 1));
@@ -144,6 +152,13 @@ class CoupanController extends Controller
     public function update(Request $request, Coupan $coupan)
     {
         $input = $request->except(['_method', '_token', 'proengsoft_jsvalidation']);
+
+        if (!empty($input['coupon_image'])) {
+            $logo = $request->file('coupon_image');
+            $picture = FileService::fileUploaderWithoutRequest($logo, 'coupon/image/');
+            $input['coupon_image'] = $picture;
+        }
+
         $this->coupanService->update($input, $coupan);
         return redirect()->route($this->index_route_name)
             ->with('success', $this->mls->messageLanguage('updated', 'coupan', 1));

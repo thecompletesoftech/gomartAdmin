@@ -7,25 +7,14 @@
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Coupon Title</label>
 
         <div class="col-lg-4 fv-row">
-            {!! Form::text('coupan_title', null, [
-                'min' => 2,
-                'max' => 6,
-                'value' => 2,
-                'class' => 'form-control form-control-lg form-control-solid',
-                'placeholder' => trans_choice('content.coupan_title', 1),
-            ]) !!}
-        </div>
+                {!! Form::text('coupan_title', null, [
+                    'min' => 2,
+                    'max' => 6,
+                    'value' => 2,
+                    'class' => 'form-control form-control-lg form-control-solid',
+                    'placeholder' => trans_choice('content.coupan_title', 1),
+                ]) !!}
 
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Discount</label>
-
-        <div class="col-lg-4 fv-row">
-            {!! Form::number('discount', null, [
-                'min' => 2,
-                'max' => 6,
-                'value' => 2,
-                'class' => 'form-control form-control-lg form-control-solid',
-                'placeholder' => trans_choice('content.discount', 1),
-            ]) !!}
         </div>
 
     </div>
@@ -58,13 +47,16 @@
 
     <div class="row mb-6">
 
-        <label class="col-lg-2 col-form-label required fw-bold fs-6">Discount Type</label>
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Discount %</label>
+
         <div class="col-lg-4 fv-row">
-            <select class="form-control form-control-lg form-control-solid" name="discount_type">
-                <option value="percentage" {{ $coupan->discount_type == 'percentage' ? 'seletced' : '' }}>Percentage
-                </option>
-                <option value="fixed" {{ $coupan->discount_type == 'fixed' ? 'selected' : '' }}>Fixed</option>
-            </select>
+            {!! Form::number('discount', null, [
+                'min' => 2,
+                'max' => 6,
+                'value' => 2,
+                'class' => 'form-control form-control-lg form-control-solid',
+                'placeholder' => trans_choice('content.discount', 1),
+            ]) !!}
         </div>
 
         <label class="col-lg-2 col-form-label required fw-bold fs-6">Store Name</label>

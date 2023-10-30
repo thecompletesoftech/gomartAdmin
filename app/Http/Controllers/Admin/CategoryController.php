@@ -165,7 +165,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        
+
         return view($this->edit_view, compact('category'));
     }
 

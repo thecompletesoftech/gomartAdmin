@@ -12,15 +12,16 @@ class Coupan extends Model
 
     protected $table = 'coupans';
     protected $primaryKey = 'coupan_id';
-    
+
     protected $fillable = [
+        'coupan_code',
         'coupan_title',
         'discount',
         'expiry_date',
-        'discount_type',
         'store_id',
         'coupan_status',
-        'coupon_desc'
+        'coupon_desc',
+        'coupon_image'
     ];
 
 }

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('dis_item_price')->default(0);
             $table->string('coupan_id')->default(0);
             $table->string('item_expiry_date');
+            $table->string('purchased_status')->default(1)->comment('1:unpurchase,0:purchase');
             $table->timestamps();
             $table->softDeletes();
         });

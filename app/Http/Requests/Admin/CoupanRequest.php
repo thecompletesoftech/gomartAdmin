@@ -10,22 +10,22 @@ class CoupanRequest extends FormRequest
     {
         if (!request()->is('admin/coupan/create')) {
             return [
-                'coupan_title' => 'required|regex:/^[^\s]+$/',
                 'discount' => 'required',
                 'expiry_date' => 'required',
                 'coupan_status' => 'required',
-                'discount_type' => 'required',
+                'coupon_image' => 'required',
                 'store_id' => 'required',
+                'coupan_title'=> 'required|regex:/(^[A-Za-z ]+$)+/',
                 'coupon_desc' => 'required|max:200',
             ];
         } else {
             return [
-                'coupan_title' => 'required|regex:/^[^\s]+$/',
                 'discount' => 'required',
                 'expiry_date' => 'required',
                 'coupan_status' => 'required',
-                'discount_type' => 'required',
+                'coupon_image' => 'required',
                 'store_id' => 'required',
+                'coupan_title'=> 'required|regex:/(^[A-Za-z ]+$)+/',
                 'coupon_desc' => 'required|max:200',
             ];
         }
@@ -34,11 +34,11 @@ class CoupanRequest extends FormRequest
     public function messages()
     {
         return [
-            'coupan_title.required' => __('validation.required', ['attribute' => 'Coupon Title']),
             'discount.required' => __('validation.required', ['attribute' => 'Discount']),
             'expiry_date.required' => __('validation.required', ['attribute' => 'Expiry Date']),
+            'coupon_image.required' => __('validation.required', ['attribute' => 'Coupan Image']),
             'coupan_status.required' => __('validation.required', ['attribute' => 'Coupan Status']),
-            'discount_type.required' => __('validation.required', ['attribute' => 'Discount Type']),
+            'coupan_title.required' => __('validation.required', ['attribute' => 'Coupan Title']),
             'store_id.required' => __('validation.required', ['attribute' => 'Store Name']),
             'coupon_desc.required' => __('validation.required', ['attribute' => 'Coupon Description']),
         ];

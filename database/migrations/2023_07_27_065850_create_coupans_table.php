@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('coupans', function (Blueprint $table) {
             $table->increments('coupan_id');
+            $table->string('coupan_code');
             $table->string('coupan_title');
             $table->string('discount')->default(0);
-            $table->string('discount_type')->default('percentage')->comment('percentage,fixed');
             $table->string('store_id')->nullable();
             $table->string('coupon_desc');
+            $table->string('coupon_image');
             $table->string('expiry_date')->nullable();
             $table->string('coupan_status')->default(0)->comment('0:active,1:deactive');
             $table->timestamps();

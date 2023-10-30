@@ -22,6 +22,7 @@ class Cart extends Model
         'item_expiry_date',
         'dis_item_price',
         'item_description',
-        'coupan_id'
+        'coupan_id',
+        'purchased_status'
     ];
 }

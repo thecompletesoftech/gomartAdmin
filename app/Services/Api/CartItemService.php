@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class CartItemService
 {
@@ -38,44 +37,90 @@ class CartItemService
                 400
             );
         } else {
+
             $percent = $request->item_price * $data->dis_item_price / 100;
             $actual_price = $request->item_price - $percent;
 
-            $cartItem = Cart::Create([
-                'user_id' => auth()->user()->id,
-                'item_id' => $request->item_id,
-                'item_name' => $request->item_name,
-                'item_price' => round($actual_price),
-                'item_quantity' => $request->item_quantity,
-                'item_weight' => $request->item_weight,
-                'item_expiry_date' => $request->item_expiry_date,
-                'item_description' => $request->item_description,
-                'dis_item_price' => $data->dis_item_price,
+            $recordExists = Cart::where(['user_id' => auth()->user()->id, 'item_id' => $request->item_id])->first();
 
-            ]);
-            $discount_amount = $request->item_price * $data->dis_item_price / 100;
-            $cartItem['discount_amount'] = round($discount_amount);
+            if ($recordExists) {
 
-        }
+                $newupdaterecord = [
+                    'item_quantity' => $recordExists->item_quantity + $request->item_quantity,
+                ];
 
-        if ($cartItem) {
-            return response()->json(
-                [
-                    'status' => true,
-                    'message' => 'Item Added Successfully',
-                    'data' => $cartItem,
-                ],
-                200
-            );
-        } else {
-            return response()->json(
-                [
-                    'status' => false,
-                    'message' => 'Data not Found',
-                    'data' => [],
-                ],
-                200
-            );
+                $setdata = Cart::where(['id' => $recordExists->id, 'user_id' => auth()->user()->id, 'item_id' => $request->item_id])
+                    ->update($newupdaterecord);
+
+                $record = Cart::where(['user_id' => auth()->user()->id, 'item_id' => $request->item_id])->first();
+
+                $new = [
+                    'item_price' => round($actual_price) * $record->item_quantity,
+                ];
+
+                $updatedata = Cart::where(['id' => $recordExists->id, 'user_id' => auth()->user()->id, 'item_id' => $request->item_id])
+                    ->update($new);
+
+                if ($updatedata) {
+                    return response()->json(
+                        [
+                            'status' => true,
+                            'message' => 'Successfully',
+                        ],
+                        200
+                    );
+                } else {
+                    return response()->json(
+                        [
+                            'status' => false,
+                            'message' => 'Data Not Updated',
+                            'data' => [],
+                        ],
+                        200
+                    );
+                }
+
+            } else {
+
+                $percent = $request->item_price * $data->dis_item_price / 100;
+                $actual_price = $request->item_price - $percent;
+
+                $cartItem = Cart::Create([
+                    'user_id' => auth()->user()->id,
+                    'item_id' => $request->item_id,
+                    'item_name' => $request->item_name,
+                    'item_price' => round($actual_price),
+                    'item_quantity' => $request->item_quantity,
+                    'item_weight' => $request->item_weight,
+                    'item_expiry_date' => $request->item_expiry_date,
+                    'item_description' => $request->item_description,
+                    'dis_item_price' => $data->dis_item_price,
+                ]);
+
+                $discount_amount = $request->item_price * $data->dis_item_price / 100;
+                $cartItem['discount_amount'] = round($discount_amount);
+
+                if ($cartItem) {
+                    return response()->json(
+                        [
+                            'status' => true,
+                            'message' => 'Add Successfully',
+                        ],
+                        200
+                    );
+                } else {
+                    return response()->json(
+                        [
+                            'status' => false,
+                            'message' => 'Data Not Updated',
+                            'data' => [],
+                        ],
+                        200
+                    );
+                }
+
+            }
+
         }
 
     }
@@ -128,10 +173,13 @@ class CartItemService
                 'cart_items.item_weight', 'cart_items.item_quantity',
                 'cart_items.item_price', 'cart_items.dis_item_price',
                 'cart_items.item_description', 'cart_items.item_expiry_date')
-            ->where('cart_items.user_id', auth()->user()->id)
+            ->where([
+                'cart_items.user_id' => auth()->user()->id,
+                'cart_items.purchased_status' => 1,
+            ])
             ->get();
 
-        if ($secondcartitemlist) {
+        if (count($secondcartitemlist) > 0) {
             return response()->json(
                 [
                     'status' => true,
@@ -161,47 +209,49 @@ class CartItemService
     {
         try {
 
-            $getcartdata = DB::table('cart_items')->where('user_id',auth()->user()->id)->get();
+            $validatedData = $request->validate([
+                'items' => 'required|array|min:1',
+                'items.*.item_id' => 'required',
+                'items.*.item_name' => 'required',
+                'items.*.item_quantity' => 'required|integer|min:1',
+                'items.*.item_price' => 'required|integer|min:1',
+                'items.*.dis_item_price' => 'required|integer',
+            ]);
 
-            // $validator = Validator::make($request->all(), [
-            //     'item_id' => 'required',
-            //     'item_quantity' => 'required',
-            // ]);
-            // if ($validator->fails())
-            // {
-            //     return response()->json([
-            //         'message' => 'Validation fails',
-            //         'error' => $validator->errors(),
-            //     ], 400);
-            // }
-            // $newdata = Item::where('item_id', $request->item_id)->first();
+            foreach ($validatedData['items'] as $newdata) {
 
-            // if ($newdata->quantity < $request->item_quantity)
-            // {
-            //     return response()->json(
-            //         [
-            //             'status' => false,
-            //             'message' => 'Stock in Not Available According Your Quantity',
-            //         ],
-            //         400
-            //     );
-            // } else {
-            //     $data['item_quantity'] = $request->item_quantity;
-            //     $updatequanity = DB::table('cart_items')->where('item_id', $request->item_id)->update($data);
-            // }
+                $newdatainput = [
+                    'item_id' => $newdata['item_id'],
+                    'item_name' => $newdata['item_name'],
+                    'item_quantity' => $newdata['item_quantity'],
+                    'item_price' => $newdata['item_price'],
+                ];
 
-            if ($getcartdata)
-            {
+                $updatedata =
+                Cart::where(['user_id' => auth()->user()->id,'item_id' => $newdata['item_id']])
+                    ->update($newdatainput);
+
+                $quantitywithprice = $newdatainput['item_quantity'] * $newdatainput['item_price'];
+
+                $percent = $quantitywithprice * $newdata['dis_item_price'] / 100;
+                $actual_price = $quantitywithprice - $percent;
+
+                $updateprice =
+                Cart::where(['user_id' => auth()->user()->id,'item_id' => $newdata['item_id']])
+                    ->update(['item_price' => $actual_price]);
+
+            }
+
+            if ($updateprice) {
                 return response()->json(
                     [
                         'status' => true,
-                        'message' => 'Data Find Successfully',
-                        'data' => $getcartdata
+                        'message' => 'Updated Successfully',
+                        'data' => $updateprice,
                     ],
                     200
                 );
-            } else
-            {
+            } else {
                 return response()->json(
                     [
                         'status' => false,
