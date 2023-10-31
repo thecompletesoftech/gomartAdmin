@@ -3,6 +3,7 @@
 namespace App\Services\Api;
 
 use App\Models\Coupan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -140,12 +141,16 @@ class CouponCodeService
 
     public static function applycouponcode(Request $request)
     {
-
         $request->validate([
             'coupon_code' => 'required',
         ]);
 
         $coupon = Coupan::where(['coupan_code' => $request->coupon_code, 'coupan_status' => 0])->first();
+
+        if ($coupon && $coupon->expiry_date && Carbon::now()->gt($coupon->expiry_date))
+        {
+            return response()->json(['message' => 'Coupon has expired'], 400);
+        }
 
         if ($coupon) {
             return response()->json(

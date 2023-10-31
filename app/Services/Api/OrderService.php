@@ -134,7 +134,7 @@ class OrderService
 
             $input['order_status'] = 2;
 
-            $result = DB::table('orders')->where('order_no', $request->order_no)->update($input);
+            $result = DB::table('orders')->where('order_no',$request->order_no)->update($input);
 
             if ($result) {
                 return response()->json(
