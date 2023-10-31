@@ -105,9 +105,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function userProfile()
+    public function userProfile(Request $request)
     {
-        return $this->apiAuthService->userProfile();
+        return $this->apiAuthService->userProfile($request);
     }
 
     /**
@@ -257,6 +257,13 @@ class AuthController extends Controller
     public function getCouponcodeByid(Request $request)
     {
         return $this->coupancodeservice->getCouponcodeByid($request);
+    }
+    // end get Coupon Code by id
+
+    // start get Coupon Code by id
+    public function applycouponcode(Request $request)
+    {
+        return $this->coupancodeservice->applycouponcode($request);
     }
     // end get Coupon Code by id
 

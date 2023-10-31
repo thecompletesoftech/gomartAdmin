@@ -238,7 +238,7 @@ class AuthService
                 200
             );
         }
-            
+
     }
 
     /**
@@ -512,7 +512,7 @@ class AuthService
      * @return \Illuminate\Http\Response
      */
 
-    public static function userProfile()
+    public static function userProfile(Request $request)
     {
         $profile = User::where('id', auth()->user()->id)->get();
         foreach ($profile as $data) {

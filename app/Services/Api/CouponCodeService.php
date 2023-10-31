@@ -2,11 +2,9 @@
 
 namespace App\Services\Api;
 
+use App\Models\Coupan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use App\Models\Cart;
-use App\Models\Promocode_and_cartitem;
 
 class CouponCodeService
 {
@@ -124,6 +122,37 @@ class CouponCodeService
                     'status' => true,
                     'message' => 'Successfully',
                     'data' => $getCouponCodeByid,
+                ],
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'message' => 'Data not Found',
+                    'data' => [],
+                ],
+                200
+            );
+        }
+
+    }
+
+    public static function applycouponcode(Request $request)
+    {
+
+        $request->validate([
+            'coupon_code' => 'required',
+        ]);
+
+        $coupon = Coupan::where(['coupan_code' => $request->coupon_code, 'coupan_status' => 0])->first();
+
+        if ($coupon) {
+            return response()->json(
+                [
+                    'status' => true,
+                    'message' => 'Successfully',
+                    'data' => $coupon,
                 ],
                 200
             );
