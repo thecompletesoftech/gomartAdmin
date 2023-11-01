@@ -209,38 +209,31 @@ class CartItemService
     {
         try {
 
-            $validatedData = $request->validate([
-                'items' => 'required|array|min:1',
-                'items.*.item_id' => 'required',
-                'items.*.item_name' => 'required',
-                'items.*.item_quantity' => 'required|integer|min:1',
-                'items.*.item_price' => 'required|integer|min:1',
-                'items.*.dis_item_price' => 'required|integer',
+            $request->validate([
+                'id' => 'required|integer',
+                'item_quantity' => 'required|integer',
+                'item_id' => 'required|integer'
             ]);
 
-            foreach ($validatedData['items'] as $newdata) {
+            $newdatainput = [
+                'id' => $request->id,
+                'item_quantity' => $request->item_quantity,
+            ];
 
-                $newdatainput = [
-                    'item_id' => $newdata['item_id'],
-                    'item_name' => $newdata['item_name'],
-                    'item_quantity' => $newdata['item_quantity'],
-                    'item_price' => $newdata['item_price'],
-                ];
+            $updatedata = Cart::where(['id' => $request->id,
+            'user_id' =>auth()->user()->id,
+            'item_id' => $request->item_id])
+            ->update($newdatainput);
 
-                $updatedata =
-                Cart::where(['user_id' => auth()->user()->id,'item_id' => $newdata['item_id']])
-                    ->update($newdatainput);
+            $update = Cart::where(['id' => $request->id])->first();
+            $quantitywithprice = $newdatainput['item_quantity'] * $update['item_price'];
+            $percent = $quantitywithprice * $update['dis_item_price'] / 100;
+            $actual_price = $quantitywithprice - $percent;
 
-                $quantitywithprice = $newdatainput['item_quantity'] * $newdatainput['item_price'];
-
-                $percent = $quantitywithprice * $newdata['dis_item_price'] / 100;
-                $actual_price = $quantitywithprice - $percent;
-
-                $updateprice =
-                Cart::where(['user_id' => auth()->user()->id,'item_id' => $newdata['item_id']])
-                    ->update(['item_price' => $actual_price]);
-
-            }
+            $updateprice =Cart::where(['id' => $request->id,
+            'user_id' => auth()->user()->id,
+            'item_id' => $update['item_id']
+            ])->update(['item_price' => round($actual_price)]);
 
             if ($updateprice) {
                 return response()->json(
