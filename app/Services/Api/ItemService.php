@@ -2,7 +2,6 @@
 
 namespace App\Services\Api;
 
-use App\Models\Item;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -104,18 +103,18 @@ class ItemService
             $getProductByCatId['product'] = DB::table('items')->where('items.item_id', $request->item_id)->get();
 
             foreach ($getProductByCatId['product'] as $rating) {
-                $gete=
+                $gete =
                 $rating->rating = DB::table('reviewandratings')
                     ->where('item_id', $rating->item_id)->avg('rating');
-                    $like_status = DB::table('favorites')
-                    ->where('user_id',$request->user_id)
+                $like_status = DB::table('favorites')
+                    ->where('user_id', $request->user_id)
                     ->where('item_id', $rating->item_id)
                     ->first();
-                    if($like_status){
-                        $rating->like_status=1;
-                    }else{
-                        $rating->like_status=0;
-                    }
+                if ($like_status) {
+                    $rating->like_status = 1;
+                } else {
+                    $rating->like_status = 0;
+                }
 
             }
 
